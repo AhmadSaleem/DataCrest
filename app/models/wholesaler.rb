@@ -1,5 +1,7 @@
 class Wholesaler < ApplicationRecord
   has_many :salespeople, dependent: :destroy
 
-  belongs_to :salesperson_owner, class_name: "Salesperson", foreign_key: :owner_id
+  belongs_to :owner, class_name: "Salesperson"
+
+  validates :title, presence: true
 end
