@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171016104212) do
+ActiveRecord::Schema.define(version: 20171016105538) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -30,4 +30,5 @@ ActiveRecord::Schema.define(version: 20171016104212) do
     t.index ["owner_id"], name: "index_wholesalers_on_owner_id"
   end
 
+  add_foreign_key "wholesalers", "salespeople", column: "owner_id", on_delete: :cascade
 end
