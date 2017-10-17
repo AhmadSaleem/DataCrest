@@ -2,6 +2,7 @@ class Salespeople::RegistrationsController < Devise::RegistrationsController
 
   def create
     super
+    UserMailer.welcome(resource.email).deliver_later if resource.persisted?
   end
 
   private
