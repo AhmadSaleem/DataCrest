@@ -1,0 +1,79 @@
+<%= form_for @salesperson, url: dashboard_salespeople_invitations_path do |f| %>
+  <div class="row">
+    <div class="col-md-10">
+      <div class="card">
+        <div class="header">
+          <h2 class="title">New Invitation</h2>
+        </div>
+
+        <div class="content">
+          <div class="row">
+            <div class="col-md-3">
+              <div class="form-group">
+                <%= f.label :first_name, class: "control-label" %>
+                <br />
+                <%= f.text_field :first_name, class: "form-control", required: true %>
+              </div>
+            </div>
+
+            <div class="col-md-3">
+              <div class="form-group">
+                <%= f.label :last_name, class: "control-label" %>
+                <br />
+                <%= f.text_field :last_name, class: "form-control", required: true %>
+              </div>
+            </div>
+
+            <div class="col-md-5">
+              <div class="form-group">
+                <%= f.label :email, class: "control-label" %>
+                <br />
+                <%= f.text_field :email, class: "form-control", required: true %>
+              </div>
+            </div>
+
+            <div class="col-md-3">
+              <%= f.submit "Send Invite", class: "btn btn-success" %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+<% end %>
+
+<div class="row">
+  <div class="col-md-8">
+    <div class="card">
+      <div class="header">
+        <h2>Invitations</h2>
+      </div>
+
+      <div class="content table-responsive table-full-width">
+        <table class="table table-hover table-stripped">
+          <thead>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Invitation Status</th>
+            <th>Action</th>
+          </thead>
+
+          <% if @salespeople.present? %>
+            <tbody>
+              <% @salespeople.each do |salesperson| %>
+                <tr>
+                  <td><%= salesperson.full_name %></td>
+                  <td><%= salesperson.email %></td>
+                  <td><%= salesperson.status %></td>
+                  <td><%= render partial: "actions", locals: { person: salesperson } %></td>
+                </tr>
+              <% end %>
+            </tbody>
+          <% else %>
+            <p>There is not any outstanding invitations</p>
+          <% end %>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,15 @@
+<div class="btn-group">
+  <button type="button" class="btn btn-default btn-fill">Action</button>
+  <button type="button" class="btn btn-default btn-fill dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    <span class="caret"></span>
+    <span class="sr-only">Toggle Dropdown</span>
+  </button>
+  <ul class="dropdown-menu">
+    <% if current_salesperson.company_owner? %>
+      <li>
+        <%= link_to "Remove", dashboard_salespeople_invitation_path(person), method: :delete %>
+      </li>
+    <% end %>
+      <li><%= link_to "Resend Invitaion", resend_invitation_dashboard_salespeople_invitation_path(person) %></li>
+  </ul>
+</div>
