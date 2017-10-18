@@ -4,6 +4,8 @@ class Salesperson < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable, :invitable
 
+  paginates_per 5
+
   has_one :owned_wholesaler, class_name: "Wholesaler", foreign_key: :owner_id, inverse_of: :owner
 
   belongs_to :wholesaler, inverse_of: :salespeople

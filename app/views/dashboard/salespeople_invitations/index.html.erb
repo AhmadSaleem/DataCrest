@@ -75,5 +75,10 @@
         </table>
       </div>
     </div>
+
+    <div class="pull-right">
+      <%= paginate @salespeople %>
+      <%= page_entries_info @salespeople, entry_name: "employees" %>
+    </div>
   </div>
 </div>
