@@ -6,4 +6,5 @@ Rails.application.routes.draw do
       get 'resend_invitation', on: :member
     end
   end
+  root to: "dashboard/salespeople_invitations#index"
 end

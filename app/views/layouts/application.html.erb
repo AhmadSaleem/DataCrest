@@ -9,6 +9,13 @@
   </head>
 
   <body>
-    <%= yield %>
+    <%= render "shared/navbar" %>
+    <div class="wrapper">
+      <% if signed_in? %>
+        <%= render "shared/main_panel" %>
+      <% else %>
+        <%= render "shared/content_panel" %>
+      <% end %>
+    </div>
   </body>
 </html>

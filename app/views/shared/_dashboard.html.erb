@@ -1,0 +1,20 @@
+<div class="sidebar" data-color="#1f77d0">
+  <div class="sidebar-wrapper">
+    <ul class="nav">
+      <% if salesperson_signed_in? %>
+        <% if current_salesperson.company_owner? %>
+          <li>
+            <%= link_to "#dashvariants", data: { toggle: "collapse" }, aria: { controls: "dashvariants", expanded: "false" } do %>
+              Account Settings
+            <% end %>
+            <ul id="dashvariants" class="collapse list-group">
+              <li class="list-styles">
+                <%= link_to "Manage Employees", dashboard_salespeople_invitations_path %>
+              </li>
+            </ul>
+          </li>
+        <% end %>
+      <% end %>
+    </ul>
+  </div>
+</div>

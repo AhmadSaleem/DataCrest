@@ -14,4 +14,11 @@
 //= require turbolinks
 //= require jquery3
 //= require jquery_ujs
+//= require chartist.min
+//= require light-bootstrap-dashboard
+//= require bootstrap-notify
+//= require bootstrap-select
+//= require bootstrap.min
+//= require demo.js
+//= require bootstrap-checkbox-radio-switch
 //= require_tree .

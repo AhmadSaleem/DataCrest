@@ -1,0 +1,57 @@
+<nav class="navbar navbar-default navbar-fixed">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navigation-example-2">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+
+      <% if salesperson_signed_in? %>
+        <%= link_to current_salesperson.wholesaler_title, root_path, class: "navbar-brand" %>
+      <% else %>
+        <%= link_to "DataCrest", root_path, class: "navbar-brand " %>
+      <% end %>
+    </div>
+
+    <div class="collapse navbar-collapse">
+      <ul class="nav navbar-nav navbar-left">
+        <li>
+          <%= link_to "", class: "dropdown-toggle", data: { toggle: "dropdown" } %>
+        </li>
+      </ul>
+
+      <ul class="nav navbar-nav navbar-right">
+        <% if signed_in? %>
+          <li class="dropdown">
+            <%= link_to "", class: "dropdown-toggle", data: { toggle: "dropdown" } do %>
+              Account <b class="caret"></b>
+            <% end %>
+            <ul class="dropdown-menu">
+              <% if salesperson_signed_in? %>
+                <li>
+                  <%= link_to current_salesperson.email %>
+                </li>
+
+                <li class="divider"></li>
+
+                <li>
+                  <%= link_to "Log out", destroy_salesperson_session_path, method: :delete %>
+                </li>
+              <% end %>
+            </ul>
+          </li>
+        <% else %>
+          <li class="nav-item">
+            <%= link_to "Sign Up", new_salesperson_registration_path, class: "nav-link" %>
+          </li>
+
+          <li class="nav-item">
+            <%= link_to "Login", new_salesperson_session_path, class: "nav-link" %>
+          </li>
+        <% end %>
+      </ul>
+    </div>
+  </div>
+</nav>
