@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171019053719) do
+ActiveRecord::Schema.define(version: 20171019062519) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -47,6 +47,15 @@ ActiveRecord::Schema.define(version: 20171019053719) do
     t.index ["agency_id"], name: "index_agents_on_agency_id"
     t.index ["email"], name: "index_agents_on_email", unique: true
     t.index ["reset_password_token"], name: "index_agents_on_reset_password_token", unique: true
+  end
+
+  create_table "application_templates", force: :cascade do |t|
+    t.bigint "wholesaler_id", null: false
+    t.string "title", null: false
+    t.string "keys", default: [], array: true
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["wholesaler_id"], name: "index_application_templates_on_wholesaler_id"
   end
 
   create_table "salespeople", force: :cascade do |t|

@@ -1,0 +1,2 @@
+class ApplicationTemplate < ApplicationRecord
+end
