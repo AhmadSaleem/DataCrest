@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  devise_for :clients
   devise_for :agents
   devise_for :salespeople, controllers: { registrations: "salespeople/registrations",
                                           invitations: "salespeople/invitations" }
