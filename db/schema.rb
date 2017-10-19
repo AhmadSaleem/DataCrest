@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171019053719) do
+ActiveRecord::Schema.define(version: 20171019094204) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -26,6 +26,16 @@ ActiveRecord::Schema.define(version: 20171019053719) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["owner_id"], name: "index_agencies_on_owner_id"
+  end
+
+  create_table "agent_wholesalers", force: :cascade do |t|
+    t.bigint "agent_id"
+    t.bigint "wholesaler_id"
+    t.integer "status", default: 0
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["agent_id"], name: "index_agent_wholesalers_on_agent_id"
+    t.index ["wholesaler_id"], name: "index_agent_wholesalers_on_wholesaler_id"
   end
 
   create_table "agents", force: :cascade do |t|
@@ -91,6 +101,8 @@ ActiveRecord::Schema.define(version: 20171019053719) do
   end
 
   add_foreign_key "agencies", "agents", column: "owner_id", on_delete: :cascade
+  add_foreign_key "agent_wholesalers", "agents"
+  add_foreign_key "agent_wholesalers", "wholesalers"
   add_foreign_key "agents", "agencies", on_delete: :cascade
   add_foreign_key "salespeople", "wholesalers", on_delete: :cascade
   add_foreign_key "wholesalers", "salespeople", column: "owner_id", on_delete: :cascade
