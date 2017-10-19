@@ -3,4 +3,7 @@ class Client < ApplicationRecord
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
+
+  has_many :applications, dependent: :destroy
+  has_many :agents, through: :applications
 end
