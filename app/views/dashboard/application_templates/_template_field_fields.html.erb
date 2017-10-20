@@ -1,0 +1,13 @@
+<div class="nested-fields">
+  <div class="col-md-6">
+    <%= f.label "Enter Field" %>
+    <%= f.text_field :field, class: "form-control" %>
+  </div>
+
+  <div class="col-md-6">
+    <%= f.label "Choose type" %>
+    <%= f.select :field_type, TemplateField.field_types.keys.to_a, {}, class: "form-control" %>
+  </div>
+
+  <%= link_to_remove_association 'remove field', f %>
+</div>

@@ -1,0 +1,58 @@
+<%= form_for @application_template, url: dashboard_application_templates_path  do |f| %>
+  <div class="row">
+    <div class="col-md-10">
+      <% if @application_template.errors.any? %>
+        <div class="alert alert-danger">
+          <ul>
+          <% @application_template.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+          <% end %>
+          </ul>
+        </div>
+      <% end %>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-8">
+      <div class="card">
+        <div class="header">
+          <h2 class="title">New Application Template</h2>
+        </div>
+
+        <div class="content">
+          <div class="row">
+            <div class="col-md-7">
+              <div class="form-group">
+                <%= f.label :title, class: "control-label" %>
+                <br />
+                <%= f.text_field :title, class: "form-control", required: true %>
+              </div>
+            </div>
+          </div>
+          <hr/>
+
+          <div class="row">
+            <div class="col-md-12">
+              <h2>Application Fields</h2>
+              <div class="form-group">
+                <%= f.fields_for :template_fields do |field| %>
+                  <%= render "template_field_fields", f: field %>
+                  <br/>
+                  <%= link_to_add_association 'add field', f, :template_fields, class: "btn btn-primary btn-fill" %>
+                <% end %>
+              </div>
+            </div>
+          </div>
+          <hr/>
+
+          <div class="row">
+            <div class= "col-md-7">
+              <%= f.submit "Create Template", class: "btn btn-success btn-fill" %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+<% end %>

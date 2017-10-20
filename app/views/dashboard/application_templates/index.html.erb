@@ -1,0 +1,36 @@
+<h2 class="title">My Applications</h2>
+<div class="row">
+  <div class="col-md-4">
+    <div class="card">
+      <div class="header">
+      </div>
+
+      <div class="content table-responsive table-full-width">
+        <table class="table table-hover table-stripped">
+          <thead>
+            <th>Name</th>
+            <th>Action</th>
+          </thead>
+
+          <% if @application_templates.present? %>
+            <tbody>
+              <% @application_templates.each do |application| %>
+                <tr>
+                  <td><%= application.title %></td>
+                  <td><%= link_to "view" %></td>
+                </tr>
+              <% end %>
+            </tbody>
+          <% else %>
+            <p> There are not any application formats</p>
+          <% end %>
+        </table>
+      </div>
+    </div>
+
+    <div class="pull-right">
+      <%= paginate @application_templates %>
+      <%= page_entries_info @application_templates, entry_name: "Templates" %>
+    </div>
+  </div>
+</div>
