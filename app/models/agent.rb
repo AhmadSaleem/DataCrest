@@ -15,6 +15,10 @@ class Agent < ApplicationRecord
   validates :first_name, :last_name, :email, :password, :password_confirmation, presence: true
   validates :agency, presence: true, unless: :company_owner?
 
+  def full_name
+    "#{first_name} #{last_name}"
+  end
+
   def company_owner?
     owned_agency.present?
   end
