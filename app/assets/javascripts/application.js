@@ -21,4 +21,5 @@
 //= require bootstrap.min
 //= require demo.js
 //= require bootstrap-checkbox-radio-switch
+//= require cocoon
 //= require_tree .
