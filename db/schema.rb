@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171019074221) do
+ActiveRecord::Schema.define(version: 20171019112037) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -129,6 +129,15 @@ ActiveRecord::Schema.define(version: 20171019074221) do
     t.index ["invited_by_type", "invited_by_id"], name: "index_salespeople_on_invited_by_type_and_invited_by_id"
     t.index ["reset_password_token"], name: "index_salespeople_on_reset_password_token", unique: true
     t.index ["wholesaler_id"], name: "index_salespeople_on_wholesaler_id"
+  end
+
+  create_table "template_fields", force: :cascade do |t|
+    t.string "field", null: false
+    t.integer "field_type", null: false
+    t.bigint "application_template_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["application_template_id"], name: "index_template_fields_on_application_template_id"
   end
 
   create_table "wholesalers", force: :cascade do |t|
