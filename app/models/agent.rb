@@ -9,4 +9,11 @@ class Agent < ApplicationRecord
   has_many :wholesalers, through: :agent_wholesalers
 
   belongs_to :agency, inverse_of: :agents
+
+  validates :first_name, :last_name, :email, :password, :password_confirmation, presence: true
+  validates :agency, presence: true, unless: :company_owner?
+
+  def company_owner?
+    owned_agency.present?
+  end
 end
