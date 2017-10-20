@@ -10,6 +10,8 @@ class Agent < ApplicationRecord
 
   belongs_to :agency, inverse_of: :agents
 
+  delegate :full_name, :wholesaler_title, to: :invited_by, prefix: true, allow_nil: true
+
   validates :first_name, :last_name, :email, :password, :password_confirmation, presence: true
   validates :agency, presence: true, unless: :company_owner?
 
