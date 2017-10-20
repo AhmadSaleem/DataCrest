@@ -1,0 +1,49 @@
+<%= form_for @application, url: dashboard_application_path do |f| %>
+  <div class="row">
+    <div class="col-md-10">
+      <% if @application.errors.any? %>
+        <div class="alert alert-danger">
+          <ul>
+          <% @application.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+          <% end %>
+          </ul>
+        </div>
+      <% end %>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-8">
+      <div class="card">
+        <div class="header">
+          <h2 class="title">Application</h2>
+          <hr/>
+        </div>
+
+        <div class="content">
+          <%= f.fields_for :application_fields do |application_form| %>
+            <%= application_form.hidden_field :id %>
+            <div class="row">
+              <div class="form-group">
+                <div class="col-md-1">
+                  <%= application_form.label application_form.object.field, class: "control-label" %>
+                </div>
+
+                <div class="col-md-7">
+                  <%= render_input_html(application_form) %>
+                </div>
+              </div>
+            </div>
+            <br/>
+          <% end %>
+
+          <div class="row">
+            <div class="col-md-8">
+              <%= f.submit "Submit", class: "btn btn-success btn-fill pull-right" %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+<% end %>
