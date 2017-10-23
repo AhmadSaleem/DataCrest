@@ -1,5 +1,6 @@
 class Dashboard::AgentInvitationsController < ApplicationController
   before_action :authenticate_salesperson!
+  before_action :fields_validation, only: [:create]
 
   def new
     @agents = Agent.invitation_accepted
@@ -29,6 +30,15 @@ class Dashboard::AgentInvitationsController < ApplicationController
         redirect_to new_dashboard_agent_invitation_path, notice: "Invitation was sent successfully"
       else
         redirect_to new_dashboard_agent_invitation_path, alert: "Something went wroung."
+      end
+    end
+
+    def fields_validation
+      #params[:new][:agent] == "no" for existing agent
+      if params[:new][:agent] == "no" && params[:agents].blank?
+        redirect_to new_dashboard_agent_invitation_path, alert: "Please select an agent"
+      elsif agent_params[:first_name].blank? || agent_params[:last_name].blank? || agent_params[:email].blank?
+        redirect_to new_dashboard_agent_invitation_path, alert: "Invite fields cannot be blank."
       end
     end
 end

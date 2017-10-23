@@ -9,14 +9,14 @@
         <div class="content">
           <div class="row">
             <div class="form-group col-md-5">
-              <%= radio_button(:new, :agent, :yes, { required: true, checked: true }) %>
+              <%= radio_button(:new, :agent, :yes, { required: true, checked: true, class: 'invite-rb' }) %>
               <%= label_tag :new_agent_yes, 'New Agent' %>
-              <%= radio_button(:new, :agent, :no, { required: true }) %>
+              <%= radio_button(:new, :agent, :no, { required: true, class: 'invite-rb' }) %>
               <%= label_tag :new_agent_no, 'Existing Agent' %>
             </div>
           </div>
 
-          <div class="row">
+          <div class="row show" id="new-agent-fields">
             <div class="col-md-3">
               <div class="form-group">
                 <%= f.label :first_name, class: "control-label" %>
@@ -37,15 +37,15 @@
               <div class="form-group">
                 <%= f.label :email, class: "control-label" %>
                 <br />
-                <%= f.text_field :email, class: "form-control", required: true %>
+                <%= f.email_field :email, class: "form-control", required: true %>
               </div>
             </div>
           </div>
 
-          <div class="row">
+          <div class="row hidden" id="existing-agent-fields">
             <div class="form-group col-md-5">
               <%= label_tag :agent %>
-              <%= select_tag "agents", options_from_collection_for_select(@agents, "id", "full_name"), include_blank: true, class: "form-control", required: true %>
+              <%= select_tag "agents", options_from_collection_for_select(@agents, "id", "full_name"), include_blank: true, class: "form-control chosen-select" %>
             </div>
           </div>
 
