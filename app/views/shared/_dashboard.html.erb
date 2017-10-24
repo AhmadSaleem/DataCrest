@@ -17,6 +17,9 @@
               <li class="list-styles">
                 <%= link_to "Edit Account", edit_salesperson_registration_path %>
               </li>
+              <li class="list-styles">
+                <%= link_to "Edit Company", edit_dashboard_wholesaler_path(current_salesperson.owned_wholesaler) %>
+              </li>
             </ul>
           </li>
         <% end %>

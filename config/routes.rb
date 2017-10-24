@@ -7,6 +7,7 @@ Rails.application.routes.draw do
       get 'resend_invitation', on: :member
     end
     resources :agent_invitations, only: [:new, :create]
+    resources :wholesalers, only: [:edit, :update]
   end
   root to: "dashboard/salespeople_invitations#index"
 end
