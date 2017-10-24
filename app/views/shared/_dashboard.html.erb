@@ -32,6 +32,9 @@
             <% end %>
             <ul id="dashvariants" class="collapse list-group">
               <li class="list-styles">
+                <%= link_to "Edit Account", edit_agent_registration_path %>
+              </li>
+              <li class="list-styles">
                 <%= link_to "Edit Company", edit_dashboard_agency_path(current_agent.owned_agency) %>
               </li>
             </ul>

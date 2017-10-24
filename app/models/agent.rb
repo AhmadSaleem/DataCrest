@@ -12,7 +12,7 @@ class Agent < ApplicationRecord
 
   delegate :full_name, :wholesaler_title, to: :invited_by, prefix: true, allow_nil: true
 
-  validates :first_name, :last_name, :email, :password, :password_confirmation, presence: true
+  validates :first_name, :last_name, presence: true
   validates :agency, presence: true, unless: :company_owner?
 
   def full_name
