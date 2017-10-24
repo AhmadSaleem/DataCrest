@@ -8,6 +8,7 @@ Rails.application.routes.draw do
     end
     resources :agent_invitations, only: [:new, :create]
     resources :wholesalers, only: [:edit, :update]
+    resources :agencies, only: [:edit, :update]
   end
   root to: "dashboard/pages#index"
 end

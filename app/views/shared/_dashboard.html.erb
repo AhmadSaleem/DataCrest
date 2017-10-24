@@ -24,6 +24,20 @@
           </li>
         <% end %>
       <% end %>
+      <% if agent_signed_in? %>
+        <% if current_agent.company_owner? %>
+          <li>
+            <%= link_to "#dashvariants", data: { toggle: "collapse" }, aria: { controls: "dashvariants", expanded: "false" } do %>
+              Account Settings
+            <% end %>
+            <ul id="dashvariants" class="collapse list-group">
+              <li class="list-styles">
+                <%= link_to "Edit Company", edit_dashboard_agency_path(current_agent.owned_agency) %>
+              </li>
+            </ul>
+          </li>
+        <% end %>
+      <% end %>
     </ul>
   </div>
 </div>

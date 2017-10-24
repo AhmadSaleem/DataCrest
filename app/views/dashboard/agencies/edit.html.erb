@@ -1,0 +1,86 @@
+<%= form_for @agency, url: dashboard_agency_path do |f| %>
+  <div class="row">
+    <div class="col-md-10">
+      <div class="card">
+        <div class="header">
+          <h2 class="title">Edit Comapny</h2>
+        </div>
+        <div class="content">
+          <%= render "shared/errors", resource: @agency %>
+          <div class="row">
+            <div class="col-md-10">
+              <div class="form-group">
+                <%= f.label :title, class: "control-label" %><br>
+                <%= f.text_field :title, class: "form-control", required: true %>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-10">
+              <div class="form-group">
+                <%= f.label :logo, 'Comapny Logo', class: "control-label" %><br>
+                <%= image_tag(@agency.logo, class: "col-md-2") if @agency.logo? %>
+                <%= f.file_field :logo %>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-10">
+              <div class="form-group">
+                <%= f.label :website, class: "control-label" %><br>
+                <%= f.text_field :website, class: "form-control", required: true %>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-10">
+              <div class="form-group">
+                <%= f.label :address_1, class: "control-label" %><br>
+                <%= f.text_field :address_1, class: "form-control", required: true %>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-10">
+              <div class="form-group">
+                <%= f.label :address_2, class: "control-label" %><br>
+                <%= f.text_field :address_2, class: "form-control" %>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-4">
+              <div class="form-group">
+                <%= f.label :city, class: "control-label" %><br>
+                <%= f.text_field :city, class: "form-control", required: true %>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="form-group">
+                <%= f.label :state, class: "control-label" %><br>
+                <%= f.select :state , us_states, { include_blank: true }, { class: "form-control chosen-select", required: true } %>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="form-group">
+                <%= f.label :zip_code, class: "control-label" %><br>
+                <%= f.number_field :zip_code, min: 0, class: "form-control", required: true %>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-3">
+              <%= f.submit "Submit", class: "btn btn-success" %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+<% end %>
