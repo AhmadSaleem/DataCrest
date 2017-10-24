@@ -9,5 +9,5 @@ Rails.application.routes.draw do
     resources :agent_invitations, only: [:new, :create]
     resources :wholesalers, only: [:edit, :update]
   end
-  root to: "dashboard/salespeople_invitations#index"
+  root to: "dashboard/pages#index"
 end
