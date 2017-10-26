@@ -11,4 +11,8 @@ class Salespeople::RegistrationsController < Devise::RegistrationsController
       params.require(:salesperson).permit(:first_name, :last_name, :email, :password, :password_confirmation,
                                           owned_wholesaler_attributes: [:title])
     end
+
+    def account_update_params
+      params.require(:salesperson).permit(:first_name, :last_name, :email, :password, :password_confirmation, :current_password)
+    end
 end

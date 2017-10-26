@@ -1,0 +1,7 @@
+<h3> Hi, <%= @agent.email %></h3>
+<br/>
+<p><%= @agent.invited_by_full_name %> invited you to join comapny
+  <strong><%= @agent.invited_by_wholesaler_title %>.</strong> on DataCrest.
+  Login to your account to accept/reject the invitation.
+</p>
+<p><%= link_to "Login", agent_session_url %></p>
