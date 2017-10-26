@@ -1,0 +1,2 @@
+class JimcorDwellingApplication < ApplicationRecord
+end
