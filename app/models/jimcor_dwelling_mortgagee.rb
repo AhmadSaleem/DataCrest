@@ -1,0 +1,2 @@
+class JimcorDwellingMortgagee < ApplicationRecord
+end

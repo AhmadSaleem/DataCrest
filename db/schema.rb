@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171026111156) do
+ActiveRecord::Schema.define(version: 20171026111840) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -163,6 +163,17 @@ ActiveRecord::Schema.define(version: 20171026111156) do
     t.datetime "updated_at", null: false
     t.index ["agent_id"], name: "index_jimcor_dwelling_applications_on_agent_id"
     t.index ["client_id"], name: "index_jimcor_dwelling_applications_on_client_id"
+  end
+
+  create_table "jimcor_dwelling_mortgagees", force: :cascade do |t|
+    t.bigint "jimcor_dwelling_application_id"
+    t.integer "loan_number"
+    t.string "name"
+    t.string "address"
+    t.boolean "lending_organization", default: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["jimcor_dwelling_application_id"], name: "jimcor_dwelling_application_id"
   end
 
   create_table "salespeople", force: :cascade do |t|
