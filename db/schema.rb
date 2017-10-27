@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171026122111) do
+ActiveRecord::Schema.define(version: 20171027053518) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -76,7 +76,7 @@ ActiveRecord::Schema.define(version: 20171026122111) do
   create_table "applications", force: :cascade do |t|
     t.bigint "wholesaler_id"
     t.string "title", null: false
-    t.string "model_name", null: false
+    t.string "class_name", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["wholesaler_id"], name: "index_applications_on_wholesaler_id"
