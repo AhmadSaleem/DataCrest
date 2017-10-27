@@ -38,7 +38,7 @@ class Dashboard::AgentInvitationsController < ApplicationController
       #params[:new][:agent] == "no" for existing agent
       if params[:new][:agent] == "no" && params[:agents].blank?
         redirect_to new_dashboard_agent_invitation_path, alert: "Please select an agent"
-      elsif agent_params[:first_name].blank? || agent_params[:last_name].blank? || agent_params[:email].blank?
+      elsif (agent_params[:first_name].blank? || agent_params[:last_name].blank? || agent_params[:email].blank?) && params[:new][:agent] == "yes"
         redirect_to new_dashboard_agent_invitation_path, alert: "Invite fields cannot be blank."
       end
     end
