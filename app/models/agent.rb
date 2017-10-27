@@ -9,6 +9,7 @@ class Agent < ApplicationRecord
   has_many :wholesalers, through: :agent_wholesalers
   has_many :jimcor_dwelling_applications
   has_many :clients, through: :jimcor_dwelling_applications
+  has_many :agency_applications
 
   belongs_to :agency, inverse_of: :agents
 

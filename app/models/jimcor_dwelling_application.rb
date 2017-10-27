@@ -3,4 +3,6 @@ class JimcorDwellingApplication < ApplicationRecord
 
   belongs_to :client
   belongs_to :agent
+
+  APPLICATION_TITLE = "Jimcor Dwelling Insurance Application"
 end

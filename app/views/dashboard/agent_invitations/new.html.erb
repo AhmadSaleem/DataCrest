@@ -49,6 +49,19 @@
             </div>
           </div>
 
+          <hr/>
+          <h2>Select Applications</h2>
+          <br/>
+          <div class="row">
+            <div class="col-md-12">
+              <% @applications.each do |application| %>
+                <%= check_box_tag "application_ids[]", application.id %>
+                <%= label_tag "applications[#{application.id}]", application.title %>
+              <% end %>
+            </div>
+          </div>
+          <hr/>
+
           <div class="row">
             <div class="col-md-3">
               <%= f.submit "Send Invite", class: "btn btn-success" %>

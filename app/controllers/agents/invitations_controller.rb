@@ -6,6 +6,7 @@ class Agents::InvitationsController < Devise::InvitationsController
     super
     if resource.invitation_accepted_at?
       resource.wholesalers << resource.invited_by.wholesaler
+      resource.agency_applications.update_all(agency: @agency) if resource.agency_applications.present?
       UserMailer.welcome(resource.email).deliver_later
       CompanyOwnerMailer.agent_invite_accept(resource).deliver_later
     end
