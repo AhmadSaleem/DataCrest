@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171027053518) do
+ActiveRecord::Schema.define(version: 20171027073455) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -28,6 +28,17 @@ ActiveRecord::Schema.define(version: 20171027053518) do
     t.json "logo"
     t.string "address_2"
     t.index ["owner_id"], name: "index_agencies_on_owner_id"
+  end
+
+  create_table "agency_applications", force: :cascade do |t|
+    t.bigint "application_id"
+    t.bigint "agency_id"
+    t.bigint "agent_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["agency_id"], name: "index_agency_applications_on_agency_id"
+    t.index ["agent_id"], name: "index_agency_applications_on_agent_id"
+    t.index ["application_id"], name: "index_agency_applications_on_application_id"
   end
 
   create_table "agent_wholesalers", force: :cascade do |t|
