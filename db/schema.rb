@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171030075715) do
+ActiveRecord::Schema.define(version: 20171030081043) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -31,14 +31,14 @@ ActiveRecord::Schema.define(version: 20171030075715) do
   end
 
   create_table "agency_applications", force: :cascade do |t|
-    t.bigint "application_id"
     t.bigint "agency_id"
     t.bigint "agent_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "template_id"
     t.index ["agency_id"], name: "index_agency_applications_on_agency_id"
     t.index ["agent_id"], name: "index_agency_applications_on_agent_id"
-    t.index ["application_id"], name: "index_agency_applications_on_application_id"
+    t.index ["template_id"], name: "index_agency_applications_on_template_id"
   end
 
   create_table "agent_wholesalers", force: :cascade do |t|
