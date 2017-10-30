@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171027080734) do
+ActiveRecord::Schema.define(version: 20171030094914) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -205,6 +205,7 @@ ActiveRecord::Schema.define(version: 20171027080734) do
     t.string "nearby_ocean_remarks"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "percentage_of_completion", default: 0
     t.index ["agent_id"], name: "index_jimcor_dwelling_applications_on_agent_id"
     t.index ["client_id"], name: "index_jimcor_dwelling_applications_on_client_id"
   end
