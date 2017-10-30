@@ -54,9 +54,9 @@
           <br/>
           <div class="row">
             <div class="col-md-12">
-              <% @applications.each do |application| %>
-                <%= check_box_tag "application_ids[]", application.id %>
-                <%= label_tag "applications[#{application.id}]", application.title %>
+              <% @templates.each do |template| %>
+                <%= check_box_tag "template_ids[]", template.id %>
+                <%= label_tag template.title %>
               <% end %>
             </div>
           </div>

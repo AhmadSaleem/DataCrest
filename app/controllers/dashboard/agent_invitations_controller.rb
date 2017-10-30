@@ -5,7 +5,7 @@ class Dashboard::AgentInvitationsController < ApplicationController
   def new
     @agents = Agent.invitation_accepted
     @agent = Agent.new
-    @applications = current_salesperson.wholesaler_applications
+    @templates = current_salesperson.wholesaler_templates
   end
 
   def create
@@ -19,7 +19,7 @@ class Dashboard::AgentInvitationsController < ApplicationController
     end
 
     def invite_new_agent
-      if SendAgentInvite.new(params: agent_params, sender: current_salesperson, selected_applications: params[:application_ids]).new_agent
+      if SendAgentInvite.new(params: agent_params, sender: current_salesperson, selected_templates: params[:template_ids]).new_agent
         redirect_to new_dashboard_agent_invitation_path, notice: "Invitation was sent successfully"
       else
         redirect_to new_dashboard_agent_invitation_path, alert: "The Agent already registered."
@@ -27,7 +27,7 @@ class Dashboard::AgentInvitationsController < ApplicationController
     end
 
     def invite_existing_agent
-      if SendAgentInvite.new(params: params[:agents], sender: current_salesperson, selected_applications: params[:application_ids]).existing_agent
+      if SendAgentInvite.new(params: params[:agents], sender: current_salesperson, selected_templates: params[:template_ids]).existing_agent
         redirect_to new_dashboard_agent_invitation_path, notice: "Invitation was sent successfully"
       else
         redirect_to new_dashboard_agent_invitation_path, alert: "Something went wroung."

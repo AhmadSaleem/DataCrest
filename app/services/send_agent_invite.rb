@@ -2,19 +2,19 @@ class SendAgentInvite
   attr_reader :params
   attr_reader :sender
   attr_reader :invitee
-  attr_reader :selected_applications
+  attr_reader :selected_templates
 
-  def initialize(params: nil, sender:, selected_applications: nil)
+  def initialize(params: nil, sender:, selected_templates: nil)
     @params = params
     @sender = sender
-    @selected_applications = selected_applications
+    @selected_templates = selected_templates
   end
 
   def new_agent
     return false if Agent.find_by(email: params[:email]).present?
     invite_agent
     new_agent_emails
-    assign_applications
+    assign_templates
     true
   end
 
@@ -22,7 +22,7 @@ class SendAgentInvite
     @invitee = Agent.find_by(id: params)
     if @invitee.agent_wholesalers.first_or_create(wholesaler: sender.wholesaler)
       existing_agent_emails
-      assign_applications
+      assign_templates
       return true
     end
     false
@@ -45,10 +45,10 @@ class SendAgentInvite
       CompanyOwnerMailer.agent_invite_sent(invitee).deliver_later
     end
 
-    def assign_applications
-      return if selected_applications.blank?
-      selected_applications.each { |application_id|
-        @invitee.agency_applications.find_or_create_by(application_id: application_id, agency: @invitee.agency)
+    def assign_templates
+      return if selected_templates.blank?
+      selected_templates.each { |template_id|
+        @invitee.agency_applications.find_or_create_by(template_id: template_id, agency: @invitee.agency)
       }
     end
 end
