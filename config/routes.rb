@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  devise_for :clients
+  devise_for :clients,     controllers: { invitations: "clients/invitations" }
   devise_for :agents,      controllers: { invitations: "agents/invitations",
                                           registrations: "agents/registrations" }
   devise_for :salespeople, controllers: { registrations: "salespeople/registrations",
@@ -11,6 +11,7 @@ Rails.application.routes.draw do
     resources :agent_invitations, only: [:new, :create]
     resources :wholesalers, only: [:edit, :update]
     resources :agencies, only: [:edit, :update]
+    resources :client_invitations, only: [:new, :create]
   end
   root to: "dashboard/pages#index"
 end

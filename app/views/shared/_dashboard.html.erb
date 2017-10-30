@@ -37,6 +37,9 @@
               <li class="list-styles">
                 <%= link_to "Edit Company", edit_dashboard_agency_path(current_agent.owned_agency) %>
               </li>
+              <li class="list-styles">
+                <%= link_to "Invite client", new_dashboard_client_invitation_path %>
+              </li>
             </ul>
           </li>
         <% end %>
