@@ -2,8 +2,8 @@ class Wholesaler < ApplicationRecord
   has_many :salespeople, dependent: :destroy
   has_many :agent_wholesalers
   has_many :agents, through: :agent_wholesalers
-  has_many :applications
   has_many :templates
+  has_many :applications, through: :templates
 
   mount_uploader :logo, LogoUploader
 
