@@ -41,6 +41,18 @@
           </li>
         <% end %>
       <% end %>
+      <% if client_signed_in? %>
+        <li>
+          <%= link_to "#application-center", data: { toggle: "collapse" }, aria: { controls: "application-center", expanded: "false" } do %>
+            Application Center
+          <% end %>
+          <ul id="application-center" class="collapse list-group">
+            <li class="list-styles">
+              <%= link_to "Applications", dashboard_jimcor_dwelling_applications_path %>
+            </li>
+          </ul>
+        </li>
+      <% end %>
     </ul>
   </div>
 </div>
