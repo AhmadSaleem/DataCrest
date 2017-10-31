@@ -11,7 +11,7 @@ Rails.application.routes.draw do
     resources :agent_invitations, only: [:new, :create]
     resources :wholesalers, only: [:edit, :update]
     resources :agencies, only: [:edit, :update]
-    resources :jimcor_dwelling_applications, only: [:index]
+    resources :jimcor_dwelling_applications, only: [:index, :edit, :update]
   end
   root to: "dashboard/pages#index"
 end
