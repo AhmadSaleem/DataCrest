@@ -28,8 +28,4 @@ class Agent < ApplicationRecord
   def company_owner?
     owned_agency.present?
   end
-
-  def applications_count
-    templates.count
-  end
 end
