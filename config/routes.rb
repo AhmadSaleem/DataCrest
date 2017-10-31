@@ -1,7 +1,8 @@
 Rails.application.routes.draw do
   devise_for :clients,     controllers: { invitations: "clients/invitations" }
   devise_for :agents,      controllers: { invitations: "agents/invitations",
-                                          registrations: "agents/registrations" }
+                                          registrations: "agents/registrations",
+                                          sessions: "agents/sessions" }
   devise_for :salespeople, controllers: { registrations: "salespeople/registrations",
                                           invitations: "salespeople/invitations" }
   namespace :dashboard do

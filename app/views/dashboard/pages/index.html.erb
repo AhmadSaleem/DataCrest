@@ -1,1 +1,13 @@
 <h1>Dashboard</h1>
+<% if agent_signed_in? %>
+  <% if @agent_templates.present? %>
+    <% @agent_templates.each do |template| %>
+      <p>Following applications are assigned to you</p>
+      <ul>
+        <li><%= template.title %>
+      </ul>
+    <% end %>
+  <% else %>
+    <p> You don't have any  assigned applications</p>
+  <% end %>
+<% end %>
