@@ -12,6 +12,10 @@ Rails.application.routes.draw do
     resources :wholesalers, only: [:edit, :update]
     resources :agencies, only: [:edit, :update]
     resources :client_invitations, only: [:new, :create]
+    resources :agent_wholesaler_applications, only: [:index, :destroy] do
+      get 'agent_templates', on: :member
+    end
   end
   root to: "dashboard/pages#index"
+
 end

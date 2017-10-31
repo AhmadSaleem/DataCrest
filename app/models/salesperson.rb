@@ -18,7 +18,7 @@ class Salesperson < ApplicationRecord
   before_validation :assign_wholesaler, on: :create
   before_create     :assign_person_wholesaler
 
-  delegate :title, :templates, to: :wholesaler, prefix: true
+  delegate :title, :templates, :agents, to: :wholesaler, prefix: true
   delegate :salespeople, to: :owned_wholesaler, allow_nil: true, prefix: true
 
   def company_owner?
@@ -32,6 +32,10 @@ class Salesperson < ApplicationRecord
   def invited_salespeople
     return unless owned_wholesaler_salespeople.present?
     owned_wholesaler_salespeople.joins(:wholesaler).where('wholesalers.owner_id != salespeople.id')
+  end
+
+  def accepted_wholesaler_agents
+    wholesaler_agents.invitation_accepted
   end
 
   def status
