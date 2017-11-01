@@ -1,51 +1,9 @@
 <div class="sidebar" data-color="#1f77d0">
   <div class="sidebar-wrapper">
     <ul class="nav">
-      <% if salesperson_signed_in? %>
-        <% if current_salesperson.company_owner? %>
-          <li class="<%= active_class(account_setting_dashboard_pages_path) %>">
-            <%= link_to "Account Settings", account_setting_dashboard_pages_path %>
-
-            <ul class="list-group">
-              <li class="list-styles <%= active_class(dashboard_salespeople_invitations_path) %>">
-                <%= link_to "Manage Employees", dashboard_salespeople_invitations_path %>
-              </li>
-              <li class="list-styles <%= active_class(new_dashboard_agent_invitation_path) %>">
-                <%= link_to "Manage Agents", new_dashboard_agent_invitation_path %>
-              </li>
-              <li class="list-styles <%= active_class(dashboard_agent_wholesaler_applications_path) %>">
-                <%= link_to "Manage Applications", dashboard_agent_wholesaler_applications_path %>
-              </li>
-              <li class="list-styles <%= active_class(edit_salesperson_registration_path) %>">
-                <%= link_to "Edit Account", edit_salesperson_registration_path %>
-              </li>
-              <li class="list-styles <%= active_class(edit_dashboard_wholesaler_path(current_salesperson.owned_wholesaler)) %>">
-                <%= link_to "Edit Company", edit_dashboard_wholesaler_path(current_salesperson.owned_wholesaler) %>
-              </li>
-            </ul>
-          </li>
-        <% end %>
-      <% end %>
-      <% if agent_signed_in? %>
-        <% if current_agent.company_owner? %>
-          <li>
-            <%= link_to "#dashvariants", data: { toggle: "collapse" }, aria: { controls: "dashvariants", expanded: "false" } do %>
-              Account Settings
-            <% end %>
-            <ul id="dashvariants" class="collapse list-group">
-              <li class="list-styles">
-                <%= link_to "Edit Account", edit_agent_registration_path %>
-              </li>
-              <li class="list-styles">
-                <%= link_to "Edit Company", edit_dashboard_agency_path(current_agent.owned_agency) %>
-              </li>
-              <li class="list-styles">
-                <%= link_to "Invite client", new_dashboard_client_invitation_path %>
-              </li>
-            </ul>
-          </li>
-        <% end %>
-      <% end %>
+      <%= render "shared/user_menu/salesperson" if salesperson_signed_in? %>
+      <%= render "shared/user_menu/agent" if agent_signed_in? %>
+      <%= render "shared/user_menu/client" if client_signed_in? %>
     </ul>
   </div>
 </div>

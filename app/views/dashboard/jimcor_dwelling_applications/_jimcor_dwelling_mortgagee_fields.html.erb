@@ -1,0 +1,83 @@
+<div class="card">
+  <div class="card-header">
+    <h3>MORTGAGEE 1</h3>
+  </div>
+  <div class="content p-2">
+    <div class="row">
+      <div class="col-md-5">
+        <div class="form-group">
+          <%= f.label :mortgage_loan_number, :loan_number ,class: "control-label" %><br>
+          <%= f.number_field :mortgage_loan_number, min: 0, class: "form-control" %>
+        </div>
+      </div>
+
+      <div class="col-md-5">
+        <div class="form-group">
+          <%= f.label :mortgage_name, :name, class: "control-label" %><br>
+          <%= f.text_field :mortgage_name, class: "form-control" %>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-6">
+        <div class="form-group">
+          <%= f.label :mortgage_address, :address, class: "control-label" %><br>
+          <%= f.text_field :mortgage_address, class: "form-control" %>
+        </div>
+      </div>
+
+      <div class="col-md-4">
+        <div class="form-group">
+          <%= f.label :mortgage_lending_organization, :lending_organization, class: "control-label" %><br>
+          <%= f.radio_button :mortgage_lending_organization, :true %>
+          <%= label_tag :mortgage_lending_organization_yes, "Yes" %>
+          <%= f.radio_button :mortgage_lending_organization, :false %>
+          <%= label_tag :mortgage_lending_organization_no, "No" %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="card">
+  <div class="card-header">
+    <h3>MORTGAGEE 2</h3>
+  </div>
+  <div class="content p-2">
+    <div class="row">
+      <div class="col-md-5">
+        <div class="form-group">
+          <%= f.label :mortgage_2_loan_number, :loan_number, class: "control-label" %><br>
+          <%= f.number_field :mortgage_2_loan_number, min: 0, class: "form-control" %>
+        </div>
+      </div>
+
+      <div class="col-md-5">
+        <div class="form-group">
+          <%= f.label :mortgage_2_name, :name, class: "control-label" %><br>
+          <%= f.text_field :mortgage_2_name, class: "form-control" %>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-6">
+        <div class="form-group">
+          <%= f.label :mortgage_2_address, :address, class: "control-label" %><br>
+          <%= f.text_field :mortgage_2_address, class: "form-control" %>
+        </div>
+      </div>
+
+      <div class="col-md-4">
+        <div class="form-group">
+          <%= f.label :mortgage_2_lending_organization, :lending_organization, class: "control-label" %><br>
+          <%= f.radio_button :mortgage_2_lending_organization, :true %>
+          <%= label_tag :mortgage_2_lending_organization_yes, "Yes" %>
+          <%= f.radio_button :mortgage_2_lending_organization, :false %>
+          <%= label_tag :mortgage_2_lending_organization_no, "No" %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

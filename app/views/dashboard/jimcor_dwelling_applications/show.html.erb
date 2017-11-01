@@ -1,0 +1,995 @@
+  <div class="row">
+    <div class="col-md-12">
+      <div class="card">
+        <div class="header">
+          <h2 class="title">Application Submission</h2>
+        </div>
+        <div class="content p-2">
+        <div class="row">
+          <div class="col-md-5">
+            <div class="card">
+              <div class="card-header">
+                <h3>APPLICANT</h3>
+              </div>
+              <div class="content p-2">
+                <div class="row">
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      Name:<br>
+                      <%= label_tag @jimcor_dwelling_application.applicant_name %>
+                    </div>
+                  </div>
+
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      Phone no:<br>
+                      <%= label_tag @jimcor_dwelling_application.applicant_phone_no %>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-md-12">
+                    <div class="form-group">
+                      Address:<br>
+                      <%= label_tag @jimcor_dwelling_application.applicant_address %>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-5">
+            <div class="card">
+              <div class="card-header">
+                <h3>DEDUCTIBLES</h3>
+              </div>
+              <div class="content p-2">
+                <div class="row">
+                  <div class="col-md-10">
+                    <div class="form-group">
+                      All Peril:
+                      <%= label_tag @jimcor_dwelling_application.peril_deductible %>
+                    </div>
+                  </div>
+
+                  <div class="col-md-10">
+                    <div class="form-group">
+                      Wind/Hail:
+                      <%= label_tag @jimcor_dwelling_application.wind_hail_deductible %>
+                    </div>
+                  </div>
+
+                  <div class="col-md-10">
+                    <div class="form-group">
+                      Water Damage:
+                      <%= label_tag @jimcor_dwelling_application.water_demage_deductible %>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-5">
+            <div class="card">
+              <div class="card-header">
+                <h3>RISK LOCATION</h3>
+              </div>
+              <div class="content p-2">
+                <div class="row">
+                  <div class="col-md-10">
+                    <div class="form-group">
+                      Public Protection Class:<br>
+                      <%= label_tag @jimcor_dwelling_application.public_protection_class %>
+                    </div>
+                  </div>
+
+                  <div class="col-md-10">
+                    <div class="form-group">
+                      Address:<br>
+                      <%= label_tag @jimcor_dwelling_application.risk_location_address %>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-5">
+            <div class="card">
+              <div class="card-header">
+                <h3>COVERAGES</h3>
+              </div>
+              <div class="content p-2">
+                <div class="row">
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      Dwelling:<br>
+                      <%= label_tag @jimcor_dwelling_application.dwelling_coverage %>
+                    </div>
+                  </div>
+
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      Personal Property:<br>
+                      <%= label_tag @jimcor_dwelling_application.personal_property %>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      Loss of Rents:<br>
+                      <%= label_tag @jimcor_dwelling_application.rent_loss_coverage %>
+                    </div>
+                  </div>
+
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      Other Structures:<br>
+                      <%= label_tag @jimcor_dwelling_application.other_structures_coverage %>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-5">
+            <div class="card">
+              <div class="card-header">
+                <h3>LIMITS OF LIABILITY</h3>
+              </div>
+              <div class="content p-2">
+                <div class="row">
+                  <div class="col-md-10">
+                    <div class="form-group">
+                      Personal:<br>
+                      <%= label_tag @jimcor_dwelling_application.personal_liability %>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-md-10">
+                    <div class="form-group">
+                      Medical:<br>
+                      <%= label_tag @jimcor_dwelling_application.mdeical_liability %>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-5">
+            <div class="card">
+              <div class="card-header">
+                <h3>PROPOSED EFFECTIVE DATE</h3>
+              </div>
+              <div class="content p-2">
+                <div class="row">
+                  <div class="col-md-10">
+                    <div class="form-group">
+                      From:<br>
+                      <%= label_tag @jimcor_dwelling_application.proposed_start_date %>
+                    </div>
+                  </div>
+
+                  <div class="col-md-10">
+                    <div class="form-group">
+                      To:<br>
+                      <%= label_tag @jimcor_dwelling_application.proposed_end_date %>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-10">
+            <div class="card">
+              <div class="card-header">
+                <h3>UNDERWRITING INFORMATION</h3>
+              </div>
+              <div class="content p-2">
+
+                <div class="row">
+                  <div class="col-md-5">
+                    <div class="form-group">
+                      Dwelling Replacement Cost:<br>
+                      <%= label_tag @jimcor_dwelling_application.dwelling_replacement_cost %>
+                    </div>
+                  </div>
+
+                  <div class="col-md-5">
+                    <div class="form-group">
+                      Cost Formula:<br>
+                      <%= label_tag @jimcor_dwelling_application.replacement_cost_formula %>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-md-2">
+                    <div class="form-group">
+                      Market Value:<br>
+                      <%= label_tag @jimcor_dwelling_application.market_value %>
+                    </div>
+                  </div>
+
+                  <div class="col-md-2">
+                    <div class="form-group">
+                      Square Feet:<br>
+                      <%= label_tag @jimcor_dwelling_application.square_feet %>
+                    </div>
+                  </div>
+
+                  <div class="col-md-2">
+                    <div class="form-group">
+                      Build Year:<br>
+                      <%= label_tag @jimcor_dwelling_application.built_year %>
+                    </div>
+                  </div>
+
+                  <div class="col-md-2">
+                    <div class="form-group">
+                      Total Stories:<br>
+                      <%= label_tag @jimcor_dwelling_application.total_stories %>
+                    </div>
+                  </div>
+
+                  <div class="col-md-2">
+                    <div class="form-group">
+                      Total Families:<br>
+                      <%= label_tag @jimcor_dwelling_application.total_families %>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-md-5">
+                    <div class="form-group">
+                      Fire Hydrant Distance:<br>
+                      <%= label_tag @jimcor_dwelling_application.fire_hydrant_distance %>
+                    </div>
+                  </div>
+
+                  <div class="col-md-5">
+                    <div class="form-group">
+                      Fire Station Distance:<br>
+                      <%= label_tag @jimcor_dwelling_application.fire_station_distance %>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-3">
+            <div class="card">
+              <div class="card-header">
+                <h3>CONSTRUCTION</h3>
+              </div>
+              <div class="content p-2">
+                <div class="row">
+                  <div class="col-md-5">
+                    <div class="form-group">
+                      Frame:<br>
+                      <%= label_tag @jimcor_dwelling_application.frame_construction_category %>
+                    </div>
+                  </div>
+
+                  <div class="col-md-7">
+                    <div class="form-group">
+                      Joisted Masonry:<br>
+                      <%= label_tag @jimcor_dwelling_application.joisted_masonry_category %>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-4">
+            <div class="card">
+              <div class="card-header">
+                <h3>ELECTRICAL</h3>
+              </div>
+              <div class="content p-2">
+                <div class="row">
+                  <div class="col-md-5">
+                    <div class="form-group">
+                      Amps Rate:<br>
+                      <%= label_tag @jimcor_dwelling_application.amps_rated %>
+                    </div>
+                  </div>
+
+                  <div class="col-md-7">
+                    <div class="form-group">
+                      Update Year:<br>
+                      <%= label_tag @jimcor_dwelling_application.electrics_update_year %>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-3">
+            <div class="card">
+              <div class="card-header">
+                <h3>PLUMBING</h3>
+              </div>
+              <div class="content p-2">
+                <div class="row">
+                  <div class="col-md-10">
+                    <div class="form-group">
+                      Updated Year:<br>
+                      <%= label_tag @jimcor_dwelling_application.plumbing_update_year %>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-4">
+            <div class="card">
+              <div class="card-header">
+                <h3>HEATING</h3>
+              </div>
+              <div class="content p-2">
+                <div class="row">
+                  <div class="col-md-5">
+                    <div class="form-group">
+                      Updated Year:<br>
+                      <%= label_tag @jimcor_dwelling_application.heating_update_year %>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-3">
+                    <div class="form-group">
+                      Gas:<br>
+                      <%= label_tag @jimcor_dwelling_application.gas_heating %>
+                    </div>
+                  </div>
+
+                  <div class="col-md-3">
+                    <div class="form-group">
+                      Oil:<br>
+                      <%= label_tag @jimcor_dwelling_application.oil_heating %>
+                    </div>
+                  </div>
+
+                  <div class="col-md-3">
+                    <div class="form-group">
+                      Coal:<br>
+                      <%= label_tag @jimcor_dwelling_application.coal_heating %>
+                    </div>
+                  </div>
+
+                  <div class="col-md-3">
+                    <div class="form-group">
+                      Other:<br>
+                      <%= label_tag @jimcor_dwelling_application.other_heating %>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-6">
+            <div class="card">
+              <div class="card-header">
+                <h3>AUX. HEATING</h3>
+              </div>
+              <div class="content p-2">
+                <div class="row">
+                  <div class="col-md-10">
+                    <div class="form-group">
+                      Unit commercially installed:
+                      <%= label_tag @jimcor_dwelling_application.aux_heating_unit_installed %>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-3">
+                    <div class="form-group">
+                      Wood Stove:<br>
+                      <%= label_tag @jimcor_dwelling_application.wood_stove_aux_heating %>
+                    </div>
+                  </div>
+
+                  <div class="col-md-3">
+                    <div class="form-group">
+                      Coal Stove:<br>
+                      <%= label_tag @jimcor_dwelling_application.coal_stove_aux_heating %>
+                    </div>
+                  </div>
+
+                  <div class="col-md-3">
+                    <div class="form-group">
+                      Pellet Burning Stove:<br>
+                      <%= label_tag @jimcor_dwelling_application.pellet_stove_aux_heating %>
+                    </div>
+                  </div>
+
+                  <div class="col-md-3">
+                    <div class="form-group">
+                      Kerosene Heater:<br>
+                      <%= label_tag @jimcor_dwelling_application.kerosene_aux_heater %>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-10">
+            <div class="card">
+              <div class="card-header">
+                <h3>ROOFING</h3>
+              </div>
+              <div class="content p-2">
+                <div class="row">
+                  <div class="col-md-5">
+                    <div class="form-group">
+                      Entire Roof:
+                      <%= label_tag @jimcor_dwelling_application.entire_roof_updated %>
+                    </div>
+                  </div>
+
+                  <div class="col-md-5">
+                    <div class="form-group">
+                      Updated Year:
+                      <%= label_tag @jimcor_dwelling_application.roof_update_year %>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-5">
+            <div class="card">
+              <div class="card-header">
+                <h3>MORTGAGEE 1</h3>
+              </div>
+              <div class="content p-2">
+                <div class="row">
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      Loan Number:<br>
+                      <%= label_tag @jimcor_dwelling_application.mortgage_loan_number %>
+                    </div>
+                  </div>
+
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      Name:<br>
+                      <%= label_tag @jimcor_dwelling_application.mortgage_name %>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      Address:<br>
+                      <%= label_tag @jimcor_dwelling_application.mortgage_address %>
+                    </div>
+                  </div>
+
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      Lending Organization:<br>
+                      <%= label_tag @jimcor_dwelling_application.mortgage_lending_organization %>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-5">
+            <div class="card">
+              <div class="card-header">
+                <h3>MORTGAGEE 2</h3>
+              </div>
+              <div class="content p-2">
+                <div class="row">
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      Loan Number:<br>
+                      <%= label_tag @jimcor_dwelling_application.mortgage_2_loan_number %>
+                    </div>
+                  </div>
+
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      Name:<br>
+                      <%= label_tag @jimcor_dwelling_application.mortgage_2_name %>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      Address:<br>
+                      <%= label_tag @jimcor_dwelling_application.mortgage_2_address %>
+                    </div>
+                  </div>
+
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      Lending Organization:<br>
+                      <%= label_tag @jimcor_dwelling_application.mortgage_2_lending_organization %>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-10">
+            <div class="card">
+              <div class="card-header">
+                <h3>GENERAL QUESTIONS</h3>
+              </div>
+              <div class="content p-2">
+                <div class="row">
+                  <div class="col-sm-10">
+                    <div class="form-group">
+                      <div class="col-md-6">
+                        Questions
+                      </div>
+                      <div class="col-md-1">
+                        Status
+                      </div>
+                      <div class="col-md-5">
+                        Remarks
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <hr>
+
+                <div class="row">
+                  <div class="col-sm-10">
+                    <div class="form-group">
+                      <div class="col-md-6">
+                        <%= label_tag general_questions[:banckrupt_remarks] %>
+                      </div>
+                      <div class="col-md-1">
+                        <%= @jimcor_dwelling_application.banckrupt %>
+                      </div>
+                      <div class="col-md-5">
+                        <%= @jimcor_dwelling_application.banckrupt_remarks %>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <hr>
+
+                <div class="row">
+                  <div class="col-sm-10">
+                    <div class="form-group">
+                      <div class="col-md-6">
+                        <%= label_tag general_questions[:foreclosured_remarks] %>
+                      </div>
+                      <div class="col-md-1">
+                        <%= @jimcor_dwelling_application.foreclosured %>
+                      </div>
+                      <div class="col-md-5">
+                        <%= @jimcor_dwelling_application.foreclosured_remarks %>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <hr>
+
+                <div class="row">
+                  <div class="col-sm-10">
+                    <div class="form-group">
+                      <div class="col-md-6">
+                        <%= label_tag general_questions[:unemployed_remarks] %>
+                      </div>
+                      <div class="col-md-1">
+                        <%= @jimcor_dwelling_application.unemloyed %>
+                      </div>
+                      <div class="col-md-5">
+                        <%= @jimcor_dwelling_application.unemployed_remarks %>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <hr>
+
+                <div class="row">
+                  <div class="col-sm-10">
+                    <div class="form-group">
+                      <div class="col-md-6">
+                        <%= label_tag general_questions[:canceled_remarks] %>
+                      </div>
+                      <div class="col-md-1">
+                        <%= @jimcor_dwelling_application.canceled %>
+                      </div>
+                      <div class="col-md-5">
+                        <%= @jimcor_dwelling_application.canceled_remarks %>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <hr>
+
+                <div class="row">
+                  <div class="col-sm-10">
+                    <div class="form-group">
+                      <div class="col-md-6">
+                        <%= label_tag general_questions[:lapsed_remarks] %>
+                      </div>
+                      <div class="col-md-1">
+                        <%= @jimcor_dwelling_application.lapsed %>
+                      </div>
+                      <div class="col-md-5">
+                        <%= @jimcor_dwelling_application.lapsed_remarks %>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <hr>
+
+                <div class="row">
+                  <div class="col-sm-5">
+                    <div class="form-group">
+                      Policy Number:<br>
+                      <%= label_tag @jimcor_dwelling_application.policy_number %>
+                    </div>
+                  </div>
+
+                  <div class="col-md-5">
+                    <div class="form-group">
+                      Policy Period:<br>
+                      <%= label_tag @jimcor_dwelling_application.policy_period %>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-sm-10">
+                    <div class="form-group">
+                      Previous Carrier:<br>
+                      <%= label_tag @jimcor_dwelling_application.applicant_previous_carrier %>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-10">
+            <div class="card">
+              <div class="card-header">
+                <h3>DWELLING QUESTIONS</h3>
+              </div>
+              <div class="content p-2">
+                <div class="row">
+                  <div class="col-sm-10">
+                    <div class="form-group">
+                      <div class="col-md-6">
+                        Questions
+                      </div>
+                      <div class="col-md-1">
+                        Status
+                      </div>
+                      <div class="col-md-5">
+                        Remarks
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <hr>
+
+                <div class="row">
+                  <div class="col-sm-10">
+                    <div class="form-group">
+                      <div class="col-md-6">
+                        <%= label_tag dewlling_questions[:owner_occupied_remarks] %>
+                      </div>
+                      <div class="col-md-1">
+                        <%= @jimcor_dwelling_application.owner_occupied %>
+                      </div>
+                      <div class="col-md-5">
+                        <%= @jimcor_dwelling_application.owner_occupied_remarks %>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <hr>
+
+                <div class="row">
+                  <div class="col-sm-10">
+                    <div class="form-group">
+                      <div class="col-md-6">
+                        <%= label_tag dewlling_questions[:portion_unoccupied_remarks] %>
+                      </div>
+                      <div class="col-md-1">
+                        <%= @jimcor_dwelling_application.portion_unoccupied %>
+                      </div>
+                      <div class="col-md-5">
+                        <%= @jimcor_dwelling_application.portion_unoccupied_remarks %>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <hr>
+
+                <div class="row">
+                  <div class="col-sm-10">
+                    <div class="form-group">
+                      <div class="col-md-6">
+                        <%= label_tag dewlling_questions[:under_renovation_remarks] %>
+                      </div>
+                      <div class="col-md-1">
+                        <%= @jimcor_dwelling_application.under_renovation %>
+                      </div>
+                      <div class="col-md-5">
+                        <%= @jimcor_dwelling_application.under_renovation_remarks %>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <hr>
+
+                <div class="row">
+                  <div class="col-sm-10">
+                    <div class="form-group">
+                      <div class="col-md-6">
+                        <%= label_tag dewlling_questions[:under_construction_remarks] %>
+                      </div>
+                      <div class="col-md-1">
+                        <%= @jimcor_dwelling_application.under_construction %>
+                      </div>
+                      <div class="col-md-5">
+                        <%= @jimcor_dwelling_application.under_construction_remarks %>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <hr>
+
+                <div class="row">
+                  <div class="col-sm-10">
+                    <div class="form-group">
+                      <div class="col-md-6">
+                        <%= label_tag dewlling_questions[:business_conducted_remarks] %>
+                      </div>
+                      <div class="col-md-1">
+                        <%= @jimcor_dwelling_application.business_conducted %>
+                      </div>
+                      <div class="col-md-5">
+                        <%= @jimcor_dwelling_application.business_conducted_remarks %>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <hr>
+
+                <div class="row">
+                  <div class="col-sm-10">
+                    <div class="form-group">
+                      <div class="col-md-6">
+                        <%= label_tag dewlling_questions[:domestic_employees_remarks] %>
+                      </div>
+                      <div class="col-md-1">
+                        <%= @jimcor_dwelling_application.domestic_employees %>
+                      </div>
+                      <div class="col-md-5">
+                        <%= @jimcor_dwelling_application.domestic_employees_remarks %>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <hr>
+
+                <div class="row">
+                  <div class="col-sm-10">
+                    <div class="form-group">
+                      <div class="col-md-6">
+                        <%= label_tag dewlling_questions[:horses_owned_remarks] %>
+                      </div>
+                      <div class="col-md-1">
+                        <%= @jimcor_dwelling_application.horses_owned %>
+                      </div>
+                      <div class="col-md-5">
+                        <%= @jimcor_dwelling_application.horses_owned_remarks %>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <hr>
+
+                <div class="row">
+                  <div class="col-sm-10">
+                    <div class="form-group">
+                      <div class="col-md-6">
+                        <%= label_tag dewlling_questions[:non_domestic_animals_remarks] %>
+                      </div>
+                      <div class="col-md-1">
+                        <%= @jimcor_dwelling_application.non_domestic_animals %>
+                      </div>
+                      <div class="col-md-5">
+                        <%= @jimcor_dwelling_application.non_domestic_animals_remarks %>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <hr>
+
+                <div class="row">
+                  <div class="col-sm-10">
+                    <div class="form-group">
+                      <div class="col-md-6">
+                        <%= label_tag dewlling_questions[:domestic_animals_remarks] %>
+                      </div>
+                      <div class="col-md-1">
+                        <%= @jimcor_dwelling_application.domestic_animals %>
+                      </div>
+                      <div class="col-md-5">
+                        <%= @jimcor_dwelling_application.domestic_animals_remarks %>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <hr>
+
+                <div class="row">
+                  <div class="col-sm-10">
+                    <div class="form-group">
+                      <div class="col-md-6">
+                        <%= label_tag dewlling_questions[:smoke_detector_remarks] %>
+                      </div>
+                      <div class="col-md-1">
+                        <%= @jimcor_dwelling_application.contains_smoke_detectors %>
+                      </div>
+                      <div class="col-md-5">
+                        <%= @jimcor_dwelling_application.smoke_detector_remarks %>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <hr>
+
+                <div class="row">
+                  <div class="col-sm-10">
+                    <div class="form-group">
+                      <div class="col-md-6">
+                        <%= label_tag dewlling_questions[:saltwater_bay_remarks] %>
+                      </div>
+                      <div class="col-md-1">
+                        <%= @jimcor_dwelling_application.furthest_to_ocean %>
+                      </div>
+                      <div class="col-md-5">
+                        <%= @jimcor_dwelling_application.saltwater_bay_remarks %>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <hr>
+
+                <div class="row">
+                  <div class="col-sm-10">
+                    <div class="form-group">
+                      <div class="col-md-6">
+                        <%= label_tag dewlling_questions[:nearby_ocean_remarks] %>
+                      </div>
+                      <div class="col-md-1">
+                        <%= @jimcor_dwelling_application.nearby_ocean %>
+                      </div>
+                      <div class="col-md-5">
+                        <%= @jimcor_dwelling_application.nearby_ocean_remarks %>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <hr>
+
+                <div class="row">
+                  <div class="col-sm-10">
+                    <div class="form-group">
+                      <div class="col-md-6">
+                        <%= label_tag dewlling_questions[:swimming_pool_remarks] %>
+                      </div>
+                      <div class="col-md-1">
+                        <%= @jimcor_dwelling_application.contiains_swimming_pool %>
+                      </div>
+                      <div class="col-md-5">
+                        <%= @jimcor_dwelling_application.swimming_pool_remarks %>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <hr>
+
+                <div class="row">
+                  <div class="col-sm-10">
+                    <div class="form-group">
+                      <div class="col-md-6">
+                        <%= label_tag dewlling_questions[:trampoline_remarks] %>
+                      </div>
+                      <div class="col-md-1">
+                        <%= @jimcor_dwelling_application.contains_trampoline %>
+                      </div>
+                      <div class="col-md-5">
+                        <%= @jimcor_dwelling_application.trampoline_remarks %>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <hr>
+
+                <div class="row">
+                  <div class="col-sm-10">
+                    <div class="form-group">
+                      <div class="col-md-6">
+                        <%= label_tag dewlling_questions[:exterior_step_remarks] %>
+                      </div>
+                      <div class="col-md-1">
+                        <%= @jimcor_dwelling_application.contains_exterior_steps %>
+                      </div>
+                      <div class="col-md-5">
+                        <%= @jimcor_dwelling_application.exterior_step_remarks %>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <hr>
+
+                <div class="row">
+                  <div class="col-sm-10">
+                    <div class="form-group">
+                      <div class="col-md-6">
+                        <%= label_tag dewlling_questions[:secondary_residence_remarks] %>
+                      </div>
+                      <div class="col-md-1">
+                        <%= @jimcor_dwelling_application.secondary_residence %>
+                      </div>
+                      <div class="col-md-5">
+                        <%= @jimcor_dwelling_application.secondary_residence_remarks %>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <hr>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
