@@ -3,24 +3,23 @@
     <ul class="nav">
       <% if salesperson_signed_in? %>
         <% if current_salesperson.company_owner? %>
-          <li>
-            <%= link_to "#dashvariants", data: { toggle: "collapse" }, aria: { controls: "dashvariants", expanded: "false" } do %>
-              Account Settings
-            <% end %>
-            <ul id="dashvariants" class="collapse list-group">
-              <li class="list-styles">
+          <li class="<%= active_class(account_setting_dashboard_pages_path) %>">
+            <%= link_to "Account Settings", account_setting_dashboard_pages_path %>
+
+            <ul class="list-group">
+              <li class="list-styles <%= active_class(dashboard_salespeople_invitations_path) %>">
                 <%= link_to "Manage Employees", dashboard_salespeople_invitations_path %>
               </li>
-              <li class="list-styles">
+              <li class="list-styles <%= active_class(new_dashboard_agent_invitation_path) %>">
                 <%= link_to "Manage Agents", new_dashboard_agent_invitation_path %>
               </li>
-              <li class="list-styles">
+              <li class="list-styles <%= active_class(dashboard_agent_wholesaler_applications_path) %>">
                 <%= link_to "Manage Applications", dashboard_agent_wholesaler_applications_path %>
               </li>
-              <li class="list-styles">
+              <li class="list-styles <%= active_class(edit_salesperson_registration_path) %>">
                 <%= link_to "Edit Account", edit_salesperson_registration_path %>
               </li>
-              <li class="list-styles">
+              <li class="list-styles <%= active_class(edit_dashboard_wholesaler_path(current_salesperson.owned_wholesaler)) %>">
                 <%= link_to "Edit Company", edit_dashboard_wholesaler_path(current_salesperson.owned_wholesaler) %>
               </li>
             </ul>

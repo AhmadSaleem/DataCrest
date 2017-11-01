@@ -16,6 +16,9 @@ Rails.application.routes.draw do
     resources :agent_wholesaler_applications, only: [:index, :destroy] do
       get 'agent_templates', on: :member
     end
+    resource :pages do
+      get "account_setting", on: :collection
+    end
   end
   root to: "dashboard/pages#index"
 

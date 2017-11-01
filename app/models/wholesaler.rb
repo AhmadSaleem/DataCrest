@@ -11,4 +11,8 @@ class Wholesaler < ApplicationRecord
 
   validates :title, presence: true
   validates :website, :state, :address_1, :city, :zip_code, :logo, presence: true, on: :update
+
+  def company_address
+    "#{address_1}<br/> #{city}, #{state} #{zip_code}".html_safe
+  end
 end
