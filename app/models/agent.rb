@@ -13,6 +13,10 @@ class Agent < ApplicationRecord
 
   belongs_to :agency, inverse_of: :agents
 
+  accepts_nested_attributes_for :owned_agency
+
+  before_validation :assign_agency, on: :create
+
   delegate :full_name, :wholesaler_title, to: :invited_by, prefix: true, allow_nil: true
   delegate :title, to: :agency, prefix: true
 
@@ -26,4 +30,10 @@ class Agent < ApplicationRecord
   def company_owner?
     owned_agency.present?
   end
+
+  private
+
+    def assign_agency
+      self.agency = owned_agency if owned_agency.present?
+    end
 end
