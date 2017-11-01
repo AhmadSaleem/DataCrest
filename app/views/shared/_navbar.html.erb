@@ -52,8 +52,15 @@
             <%= link_to "Sign Up", new_salesperson_registration_path, class: "nav-link" %>
           </li>
 
-          <li class="nav-item">
-            <%= link_to "Login", new_salesperson_session_path, class: "nav-link" %>
+          <li class="dropdown">
+            <%= link_to "", class: "dropdown-toggle", data: { toggle: "dropdown" } do %>
+              Login <b class="caret"></b>
+            <% end %>
+            <ul class="dropdown-menu">
+              <li><%= link_to "Salesperson", new_salesperson_session_path %></li>
+              <li><%= link_to "Agent", new_agent_session_path %></li>
+              <li><%= link_to "Client", new_client_session_path %></li>
+            </ul>
           </li>
         <% end %>
       </ul>
