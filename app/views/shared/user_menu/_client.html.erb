@@ -1,4 +1,13 @@
 <li>
+  <%= link_to "Account Settings", "#account-settings", data: { toggle: "collapse" },
+    aria: { controls: "account-settings", expanded: "false" } %>
+
+  <ul id="account-settings" class="collapse list-group">
+    <li class="list-styles"><%= link_to "Edit Account", edit_client_registration_path %></li>
+  </ul>
+</li>
+
+<li>
   <%= link_to "Application Center", "#application-center", data: { toggle: "collapse" },
     aria: { controls: "application-center", expanded: "false" } %>
 
