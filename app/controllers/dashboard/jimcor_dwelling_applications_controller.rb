@@ -1,9 +1,12 @@
 class Dashboard::JimcorDwellingApplicationsController < ApplicationController
   before_action :authenticate_client!
-  before_action :set_jimcor_dwelling_application, only: [:edit, :update]
+  before_action :set_jimcor_dwelling_application, only: [:edit, :update, :show]
 
   def index
     @jimcor_dwelling_applications = current_client.jimcor_dwelling_applications.page(params[:page])
+  end
+
+  def show
   end
 
   def edit

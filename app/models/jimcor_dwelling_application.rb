@@ -12,6 +12,10 @@ class JimcorDwellingApplication < ApplicationRecord
     percentage_of_completion == 100 ? 'complete' : "#{percentage_of_completion}% complete"
   end
 
+  def complete?
+    percentage_of_completion == 100
+  end
+
   private
 
     def calculate_completion_percentage
