@@ -1,0 +1,17 @@
+<li>
+  <%= link_to "Account Settings","#account-settings", data: { toggle: "collapse" },
+    aria: { controls: "account-settings", expanded: "false" } %>
+
+  <ul id="account-settings" class="collapse list-group">
+    <li class="list-styles"><%= link_to "Manage Employees", dashboard_salespeople_invitations_path %></li>
+    <li class="list-styles"><%= link_to "Manage Agents", new_dashboard_agent_invitation_path %></li>
+    <li class="list-styles"><%= link_to "Edit Account", edit_salesperson_registration_path %></li>
+
+    <% if current_salesperson.company_owner? %>
+      <li class="list-styles">
+        <%= link_to "Edit Company", edit_dashboard_wholesaler_path(current_salesperson.owned_wholesaler) %>
+      </li>
+    <% end %>
+
+  </ul>
+</li>

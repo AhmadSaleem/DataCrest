@@ -1,0 +1,14 @@
+<li>
+  <%= link_to "Account Settings", "#account-settings", data: { toggle: "collapse" },
+    aria: { controls: "account-settings", expanded: "false" } %>
+
+  <ul id="account-settings" class="collapse list-group">
+    <li class="list-styles"><%= link_to "Edit Account", edit_agent_registration_path %></li>
+
+    <% if current_agent.company_owner? %>
+      <li class="list-styles">
+        <%= link_to "Edit Company", edit_dashboard_agency_path(current_agent.owned_agency) %>
+      </li>
+    <% end %>
+  </ul>
+</li>
