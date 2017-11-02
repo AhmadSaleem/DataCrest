@@ -50,15 +50,15 @@
       </div>
 
       <div class="content table-responsive table-full-width">
-        <table class="table table-hover table-stripped">
-          <thead>
-            <th>Name</th>
-            <th>Email</th>
-            <th>Invitation Status</th>
-            <th>Action</th>
-          </thead>
+        <% if @salespeople.present? %>
+          <table class="table table-hover table-stripped">
+            <thead>
+              <th>Name</th>
+              <th>Email</th>
+              <th>Invitation Status</th>
+              <th>Action</th>
+            </thead>
 
-          <% if @salespeople.present? %>
             <tbody>
               <% @salespeople.each do |salesperson| %>
                 <tr>
@@ -69,10 +69,10 @@
                 </tr>
               <% end %>
             </tbody>
-          <% else %>
-            <p>There is not any outstanding invitations</p>
-          <% end %>
-        </table>
+          </table>
+        <% else %>
+          <p>There are no outstanding invitations.</p>
+        <% end %>
       </div>
     </div>
 
