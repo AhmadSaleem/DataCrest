@@ -23,6 +23,13 @@ Rails.application.routes.draw do
     end
     resources :jimcor_dwelling_applications, only: [:index, :edit, :update, :show]
   end
+  resources :pages do
+    collection do
+      get "copyright"
+      get "privacy_policy"
+      get "disclaimer"
+    end
+  end
 
-  root to: "dashboard/pages#index"
+  root to: "pages#index"
 end
