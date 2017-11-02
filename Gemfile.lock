@@ -77,6 +77,9 @@ GEM
       actionmailer (>= 4.1.0)
       devise (>= 4.0.0)
     erubi (1.7.0)
+    exception_notification (4.2.2)
+      actionmailer (>= 4.0, < 6)
+      activesupport (>= 4.0, < 6)
     execjs (2.7.0)
     ffi (1.9.18)
     globalid (0.4.0)
@@ -222,6 +225,7 @@ DEPENDENCIES
   coffee-rails (~> 4.2)
   devise
   devise_invitable
+  exception_notification
   jbuilder (~> 2.5)
   jquery-rails
   kaminari
