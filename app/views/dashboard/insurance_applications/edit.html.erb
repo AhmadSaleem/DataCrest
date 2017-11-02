@@ -1,8 +1,8 @@
-<h1 class="title"><%= @application.application_title %></h1>
+<h1 class="title"><%= @insurance_application.application_title %></h1>
 <br/>
 
-<%= form_for @application, url: dashboard_application_path do |f| %>
-  <%= render "shared/errors", resource: @application %>
+<%= form_for @insurance_application, url: dashboard_insurance_application_path do |f| %>
+  <%= render "shared/errors", resource: @insurance_application %>
   <div class="row">
     <div class="col-md-9">
       <div class="card">
@@ -11,7 +11,7 @@
             <div class="col-sm-4">
               <div class="form-group">
                 <%= f.label "Update status" %><br/>
-                <%= f.select :status, Application.statuses.keys, {}, class: "form-control" %>
+                <%= f.select :status, InsuranceApplication.statuses.keys, {}, class: "form-control" %>
               </div>
             </div>
           </div>

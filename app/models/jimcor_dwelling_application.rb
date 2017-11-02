@@ -1,5 +1,5 @@
 class JimcorDwellingApplication < ApplicationRecord
-  has_one :application, as: :client_application
+  has_one :insurance_application, as: :client_application
 
   belongs_to :client
   belongs_to :agent

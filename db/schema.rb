@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171031102514) do
+ActiveRecord::Schema.define(version: 20171102133154) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -85,16 +85,6 @@ ActiveRecord::Schema.define(version: 20171031102514) do
     t.index ["reset_password_token"], name: "index_agents_on_reset_password_token", unique: true
   end
 
-  create_table "applications", force: :cascade do |t|
-    t.bigint "template_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.integer "client_application_id"
-    t.string "client_application_type"
-    t.integer "status", default: 0
-    t.index ["template_id"], name: "index_applications_on_template_id"
-  end
-
   create_table "clients", force: :cascade do |t|
     t.string "first_name", default: "", null: false
     t.string "last_name", default: "", null: false
@@ -124,6 +114,16 @@ ActiveRecord::Schema.define(version: 20171031102514) do
     t.index ["invited_by_id"], name: "index_clients_on_invited_by_id"
     t.index ["invited_by_type", "invited_by_id"], name: "index_clients_on_invited_by_type_and_invited_by_id"
     t.index ["reset_password_token"], name: "index_clients_on_reset_password_token", unique: true
+  end
+
+  create_table "insurance_applications", force: :cascade do |t|
+    t.bigint "template_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "client_application_id"
+    t.string "client_application_type"
+    t.integer "status", default: 0
+    t.index ["template_id"], name: "index_insurance_applications_on_template_id"
   end
 
   create_table "jimcor_dwelling_applications", force: :cascade do |t|

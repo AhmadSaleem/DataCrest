@@ -1,4 +1,4 @@
-class Application < ApplicationRecord
+class InsuranceApplication < ApplicationRecord
   belongs_to :template
   belongs_to :client_application, polymorphic: true
 

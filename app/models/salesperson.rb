@@ -18,7 +18,7 @@ class Salesperson < ApplicationRecord
   before_validation :assign_wholesaler, on: :create
   before_create     :assign_person_wholesaler
 
-  delegate :title, :templates, :agents, :applications, to: :wholesaler, prefix: true
+  delegate :title, :templates, :agents, :insurance_applications, to: :wholesaler, prefix: true
   delegate :salespeople, to: :owned_wholesaler, allow_nil: true, prefix: true
 
   def company_owner?
