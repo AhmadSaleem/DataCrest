@@ -1,8 +1,6 @@
-<li>
-  <%= link_to "Account Settings","#account-settings", data: { toggle: "collapse" },
-    aria: { controls: "account-settings", expanded: "false" } %>
-
-  <ul id="account-settings" class="collapse list-group">
+<li class="<%= active_class(account_setting_dashboard_pages_path) %>">
+    <%= link_to "Account Settings", account_setting_dashboard_pages_path %>
+  <ul id="account-settings" class="list-group">
     <li class="list-styles <%= active_class(dashboard_salespeople_invitations_path) %>">
       <%= link_to "Manage Employees", dashboard_salespeople_invitations_path %>
     </li>
