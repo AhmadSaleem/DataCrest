@@ -81,7 +81,8 @@ lbd = {
         sidebar_color = $sidebar.data('color');
 
         $logo = $sidebar.find('.logo').first();
-        logo_content = $logo[0].outerHTML;
+        if($logo.length)
+          logo_content = $logo[0].outerHTML;
 
         ul_content = '';
 
@@ -99,7 +100,10 @@ lbd = {
 
         ul_content = '<ul class="nav navbar-nav">' + ul_content + '</ul>';
 
-        navbar_content = logo_content + ul_content;
+        if($logo.length)
+          navbar_content = logo_content + ul_content;
+        else
+          navbar_content = ul_content
 
         $navbar.html(navbar_content);
 
