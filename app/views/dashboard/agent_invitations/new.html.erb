@@ -3,68 +3,92 @@
     <div class="col-md-10">
       <div class="card">
         <div class="header">
-          <h2 class="title">Invite Agent</h2>
+          <h2 class="title">Send An App</h2>
         </div>
 
         <div class="content">
           <div class="row">
-            <div class="form-group col-md-5">
-              <%= radio_button(:new, :agent, :yes, { required: true, checked: true, class: 'invite-rb' }) %>
-              <%= label_tag :new_agent_yes, 'New Agent' %>
-              <%= radio_button(:new, :agent, :no, { required: true, class: 'invite-rb' }) %>
-              <%= label_tag :new_agent_no, 'Existing Agent' %>
-            </div>
-          </div>
-
-          <div class="row show" id="new-agent-fields">
-            <div class="col-md-3">
-              <div class="form-group">
-                <%= f.label :first_name, class: "control-label" %>
-                <br />
-                <%= f.text_field :first_name, class: "form-control", required: true %>
-              </div>
-            </div>
-
-            <div class="col-md-3">
-              <div class="form-group">
-                <%= f.label :last_name, class: "control-label" %>
-                <br />
-                <%= f.text_field :last_name, class: "form-control", required: true %>
-              </div>
-            </div>
-
-            <div class="col-md-5">
-              <div class="form-group">
-                <%= f.label :email, class: "control-label" %>
-                <br />
-                <%= f.email_field :email, class: "form-control", required: true %>
-              </div>
-            </div>
-          </div>
-
-          <div class="row hidden" id="existing-agent-fields">
-            <div class="form-group col-md-5">
-              <%= label_tag :agent %>
-              <%= select_tag "agents", options_from_collection_for_select(@agents, "id", "full_name"), include_blank: true, class: "form-control chosen-select" %>
-            </div>
-          </div>
-
-          <hr/>
-          <h2>Select Applications</h2>
-          <br/>
-          <div class="row">
             <div class="col-md-12">
-              <% @templates.each do |template| %>
-                <%= check_box_tag "template_ids[]", template.id %>
-                <%= label_tag template.title %>
-              <% end %>
-            </div>
-          </div>
-          <hr/>
+              <div class="row">
+                <div class="form-group col-md-5">
+                  <%= radio_button(:new, :agent, :yes, { required: true, checked: true, class: 'invite-rb' }) %>
+                  <%= label_tag :new_agent_yes, 'New Agent' %>
+                  <%= radio_button(:new, :agent, :no, { required: true, class: 'invite-rb' }) %>
+                  <%= label_tag :new_agent_no, 'Existing Agent' %>
+                </div>
+              </div>
 
-          <div class="row">
-            <div class="col-md-3">
-              <%= f.submit "Send Invite", class: "btn btn-success" %>
+              <div class="row show" id="new-agent-fields">
+                <div class="co-md-12">
+                  <h2 class=" header title">New Agent</h2><br/>
+                </div>
+
+                <div class="col-md-2">
+                  <div class="form-group">
+                    <%= f.label :agency_code, class: "control-label" %>
+                    <br />
+                    <%= f.number_field :agency_code, class: "form-control", required: true %>
+                  </div>
+                </div>
+
+                <div class="col-md-2">
+                  <div class="form-group">
+                    <%= f.label :agent_code, class: "control-label" %>
+                    <br />
+                    <%= f.number_field :agent_code, class: "form-control", required: true %>
+                  </div>
+                </div>
+
+                <div class="col-md-3">
+                  <div class="form-group">
+                    <%= f.label :first_name, class: "control-label" %>
+                    <br />
+                    <%= f.text_field :first_name, class: "form-control", required: true %>
+                  </div>
+                </div>
+
+                <div class="col-md-3">
+                  <div class="form-group">
+                    <%= f.label :last_name, class: "control-label" %>
+                    <br />
+                    <%= f.text_field :last_name, class: "form-control", required: true %>
+                  </div>
+                </div>
+
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <%= f.label :email, class: "control-label" %>
+                    <br />
+                    <%= f.email_field :email, class: "form-control", required: true %>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row hidden" id="existing-agent-fields">
+                <div class="form-group col-md-5">
+                  <%= label_tag :agent %>
+                  <%= select_tag "agents", options_from_collection_for_select(@agents, "id", "full_name"), include_blank: true, class: "form-control chosen-select" %>
+                </div>
+              </div>
+
+              <hr/>
+              <h2>Select Applications</h2>
+              <br/>
+              <div class="row">
+                <div class="col-md-12">
+                  <% @templates.each do |template| %>
+                    <%= check_box_tag "template_ids[]", template.id %>
+                    <%= label_tag template.title %>
+                  <% end %>
+                </div>
+              </div>
+              <hr/>
+
+              <div class="row">
+                <div class="col-md-3">
+                  <%= f.submit "Send Invite", class: "btn btn-success" %>
+                </div>
+              </div>
             </div>
           </div>
         </div>

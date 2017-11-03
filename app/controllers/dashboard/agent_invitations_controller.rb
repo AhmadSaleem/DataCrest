@@ -15,7 +15,7 @@ class Dashboard::AgentInvitationsController < ApplicationController
   private
 
     def agent_params
-      params.require(:agent).permit(:first_name, :last_name, :email)
+      params.require(:agent).permit(:first_name, :last_name, :email, :agency_code, :agent_code)
     end
 
     def invite_new_agent
