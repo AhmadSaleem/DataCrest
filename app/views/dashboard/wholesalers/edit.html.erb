@@ -20,7 +20,7 @@
             <div class="col-md-10">
               <div class="form-group">
                 <%= f.label :logo, 'Comapny Logo', class: "control-label" %><br>
-                <%= image_tag(@wholesaler.logo, class: "col-md-2") if @wholesaler.logo? %>
+                <%= image_tag(@wholesaler.logo, class: "col-md-2") %>
                 <%= f.file_field :logo %>
               </div>
             </div>
