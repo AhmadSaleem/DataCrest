@@ -23,6 +23,7 @@ Rails.application.routes.draw do
     end
     resources :jimcor_dwelling_applications, only: [:index, :edit, :update, :show]
     resources :insurance_applications, only: [:index, :edit, :update, :show]
+    resources :agents, only: [:index, :show]
   end
   resources :pages do
     collection do

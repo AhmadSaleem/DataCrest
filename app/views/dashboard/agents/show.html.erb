@@ -1,0 +1,53 @@
+<div class="row">
+  <div class="col-md-12">
+    <h2 class="title"><%= @agent.full_name.titleize %></h2>
+
+    <div class="row">
+      <div class="col-md-2">
+        <p>Full Name:</p>
+      </div>
+      <div class="col-md-8">
+        <p><%= @agent.full_name.titleize %></p>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-2">
+        <p>Email:</p>
+      </div>
+      <div class="col-md-8">
+        <p><%= @agent.email %></p>
+      </div>
+    </div>
+
+
+    <div class="row">
+      <div class="col-md-2">
+        <p>Agent Code:</p>
+      </div>
+      <div class="col-md-8">
+        <p><%= @agent.agent_code %></p>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-2">
+        <p>Agency Name:</p>
+      </div>
+      <div class="col-md-8">
+        <p><%= @agent.agency_title %></p>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-2">
+        <p>Agency Code:</p>
+      </div>
+      <div class="col-md-8">
+        <p><%= @agent.agency_code %></p>
+      </div>
+    </div>
+  </div>
+</div>
+<br/>
+<%= link_to "Go Back", dashboard_agents_path %>
