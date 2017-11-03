@@ -50,7 +50,7 @@ class SendClientInvite
       selected_templates.each do |template_id|
         template = Template.find(template_id)
         client_application = template.class_name.constantize.find_or_create_by(agent: sender, client: invitee)
-        template.applications.find_or_create_by(client_application: client_application)
+        template.insurance_applications.find_or_create_by(client_application: client_application)
       end
     end
 end

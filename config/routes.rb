@@ -22,6 +22,7 @@ Rails.application.routes.draw do
       get "account_setting", on: :collection
     end
     resources :jimcor_dwelling_applications, only: [:index, :edit, :update, :show]
+    resources :insurance_applications, only: [:index, :edit, :update, :show]
   end
   resources :pages do
     collection do

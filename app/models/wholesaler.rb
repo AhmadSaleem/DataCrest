@@ -3,7 +3,7 @@ class Wholesaler < ApplicationRecord
   has_many :agent_wholesalers
   has_many :agents, through: :agent_wholesalers
   has_many :templates
-  has_many :applications, through: :templates
+  has_many :insurance_applications, through: :templates
 
   mount_uploader :logo, LogoUploader
 
