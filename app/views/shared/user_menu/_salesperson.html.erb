@@ -5,14 +5,6 @@
       <%= link_to "Manage Employees", dashboard_salespeople_invitations_path %>
     </li>
 
-    <li class="list-styles <%= active_class(new_dashboard_agent_invitation_path) %>">
-      <%= link_to "Manage Agents", new_dashboard_agent_invitation_path %>
-    </li>
-
-    <li class="list-styles <%= active_class(dashboard_agent_wholesaler_applications_path) %>">
-      <%= link_to "Manage Applications", dashboard_agent_wholesaler_applications_path %>
-    </li>
-
     <li class="list-styles <%= active_class(edit_salesperson_registration_path) %>">
       <%= link_to "Edit Account", edit_salesperson_registration_path %>
     </li>
@@ -23,6 +15,19 @@
       </li>
     <% end %>
 
+  </ul>
+</li>
+
+<li>
+  <%= link_to "Applications" %>
+  <ul id="applications" class="list-group">
+    <li class="list-styles <%= active_class(new_dashboard_agent_invitation_path) %>">
+      <%= link_to "Send App", new_dashboard_agent_invitation_path %>
+    </li>
+
+    <li class="list-styles <%= active_class(dashboard_agent_wholesaler_applications_path) %>">
+      <%= link_to "Manage Applications", dashboard_agent_wholesaler_applications_path %>
+    </li>
   </ul>
 </li>
 
