@@ -72,20 +72,26 @@
               </div>
 
               <div class="row hidden" id="existing-agent-fields">
-                <div class="co-md-12">
-                  <h2 class=" header title">Existing Agent</h2><br/>
-                </div>
-                <div class="form-group col-md-5">
-                  <%= label_tag :agent %>
-                  <%= select_tag "agents", options_from_collection_for_select(@agents, "id", "full_name"), include_blank: true, class: "form-control chosen-select" %>
-                </div>
-
-                <div class="col-md-2 app-checkbox-div">
-                  <div class="form-group checkbox-mt">
-                    <%= check_box_tag 'existing-agent-app-checkbox', {}, false, class: "include-app" %>
-                    <%= label_tag "Include App" %>
+                <% if @agents.present? %>
+                  <div class="co-md-12">
+                    <h2 class=" header title">Existing Agent</h2><br/>
                   </div>
-                </div>
+                  <div class="form-group col-md-5">
+                    <%= label_tag :agent %>
+                    <%= select_tag "agents", options_from_collection_for_select(@agents, "id", "full_name"), include_blank: true, class: "form-control chosen-select" %>
+                  </div>
+
+                  <div class="col-md-2 app-checkbox-div">
+                    <div class="form-group checkbox-mt">
+                      <%= check_box_tag 'existing-agent-app-checkbox', {}, false, class: "include-app" %>
+                      <%= label_tag "Include App" %>
+                    </div>
+                  </div>
+                <% else %>
+                  <div class="col-md-4">
+                    <p>No agents found</p>
+                  </div>
+                <% end %>
               </div>
 
               <hr/>
