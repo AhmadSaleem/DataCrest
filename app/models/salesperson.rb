@@ -43,6 +43,11 @@ class Salesperson < ApplicationRecord
     return "Accepted" unless invitation_accepted_at.blank?
   end
 
+  def role
+    return "Wholesaler" if company_owner?
+    return "Salesperson"
+  end
+
   private
 
   def assign_wholesaler

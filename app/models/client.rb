@@ -12,4 +12,8 @@ class Client < ApplicationRecord
   def full_name
    "#{first_name} #{last_name}"
   end
+
+  def role
+    return "Client"
+  end
 end

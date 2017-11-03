@@ -34,6 +34,11 @@ class Agent < ApplicationRecord
     owned_agency.present?
   end
 
+  def role
+    return "Agency owner" if company_owner?
+    return "Agent"
+  end
+
   private
 
     def assign_agency
