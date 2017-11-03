@@ -1,5 +1,5 @@
 <%= form_for @agent, url: dashboard_agent_invitations_path do |f| %>
-  <div class="row">
+  <div class="row agent-invitations">
     <div class="col-md-10">
       <div class="card">
         <div class="header">
@@ -62,27 +62,46 @@
                     <%= f.email_field :email, class: "form-control", required: true %>
                   </div>
                 </div>
+
+                <div class="col-md-2 app-checkbox-div">
+                  <div class="form-group checkbox-mt">
+                    <%= check_box_tag "new-agent-app-checkbox", {}, false, class: "include-app" %>
+                    <%= label_tag "Include App" %>
+                  </div>
+                </div>
               </div>
 
               <div class="row hidden" id="existing-agent-fields">
+                <div class="co-md-12">
+                  <h2 class=" header title">Existing Agent</h2><br/>
+                </div>
                 <div class="form-group col-md-5">
                   <%= label_tag :agent %>
                   <%= select_tag "agents", options_from_collection_for_select(@agents, "id", "full_name"), include_blank: true, class: "form-control chosen-select" %>
                 </div>
+
+                <div class="col-md-2 app-checkbox-div">
+                  <div class="form-group checkbox-mt">
+                    <%= check_box_tag 'existing-agent-app-checkbox', {}, false, class: "include-app" %>
+                    <%= label_tag "Include App" %>
+                  </div>
+                </div>
               </div>
 
               <hr/>
-              <h2>Select Applications</h2>
-              <br/>
-              <div class="row">
-                <div class="col-md-12">
-                  <% @templates.each do |template| %>
-                    <%= check_box_tag "template_ids[]", template.id %>
-                    <%= label_tag template.title %>
-                  <% end %>
+              <div id="applications-div" class="hidden">
+                <h2>Select Applications</h2>
+                <br/>
+                <div class="row">
+                  <div class="col-md-12">
+                    <% @templates.each do |template| %>
+                      <%= check_box_tag "template_ids[]", template.id %>
+                      <%= label_tag template.title %>
+                    <% end %>
+                  </div>
                 </div>
+                <hr/>
               </div>
-              <hr/>
 
               <div class="row">
                 <div class="col-md-3">
