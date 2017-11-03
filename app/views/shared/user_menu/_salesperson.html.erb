@@ -1,19 +1,20 @@
 <li class="<%= active_class(account_setting_dashboard_pages_path) %>">
     <%= link_to "Account Settings", account_setting_dashboard_pages_path %>
   <ul id="account-settings" class="list-group">
-    <li class="list-styles <%= active_class(dashboard_salespeople_invitations_path) %>">
-      <%= link_to "Manage Employees", dashboard_salespeople_invitations_path %>
-    </li>
-
-    <li class="list-styles <%= active_class(edit_salesperson_registration_path) %>">
-      <%= link_to "Edit Account", edit_salesperson_registration_path %>
-    </li>
 
     <% if current_salesperson.company_owner? %>
+      <li class="list-styles <%= active_class(dashboard_salespeople_invitations_path) %>">
+        <%= link_to "Manage Employees", dashboard_salespeople_invitations_path %>
+      </li>
+
       <li class="list-styles <%= active_class(edit_dashboard_wholesaler_path(current_salesperson.owned_wholesaler)) %>">
         <%= link_to "Edit Company", edit_dashboard_wholesaler_path(current_salesperson.owned_wholesaler) %>
       </li>
     <% end %>
+
+    <li class="list-styles <%= active_class(edit_salesperson_registration_path) %>">
+      <%= link_to "Edit Account", edit_salesperson_registration_path %>
+    </li>
 
   </ul>
 </li>

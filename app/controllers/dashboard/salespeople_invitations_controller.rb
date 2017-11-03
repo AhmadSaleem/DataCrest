@@ -40,6 +40,6 @@ class Dashboard::SalespeopleInvitationsController < ApplicationController
   end
 
   def authorize_salesperson
-    redirect_to root_path, alert: 'You are not authorized' unless current_salesperson.company_owner?
+    redirect_to dashboard_path, alert: 'You are not authorized' unless current_salesperson.company_owner?
   end
 end
