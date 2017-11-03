@@ -1,8 +1,7 @@
-<p> Hi, <%= @agent.email %></p>
+<p> Hi,</p>
 <br/>
-<p><%= @agent.invited_by_full_name %> invited you to join comapny
-  <strong><%= @agent.invited_by_wholesaler_title %>.</strong> on DataCrest
-  you can accept it through link below.
+<p><%= @agent.invited_by_full_name %> has invited you to join comapny
+  <strong><%= @agent.invited_by_wholesaler_title %></strong> on DataCrest.
 </p>
 
 <p><%= link_to "Accept Invite", accept_agent_invitation_url(invitation_token: @token) %></p>
