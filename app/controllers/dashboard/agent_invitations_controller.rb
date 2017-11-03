@@ -22,7 +22,7 @@ class Dashboard::AgentInvitationsController < ApplicationController
       if SendAgentInvite.new(params: agent_params, sender: current_salesperson, selected_templates: params[:template_ids]).new_agent
         redirect_to new_dashboard_agent_invitation_path, notice: "Invitation was sent successfully"
       else
-        redirect_to new_dashboard_agent_invitation_path, alert: "The Agent already registered."
+        redirect_to new_dashboard_agent_invitation_path, alert: "The agent is already registered."
       end
     end
 
