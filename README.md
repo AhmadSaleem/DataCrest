@@ -1,24 +1,10 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+1) Script to apply applications to each wholesaler for testing purposes
+```
+Wholesaler.all.each do |wholesaler|
+  wholesaler.templates.create(class_name: 'JimcorDwellingApplication', title: 'Jimcor Dwelling Insurance Application')
+end
+```
 
-Things you may want to cover:
 
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
