@@ -1,6 +1,6 @@
 <%= form_for @agent, url: dashboard_agent_invitations_path do |f| %>
   <div class="row agent-invitations">
-    <div class="col-md-10">
+    <div class="col-md-12">
       <div class="card">
         <div class="header">
           <h2 class="title">Send An App</h2>
@@ -39,7 +39,7 @@
                   </div>
                 </div>
 
-                <div class="col-md-3">
+                <div class="col-md-2">
                   <div class="form-group">
                     <%= f.label :first_name, class: "control-label" %>
                     <br />
@@ -47,7 +47,7 @@
                   </div>
                 </div>
 
-                <div class="col-md-3">
+                <div class="col-md-2">
                   <div class="form-group">
                     <%= f.label :last_name, class: "control-label" %>
                     <br />
@@ -55,7 +55,7 @@
                   </div>
                 </div>
 
-                <div class="col-md-4">
+                <div class="col-md-2">
                   <div class="form-group">
                     <%= f.label :email, class: "control-label" %>
                     <br />
