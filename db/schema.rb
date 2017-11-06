@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171103082645) do
+ActiveRecord::Schema.define(version: 20171106055329) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -76,7 +76,6 @@ ActiveRecord::Schema.define(version: 20171103082645) do
     t.bigint "invited_by_id"
     t.integer "invitations_count", default: 0
     t.integer "applications_count", default: 0
-    t.integer "agency_code", null: false
     t.integer "agent_code", null: false
     t.index ["agency_id"], name: "index_agents_on_agency_id"
     t.index ["email"], name: "index_agents_on_email", unique: true
