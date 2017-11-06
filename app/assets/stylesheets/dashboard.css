@@ -7,3 +7,7 @@
 .navbar-user-dropdown .user-info {
   margin-top: 12%;
 }
+
+.alert-warning a {
+  color: black;
+}

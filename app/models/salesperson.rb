@@ -18,7 +18,8 @@ class Salesperson < ApplicationRecord
   before_validation :assign_wholesaler, on: :create
   before_create     :assign_person_wholesaler
 
-  delegate :title, :templates, :agents, :insurance_applications, to: :wholesaler, prefix: true
+  delegate :title, :templates, :agents, :insurance_applications, :address_1, :logo, :city, :state, :zip_code,
+            to: :wholesaler, prefix: true
   delegate :salespeople, to: :owned_wholesaler, allow_nil: true, prefix: true
 
   def company_owner?
@@ -46,6 +47,10 @@ class Salesperson < ApplicationRecord
   def role
     return "Wholesaler" if company_owner?
     return "Salesperson"
+  end
+
+  def incomplete_comapny_info?
+    wholesaler_logo.blank? || wholesaler_address_1.blank? || wholesaler_city.blank? || wholesaler_state.blank? || wholesaler_zip_code.blank?
   end
 
   private

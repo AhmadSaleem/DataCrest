@@ -21,7 +21,7 @@ class Agent < ApplicationRecord
   before_validation :assign_agency, on: :create
 
   delegate :full_name, :wholesaler_title, to: :invited_by, prefix: true, allow_nil: true
-  delegate :title, to: :agency, prefix: true
+  delegate :title, :logo, :address_1, :city, :zip_code, :state, to: :agency, prefix: true
 
   validates :first_name, :last_name, presence: true
   validates :agency, presence: true, unless: :company_owner?
@@ -37,6 +37,10 @@ class Agent < ApplicationRecord
   def role
     return "Agency owner" if company_owner?
     return "Agent"
+  end
+
+  def incomplete_comapny_info?
+    agency_logo.blank? || agency_address_1.blank? || agency_city.blank? || agency_state.blank? || agency_zip_code.blank?
   end
 
   private
