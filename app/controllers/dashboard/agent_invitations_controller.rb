@@ -5,6 +5,7 @@ class Dashboard::AgentInvitationsController < ApplicationController
   def new
     @agents = Agent.invitation_accepted
     @agent = Agent.new
+    @agent.build_owned_agency
     @templates = current_salesperson.wholesaler_templates
   end
 
@@ -15,7 +16,7 @@ class Dashboard::AgentInvitationsController < ApplicationController
   private
 
     def agent_params
-      params.require(:agent).permit(:first_name, :last_name, :email, :agency_code, :agent_code)
+      params.require(:agent).permit(:first_name, :last_name, :email, :agent_code, owned_agency_attributes: [:agency_code])
     end
 
     def invite_new_agent

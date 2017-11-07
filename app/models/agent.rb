@@ -22,6 +22,7 @@ class Agent < ApplicationRecord
 
   delegate :full_name, :wholesaler_title, to: :invited_by, prefix: true, allow_nil: true
   delegate :title, :logo, :address_1, :city, :zip_code, :state, to: :agency, prefix: true
+  delegate :agency_code, to: :agency
 
   validates :first_name, :last_name, presence: true
   validates :agency, presence: true, unless: :company_owner?

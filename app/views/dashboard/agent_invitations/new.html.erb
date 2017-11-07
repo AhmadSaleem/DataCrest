@@ -25,9 +25,11 @@
 
                 <div class="col-md-2">
                   <div class="form-group">
-                    <%= f.label :agency_code, class: "control-label" %>
-                    <br />
-                    <%= f.number_field :agency_code, class: "form-control", required: true %>
+                    <%= f.fields_for :owned_agency do |agency| %>
+                      <%= agency.label :agency_code, class: "control-label" %>
+                      <br />
+                      <%= agency.number_field :agency_code, class: "form-control", required: true %>
+                    <% end %>
                   </div>
                 </div>
 
