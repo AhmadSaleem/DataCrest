@@ -4,7 +4,7 @@
   <strong><%= @agent.invited_by_wholesaler_title %></strong> on DataCrest.
 </p>
 
-<p><%= link_to "Accept Invite", accept_agent_invitation_url(invitation_token: @token) %></p>
+<p><%= link_to "Accept Invite", accept_agent_invitation_url(invitation_token: @token), class: "btn" %></p>
 <br/>
 <p>
   If you don't want to accept the invitation, please ignore this email.<br/>

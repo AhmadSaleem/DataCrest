@@ -1,13 +1,79 @@
-<!DOCTYPE html>
-<html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
   <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <style>
-      /* Email styles need to be inline */
-    </style>
+    <meta name="viewport" content="width=device-width" />
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>DataCrest</title>
+    <%= stylesheet_link_tag 'https://fonts.googleapis.com/css?family=Nunito|Play' %>
+    <%= stylesheet_link_tag 'email' %>
   </head>
-
-  <body>
-    <%= yield %>
+  <body class="email">
+  <!-- HEADER -->
+    <table class="head-wrap">
+      <tr>
+        <td class="header container">
+          <div class="content">
+            <table>
+              <tr>
+                <td class="logo">
+                  <%= link_to "Home", root_url %>
+                </td>
+                <td align="right">
+                  <div class="social-icons">
+                    <%= link_to 'http://www.facebook.com/', target: '_blank' do %>
+                      <%= image_tag 'facebook.png', class: 'social-icon' %>
+                    <% end %>
+                    <%= link_to 'http://www.instagram.com/', target: '_blank' do %>
+                      <%= image_tag 'instagram.png', class: 'social-icon' %>
+                    <% end %>
+                    <%= link_to 'http://www.twitter.com/', target: '_blank' do %>
+                      <%= image_tag 'twitter.png', class: 'social-icon' %>
+                    <% end %>
+                  </div>
+                </td>
+              </tr>
+            </table>
+          </div>
+        </td>
+      </tr>
+    </table>
+    <!-- /HEADER -->
+    <!-- BODY -->
+    <table class="body-wrap">
+      <tr>
+        <td class="container">
+          <div class="content">
+            <table>
+              <tr>
+                <td>
+                  <h2><%= message.subject %></h2>
+                  <%= yield %>
+                </td>
+              </tr>
+            </table>
+          </div>
+        </td>
+      </tr>
+    </table>
+    <!-- /BODY -->
+    <!-- FOOTER -->
+    <table class="footer-wrap">
+      <tr>
+        <td class="container">
+          <div class="content">
+            <table>
+              <tr>
+                <td align="center">
+                  <p>
+                    <%= link_to 'Home', root_url, class: 'nav-item' %>
+                  </p>
+                </td>
+              </tr>
+            </table>
+          </div>
+        </td>
+      </tr>
+    </table>
+  <!-- /FOOTER -->
   </body>
 </html>
