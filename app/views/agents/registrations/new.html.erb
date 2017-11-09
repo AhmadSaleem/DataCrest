@@ -7,7 +7,7 @@
           <h2 class="title">Sign up as Agency</h2>
         </div>
         <div class="content">
-          <%= render "salespeople/registrations/common_form_fields", f: f %>
+          <%= render "shared/user_forms/common_form_fields", f: f %>
           <div class="row">
             <div class="col-sm-12">
               <%= f.fields_for :owned_agency, resource.owned_agency || resource.build_owned_agency  do |agency| %>
