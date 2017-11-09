@@ -1,7 +1,6 @@
 <p> Hi,</p>
 <br/>
-<p><%= @agent.invited_by_full_name %> invited you to join comapny
-  <strong><%= @agent.invited_by_wholesaler_title %>.</strong> on DataCrest.
-  Login to your account to accept/reject the invitation.
+<p><%= @agent.invited_by_full_name %> assigned you new applications.
+  Login to your account to view applications.
 </p>
 <p><%= link_to "Login", agent_session_url(accept_invite: true), class: "btn" %></p>

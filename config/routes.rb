@@ -20,6 +20,7 @@ Rails.application.routes.draw do
       get 'agent_templates', on: :member
     end
     resources :pages, only: [:index] do
+      get "view_app", on: :member
       get "account_setting",  on: :collection
     end
     resources :jimcor_dwelling_applications, only: [:index, :edit, :update, :show]
