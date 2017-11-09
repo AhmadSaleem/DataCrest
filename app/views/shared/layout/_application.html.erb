@@ -4,6 +4,8 @@
 
     <% if new_registration? %>
       <%= render 'layouts/sign_up' %>
+    <% elsif new_session? %>
+      <%= render 'layouts/sign_in' %>
     <% end %>
 
     <%= yield %>

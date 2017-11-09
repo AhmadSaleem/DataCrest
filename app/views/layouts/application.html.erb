@@ -9,7 +9,7 @@
   </head>
 
   <body>
-    <%= render "shared/layout/navbar" %>
+    <%= render "layouts/navbar" %>
     <div class="wrapper <%= yield :wrapper_class %>">
       <% if dashboard? %>
         <%= render "shared/layout/dashboard" %>
