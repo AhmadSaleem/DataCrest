@@ -1,0 +1,26 @@
+<%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+  <%= devise_error_messages! %>
+  <div class="row session-container">
+    <h2>Sign up as Client</h2>
+    <div class="col-md-7">
+      <div class="card">
+        <div class="content">
+          <%= render "salespeople/registrations/common_form_fields", f: f %>
+
+          <div class="row">
+            <div class="col-md-12">
+              <div class="alert alert-info">
+                <strong>Note: </strong> If you want to apply through an agency, please ask the owner/agent to invite you.
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <%= f.submit "Sign up", class: "btn btn-success btn-fill" %>
+          </div>
+          <%= render "devise/shared/links" %>
+        </div>
+      </div>
+    </div>
+  </div>
+<% end %>
