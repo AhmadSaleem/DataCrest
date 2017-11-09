@@ -8,7 +8,7 @@ class Template < ApplicationRecord
 
   scope :order_latest, -> { order("created_at DESC") }
 
-  def model_name
+  def application_model
     class_name.constantize
   end
 end
