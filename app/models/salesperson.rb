@@ -12,7 +12,7 @@ class Salesperson < ApplicationRecord
 
   accepts_nested_attributes_for :owned_wholesaler
 
-  validates :first_name, :last_name, presence: true
+  validates :first_name, :last_name, :email, presence: true
   validates :wholesaler, presence: true, unless: :company_owner?
 
   before_validation :assign_wholesaler, on: :create

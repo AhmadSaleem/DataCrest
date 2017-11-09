@@ -1,17 +1,22 @@
 <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
   <%= devise_error_messages! %>
+  <div class="row">
+    <div class="col-md-6 text-center">
+      <h1>Sign up as Wholesaler</h1>
+    </div>
+  </div>
+
   <div class="row session-container">
     <div class="col-md-8">
       <div class="card">
-        <div class="header">
-          <h2 class="title">Sign up as Wholesaler</h2>
-        </div>
         <div class="content">
-          <%= render "common_form_fields", f: f %>
+          <h2 class="header title">Company Information</h2>
+          <br/>
+
           <div class="row">
             <div class="col-sm-12">
               <%= f.fields_for :owned_wholesaler, resource.owned_wholesaler || resource.build_owned_wholesaler  do |wholesaler| %>
-                <%= render 'owned_wholesaler_fields', f: wholesaler %>
+                <%= render "shared/user_forms/common_company_fields", f: wholesaler %>
               <% end %>
             </div>
           </div>
@@ -23,6 +28,11 @@
               </div>
             </div>
           </div>
+
+          <h2 class="header title">Account Owner</h2>
+          <br/>
+
+          <%= render "common_form_fields", f: f %>
 
           <div class="form-group">
             <%= f.submit "Sign up", class: "btn btn-success btn-fill" %>
