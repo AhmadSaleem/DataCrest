@@ -33,9 +33,9 @@
           <p>Dashboard</p>
         <% end %>
       </li>
-      <%= render "shared/dashboard/sidenav/salesperson" if salesperson_signed_in? %>
-      <%= render "shared/dashboard/sidenav/agent" if agent_signed_in? %>
-      <%= render "shared/dashboard/sidenav/client" if client_signed_in? %>
+      <%= render "layouts/dashboard/sidenav/salesperson" if salesperson_signed_in? %>
+      <%= render "layouts/dashboard/sidenav/agent" if agent_signed_in? %>
+      <%= render "layouts/dashboard/sidenav/client" if client_signed_in? %>
     </ul>
   </div>
 </div>

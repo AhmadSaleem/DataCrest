@@ -12,9 +12,9 @@
     <%= render "layouts/navbar" %>
     <div class="wrapper <%= yield :wrapper_class %>">
       <% if dashboard? %>
-        <%= render "shared/layout/dashboard" %>
+        <%= render "layouts/dashboard" %>
       <% else %>
-        <%= render "shared/layout/application" %>
+        <%= render "layouts/page" %>
       <% end %>
     </div>
   </body>
