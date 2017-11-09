@@ -20,10 +20,16 @@
             <div class="content">
               <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
                 <%= devise_error_messages! %>
-                <%= render "common_form_fields", f: f %>
+                <%= render "salespeople/registrations/common_form_fields", f: f %>
 
-                <%= f.fields_for :owned_wholesaler, resource.owned_wholesaler || resource.build_owned_wholesaler  do |wholesaler| %>
-                  <%= render 'owned_wholesaler_fields', f: wholesaler %>
+                <% if resource.model_name == 'Salesperson' %>
+                  <%= f.fields_for :owned_wholesaler, resource.owned_wholesaler || resource.build_owned_wholesaler  do |wholesaler| %>
+                    <%= render 'owned_wholesaler_fields', f: wholesaler %>
+                  <% end %>
+                <% elsif resource.model_name == 'Agent' %>
+                  <%= f.fields_for :owned_agency, resource.owned_agency || resource.build_owned_agency  do |agency| %>
+                    <%= render 'owned_agency_fields', f: agency %>
+                  <% end %>
                 <% end %>
 
                 <div class="form-group">
@@ -37,7 +43,7 @@
 
   <footer class="footer footer-transparent">
     <div class="container">
-      <p class="copyright text-center">
+      <p class="copyright text-center" style="color: white;">
         &copy; <script>document.write(new Date().getFullYear())</script> <a href="http://www.mydatacrest.com">DataCrest, Inc.</a>, all rights reserved
       </p>
     </div>
