@@ -15,7 +15,7 @@
                 <% @agent_templates.each do |template| %>
                   <th><%= template.title %></th>
                   <th>
-                    <%= link_to "View Application", view_app_dashboard_page_path(template), class: "btn btn-default btn-fill"%>
+                    <%= link_to "View Application", dashboard_template_path(template), class: "btn btn-default btn-fill"%>
                   </th>
                 <% end %>
               </tbody>

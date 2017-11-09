@@ -7,11 +7,4 @@ class Dashboard::PagesController < ApplicationController
     @company = current_salesperson.owned_wholesaler
     @employees = current_salesperson.owned_wholesaler_salespeople
   end
-
-  def view_app
-    template = Template.find(params[:id])
-    @jimcor_dwelling_application = template.model_name.new if template.present?
-    application_directory = template.class_name.tableize
-    render "dashboard/#{application_directory}/show"
-  end
 end
