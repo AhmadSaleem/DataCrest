@@ -1,0 +1,10 @@
+<%= render 'shared/dashboard/sidenav' %>
+<div class="main-panel">
+  <div class="content">
+    <%= render 'shared/layout/alerts' %>
+    <%= render 'shared/dashboard/preliminary_notifications' %>
+    <div class="container-fluid">
+      <%= yield %>
+    </div>
+  </div>
+</div>

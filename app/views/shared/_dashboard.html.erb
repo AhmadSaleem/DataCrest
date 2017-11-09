@@ -1,9 +1,0 @@
-<div class="sidebar" data-color="#1f77d0">
-  <div class="sidebar-wrapper">
-    <ul class="nav">
-      <%= render "shared/user_menu/salesperson" if salesperson_signed_in? %>
-      <%= render "shared/user_menu/agent" if agent_signed_in? %>
-      <%= render "shared/user_menu/client" if client_signed_in? %>
-    </ul>
-  </div>
-</div>

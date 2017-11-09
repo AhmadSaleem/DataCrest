@@ -9,12 +9,12 @@
   </head>
 
   <body>
-    <%= render "shared/navbar" %>
-    <div class="wrapper">
-      <% if signed_in? %>
-        <%= render "shared/main_panel" %>
+    <%= render "shared/layout/navbar" %>
+    <div class="wrapper <%= yield :wrapper_class %>">
+      <% if dashboard? %>
+        <%= render "shared/layout/dashboard" %>
       <% else %>
-        <%= render "shared/content_panel" %>
+        <%= render "shared/layout/application" %>
       <% end %>
     </div>
   </body>
