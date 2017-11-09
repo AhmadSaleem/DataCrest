@@ -1,6 +1,11 @@
 <div class="content">
   <%= render 'shared/layout/alerts' %>
   <div class="container-fluid">
+
+    <% if new_registration? %>
+      <%= render 'layouts/sign_up' %>
+    <% end %>
+
     <%= yield %>
   </div>
 </div>

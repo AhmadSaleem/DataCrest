@@ -6,4 +6,8 @@ module ApplicationHelper
   def dashboard?
     controller_path.split('/').first == 'dashboard'
   end
+
+  def new_registration?
+    (controller_name.in?(['registrations']) && action_name.in?(['new']))
+  end
 end
