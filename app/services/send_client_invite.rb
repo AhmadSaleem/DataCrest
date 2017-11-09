@@ -51,7 +51,7 @@ class SendClientInvite
       return if selected_templates.blank?
       selected_templates.each do |template_id|
         template = Template.find(template_id)
-        client_application = template.class_name.constantize.find_or_create_by(agent: sender, client: invitee)
+        client_application = template.model_name.find_or_create_by(agent: sender, client: invitee)
         application = template.insurance_applications.find_or_create_by(client_application: client_application)
         @assigned_application = application.id
       end

@@ -7,4 +7,8 @@ class Template < ApplicationRecord
   belongs_to :wholesaler
 
   scope :order_latest, -> { order("created_at DESC") }
+
+  def model_name
+    class_name.constantize
+  end
 end

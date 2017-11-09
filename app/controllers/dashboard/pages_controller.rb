@@ -10,7 +10,7 @@ class Dashboard::PagesController < ApplicationController
 
   def view_app
     template = Template.find(params[:id])
-    @jimcor_dwelling_application = template.class_name.constantize.new if template.present?
+    @jimcor_dwelling_application = template.model_name.new if template.present?
     application_directory = template.class_name.tableize
     render "dashboard/#{application_directory}/show"
   end
