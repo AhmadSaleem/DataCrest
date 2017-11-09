@@ -1,0 +1,15 @@
+<% if current_salesperson.present? && current_salesperson.company_owner? %>
+  <% if current_salesperson.incomplete_comapny_info? %>
+    <div class= "alert alert-warning " >
+      <p>Please complete your company information by <%= link_to "clicking here", edit_dashboard_wholesaler_path(current_salesperson.owned_wholesaler) %></p>
+    </div>
+  <% end %>
+<% else %>
+  <% if current_agent.present? && current_agent.company_owner? %>
+    <% if current_agent.incomplete_comapny_info? %>
+      <div class="alert alert-warning">
+        <p>Please complete your company information by <%= link_to "clicking here", edit_dashboard_agency_path(current_agent.owned_agency) %></p>
+      </div>
+    <% end %>
+  <% end %>
+<% end %>
