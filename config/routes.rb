@@ -19,8 +19,8 @@ Rails.application.routes.draw do
     resources :agent_wholesaler_applications, only: [:index, :destroy] do
       get 'agent_templates', on: :member
     end
-    resource :pages do
-      get "account_setting", on: :collection
+    resources :pages, only: [:index] do
+      get "account_setting",  on: :collection
     end
     resources :jimcor_dwelling_applications, only: [:index, :edit, :update, :show]
     resources :insurance_applications, only: [:index, :edit, :update, :show]
