@@ -14,4 +14,8 @@ module ApplicationHelper
   def new_session?
     (controller_name.in?(['sessions']) && action_name.in?(['new']))
   end
+
+  def page?
+    (controller_name.in?(['pages']))
+  end
 end

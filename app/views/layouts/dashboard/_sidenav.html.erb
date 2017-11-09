@@ -19,7 +19,12 @@
           <ul class="nav">
             <li class="<%= active_class(edit_salesperson_registration_path) %>">
               <%= link_to edit_salesperson_registration_path do %>
-                  <span class="sidebar-normal">Edit Profile</span>
+                <span class="sidebar-normal">Edit Profile</span>
+              <% end %>
+            </li>
+            <li>
+              <%= link_to destroy_salesperson_session_path, method: :delete do %>
+                <span class="sidebar-normal">Logout</span>
               <% end %>
             </li>
           </ul>
