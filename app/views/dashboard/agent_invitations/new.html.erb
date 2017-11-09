@@ -28,7 +28,7 @@
                     <%= f.fields_for :owned_agency do |agency| %>
                       <%= agency.label :agency_code, class: "control-label" %>
                       <br />
-                      <%= agency.text_field :agency_code, class: "form-control", required: true %>
+                      <%= agency.text_field :agency_code, class: "form-control", required: true, id: "agency_code" %>
                     <% end %>
                   </div>
                 </div>
