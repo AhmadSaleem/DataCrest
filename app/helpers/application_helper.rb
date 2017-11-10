@@ -20,6 +20,6 @@ module ApplicationHelper
   end
 
   def page?
-    (controller_name.in?(['pages']))
+    not dashboard?
   end
 end
