@@ -107,10 +107,11 @@ $(document).ready(function(){
     if($(".selectpicker").length != 0){
         $(".selectpicker").selectpicker();
     }
-
+    /*
     if($sidebar.length == 0 && $(window).width() <= 991 ){
         $('body').find('.navbar-collapse').addClass('bootstrap-navbar');
     }
+    */
 
 });
 
@@ -174,6 +175,7 @@ lbd = {
 
     },
 
+    /*
     initBootstrapNavbar: function(){
         if($sidebar.length == 0){
             if($(window).width() >= 991){
@@ -183,6 +185,7 @@ lbd = {
             }
         }
     },
+    */
 
     checkSidebarImage: function(){
         $sidebar = $('.sidebar');
