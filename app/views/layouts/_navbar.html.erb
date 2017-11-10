@@ -14,29 +14,33 @@
       </div>
       <div class="collapse navbar-collapse">
         <ul class="nav navbar-nav navbar-right">
-          <% if new_registration? %>
-            <li><%= link_to 'Looking to login?', new_salesperson_session_path %></li>
-          <% elsif new_session? %>
-            <li class="dropdown">
-              <%= link_to "", class: "dropdown-toggle", data: { toggle: "dropdown" } do %>
-                  Looking to Register? <b class="caret"></b>
-              <% end %>
-              <ul class="dropdown-menu">
-                <li><%= link_to "Wholesaler", new_salesperson_registration_path %></li>
-                <li><%= link_to "Agency", new_agent_registration_path %></li>
-              </ul>
-            </li>
-          <% elsif page? %>
-            <li><%= link_to 'Login', new_salesperson_session_path %></li>
-            <li class="dropdown">
-              <%= link_to "", class: "dropdown-toggle", data: { toggle: "dropdown" } do %>
-                  Looking to Register? <b class="caret"></b>
-              <% end %>
-              <ul class="dropdown-menu">
-                <li><%= link_to "Wholesaler", new_salesperson_registration_path %></li>
-                <li><%= link_to "Agency", new_agent_registration_path %></li>
-              </ul>
-            </li>
+          <% if signed_in? %>
+            <li><%= link_to 'Dashboard', dashboard_path %></li>
+          <% else %>
+            <% if new_registration? %>
+              <li><%= link_to 'Looking to login?', new_agent_session_path %></li>
+            <% elsif new_session? %>
+              <li class="dropdown">
+                <%= link_to "", class: "dropdown-toggle", data: { toggle: "dropdown" } do %>
+                    Looking to Register? <b class="caret"></b>
+                <% end %>
+                <ul class="dropdown-menu">
+                  <li><%= link_to "Wholesaler", new_salesperson_registration_path %></li>
+                  <li><%= link_to "Agency", new_agent_registration_path %></li>
+                </ul>
+              </li>
+            <% elsif page? %>
+              <li><%= link_to 'Login', new_agent_session_path %></li>
+              <li class="dropdown">
+                <%= link_to "", class: "dropdown-toggle", data: { toggle: "dropdown" } do %>
+                    Looking to Register? <b class="caret"></b>
+                <% end %>
+                <ul class="dropdown-menu">
+                  <li><%= link_to "Wholesaler", new_salesperson_registration_path %></li>
+                  <li><%= link_to "Agency", new_agent_registration_path %></li>
+                </ul>
+              </li>
+            <% end %>
           <% end %>
         </ul>
       </div>

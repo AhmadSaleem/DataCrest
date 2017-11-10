@@ -98,10 +98,10 @@
               </a>
             </li>
             <li>
-              <a href="#" class="text-danger">
+              <%= link_to render_logout_path, class: "text-danger", method: :delete do %>
                 <i class="pe-7s-close-circle"></i>
                 Log out
-              </a>
+              <% end %>
             </li>
           </ul>
         </li>

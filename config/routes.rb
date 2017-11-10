@@ -1,9 +1,10 @@
 Rails.application.routes.draw do
-  devise_for :clients,     controllers: { registrations: "clients/registrations",
-                                          invitations: "clients/invitations" }
-  devise_for :agents,      controllers: { invitations: "agents/invitations",
+  devise_for :agents,      path: '', path_names: { sign_in: 'sign-in' },
+                           controllers: { sessions: "agents/sessions",
                                           registrations: "agents/registrations",
-                                          sessions: "agents/sessions" }
+                                          invitations: "agents/invitations" }
+  devise_for :clients,     controllers: { invitations: "clients/invitations",
+                                          registrations: "clients/registrations" }
   devise_for :salespeople, controllers: { registrations: "salespeople/registrations",
                                           invitations: "salespeople/invitations" }
   get "dashboard", to: "dashboard/pages#index"
