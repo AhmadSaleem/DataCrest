@@ -5,8 +5,8 @@
     <td><%= template.wholesaler_location %></td>
     <td class="text-right">
       <% if !current_user || current_user.role == 'Client' %>
-        <%= link_to dashboard_jimcor_dwelling_applications_path(id: template.id), method: :post do %>
-          <i class="fa fa-edit"></i>
+        <%= link_to dashboard_jimcor_dwelling_applications_path(id: template.id), method: :post, class: 'btn btn-sm btn-primary' do %>
+          view
         <% end %>
       <% elsif current_user %>
         <%= link_to dashboard_template_path(template) do %>
