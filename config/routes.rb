@@ -14,14 +14,16 @@ Rails.application.routes.draw do
       get 'resend_invitation', on: :member
     end
     resources :agent_invitations, only: [:new, :create]
-    resources :wholesalers, only: [:edit, :update]
+    resources :wholesalers, only: [:edit, :update, :index, :show]
     resources :agencies, only: [:edit, :update]
     resources :client_invitations, only: [:new, :create]
     resources :agent_wholesaler_applications, only: [:index, :destroy] do
       get 'agent_templates', on: :member
     end
     resources :pages, only: [:index]
-    resources :jimcor_dwelling_applications, only: [:index, :edit, :update, :show]
+    resources :jimcor_dwelling_applications, only: [:index, :edit, :update, :show] do
+      get 'create_application', on: :member
+    end
     resources :insurance_applications, only: [:index, :edit, :update, :show]
     resources :agents, only: [:index, :show]
     resources :templates, only: [:show]

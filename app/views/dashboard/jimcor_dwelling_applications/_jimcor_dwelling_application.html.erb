@@ -1,5 +1,9 @@
 <tr>
-  <td><%= jimcor_dwelling_application.agent_full_name %></td>
+  <% if jimcor_dwelling_application.agent_full_name.present? %>
+    <td><%= jimcor_dwelling_application.agent_full_name %></td>
+  <% else %>
+    <td>Public</td>
+  <% end %>
   <td><%= jimcor_dwelling_application.status %></td>
   <td><%= render partial: "actions", locals: { application: jimcor_dwelling_application } %></td>
 </tr>

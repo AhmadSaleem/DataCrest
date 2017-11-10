@@ -1,0 +1,26 @@
+<h1>Applications</h1>
+<% if @wholesaler_templates.present? %>
+  <div class="row">
+    <div class="col-md-8">
+      <div class="card">
+        <div class="content table-responsive table-full-width">
+          <table class="table table-hover table-stripped">
+            <thead>
+              <th>Application Title</th>
+              <th>Action</th>
+            </thead>
+            <tbody>
+              <% @wholesaler_templates.each do |wholesaler_template| %>
+                <th><%= wholesaler_template.title %></th>
+                <th><%= link_to "Submit", { controller: wholesaler_template.class_name.tableize, action: :create_application, id: wholesaler_template.id } %></th>
+              <% end %>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+<% else %>
+  <p>No Appllications found</p>
+<% end %>
+
