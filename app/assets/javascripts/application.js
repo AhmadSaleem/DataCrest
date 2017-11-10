@@ -15,6 +15,7 @@
 //= require jquery3
 //= require jquery_ujs
 //= require jquery.validate.min
+//= require moment.min
 //= require chartist.min
 //= require light-bootstrap-dashboard
 //= require bootstrap-checkbox-radio-switch
@@ -29,7 +30,6 @@
 //= require fullcalendar.min
 //= require jquery-jvectormap
 //= require jquery.bootstrap.wizard.min
-//= require moment.min
 //= require nouislider.min
 //= require perfect-scrollbar.jquery.min
 //= require jquery.datatables
