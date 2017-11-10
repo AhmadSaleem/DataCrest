@@ -1,4 +1,6 @@
 class Wholesaler < ApplicationRecord
+  paginates_per 10
+
   has_many :salespeople, dependent: :destroy
   has_many :agent_wholesalers
   has_many :agents, through: :agent_wholesalers

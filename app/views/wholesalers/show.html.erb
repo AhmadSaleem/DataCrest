@@ -12,15 +12,19 @@
             <tbody>
               <% @wholesaler_templates.each do |wholesaler_template| %>
                 <th><%= wholesaler_template.title %></th>
-                <th><%= link_to "Submit", { controller: wholesaler_template.class_name.tableize, action: :create, id:wholesaler_template.id }, method: :post %></th>
+                <th><%= link_to "Submit", { controller: "dashboard/#{wholesaler_template.class_name.tableize}", action: :create, id:wholesaler_template.id }, method: :post %></th>
               <% end %>
             </tbody>
           </table>
         </div>
+      </div>
+
+      <div class="pull-right">
+        <%= paginate @wholesaler_templates %>
+        <%= page_entries_info @wholesaler_templates, entry_name: "applications" %>
       </div>
     </div>
   </div>
 <% else %>
   <p>No Appllications found</p>
 <% end %>
-

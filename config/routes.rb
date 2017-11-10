@@ -16,7 +16,7 @@ Rails.application.routes.draw do
     resources :agent_invitations, only: [:new, :create] do
       get 'search_agents', on: :collection
     end
-    resources :wholesalers, only: [:edit, :update, :index, :show]
+    resources :wholesalers, only: [:edit, :update]
     resources :agencies, only: [:edit, :update]
     resources :client_invitations, only: [:new, :create]
     resources :agent_wholesaler_applications, only: [:index, :destroy] do
@@ -35,6 +35,7 @@ Rails.application.routes.draw do
       get "disclaimer"
     end
   end
+  resources :wholesalers, only: [:index, :show]
 
   root to: "pages#index"
 end

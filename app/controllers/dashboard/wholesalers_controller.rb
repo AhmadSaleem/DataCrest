@@ -1,11 +1,7 @@
 class Dashboard::WholesalersController < ApplicationController
-  before_action :authenticate_salesperson!, only: [:edit, :update]
-  before_action :authorize_salesperson, only: [:edit, :update]
-  before_action :set_wholesaler, only: [:edit, :update]
-
-  def index
-    @wholesalers = Wholesaler.all
-  end
+  before_action :authenticate_salesperson!
+  before_action :authorize_salesperson
+  before_action :set_wholesaler
 
   def edit
   end
@@ -16,11 +12,6 @@ class Dashboard::WholesalersController < ApplicationController
     else
       render :edit
     end
-  end
-
-  def show
-    @wholesaler = Wholesaler.find(params[:id])
-    @wholesaler_templates = @wholesaler.templates if @wholesaler.present?
   end
 
   private

@@ -13,12 +13,17 @@
               <% @wholesalers.each do |wholesaler| %>
                 <tr>
                   <th><%= wholesaler.owner_full_name %></th>
-                  <th><%= link_to "View Applications", dashboard_wholesaler_path(wholesaler) %></th>
+                  <th><%= link_to "View Applications", wholesaler %></th>
                 </tr>
               <% end %>
             </tbody>
           </table>
         </div>
+      </div>
+
+      <div class="pull-right">
+        <%= paginate @wholesalers %>
+        <%= page_entries_info @wholesalers, entry_name: "wholesalers" %>
       </div>
     </div>
   </div>
