@@ -12,6 +12,8 @@ class Salesperson < ApplicationRecord
 
   accepts_nested_attributes_for :owned_wholesaler
 
+  mount_uploader :profile_picture, ProfilePictureUploader
+
   validates :first_name, :last_name, :email, presence: true
   validates :wholesaler, presence: true, unless: :company_owner?
 
