@@ -1,8 +1,14 @@
+<%= content_for :hero do %>
+    <div class="blurred-container">
+      <div class="img-src" style="background-image: url('<%= image_path 'hero_1.jpg' %>')"></div>
+    </div>
+<% end  %>
+
 <div class="row" style="margin-top: 50px;">
   <div class="col-md-10 col-md-offset-1">
     <div class="card">
       <div class="header">
-        <h4 class="title">Applications Hosted on Datacrest</h4>
+        <h4 class="title">Applications Hosted on <%= render_brand_name %></h4>
         <p class="category">Public Directory</p>
       </div>
       <div class="content">
@@ -19,16 +25,6 @@
               <th class="disabled-sorting text-right">Actions</th>
             </tr>
             </thead>
-
-            <tfoot>
-              <tr>
-                <th>Title</th>
-                <th>Wholesaler</th>
-                <th>Location</th>
-                <th class="text-right">Actions</th>
-              </tr>
-            </tfoot>
-
             <tbody>
               <%= render 'table_data' %>
             </tbody>
