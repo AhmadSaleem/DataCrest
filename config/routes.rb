@@ -13,7 +13,9 @@ Rails.application.routes.draw do
     resources :salespeople_invitations, only: [:index, :create, :destroy] do
       get 'resend_invitation', on: :member
     end
-    resources :agent_invitations, only: [:new, :create]
+    resources :agent_invitations, only: [:new, :create] do
+      get 'search_agents', on: :collection
+    end
     resources :wholesalers, only: [:edit, :update, :index, :show]
     resources :agencies, only: [:edit, :update]
     resources :client_invitations, only: [:new, :create]

@@ -74,7 +74,7 @@
               </div>
 
               <div class="row hidden" id="existing-agent-fields">
-                <% if @agents.present? %>
+                <% if Agent.exists? %>
                   <div class="co-md-12">
                     <h2 class=" header title">Existing Agent</h2><br/>
                   </div>
@@ -125,5 +125,6 @@
 <% end %>
 
 <% content_for :js_init do %>
+  Agents.agent_fields_init();
   Agents.applications();
 <% end %>

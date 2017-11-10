@@ -53,6 +53,12 @@ class Salesperson < ApplicationRecord
     wholesaler_logo.blank? || wholesaler_address_1.blank? || wholesaler_city.blank? || wholesaler_state.blank? || wholesaler_zip_code.blank?
   end
 
+  def search_agents(search_term)
+    agents = Agent.joins(:agency).where("agency_code LIKE ? or agent_code LIKE ? or first_name LIKE ? or last_name LIKE ? or email LIKE ?",
+                                      "%#{search_term}%", "%#{search_term}%", "%#{search_term}%", "%#{search_term}%", "%#{search_term}%")
+    agents.collect{ |agent| { text: agent.full_name, id: agent.id } if agent.invitation_accepted_at? || agent.company_owner? }
+  end
+
   private
 
   def assign_wholesaler

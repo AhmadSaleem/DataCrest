@@ -13,7 +13,17 @@
         $('#agents').attr 'required', true
         $('#existing-agent-fields').removeClass 'hidden'
         $('#new-agent-fields, #applications-div').addClass 'hidden'
-        $('.chosen-select').select2()
+        $('#agents').select2
+          minimumInputLength: 2
+          placeholder: 'Search by Agency code, agent code, name or email'
+          ajax:
+            url: '/dashboard/agent_invitations/search_agents'
+            dataType: 'json'
+            type: 'GET'
+            data: (term) ->
+              { q: term }
+            processResults: (data) ->
+              { results: data.results }
 
   Agents.applications = ->
     $('.include-app').change ->
