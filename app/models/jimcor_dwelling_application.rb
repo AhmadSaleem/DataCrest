@@ -2,9 +2,9 @@ class JimcorDwellingApplication < ApplicationRecord
   has_one :insurance_application, as: :client_application
 
   belongs_to :client
-  belongs_to :agent
+  belongs_to :agent, optional: true
 
-  delegate :full_name, to: :agent, prefix: true
+  delegate :full_name, to: :agent, allow_nil: true, prefix: true
   delegate :full_name, to: :client, prefix: true
 
   after_update :calculate_completion_percentage

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171106074232) do
+ActiveRecord::Schema.define(version: 20171110140519) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -27,7 +27,7 @@ ActiveRecord::Schema.define(version: 20171106074232) do
     t.datetime "updated_at", null: false
     t.json "logo"
     t.string "address_2"
-    t.integer "agency_code", null: false
+    t.string "agency_code", null: false
     t.index ["owner_id"], name: "index_agencies_on_owner_id"
   end
 
@@ -77,7 +77,8 @@ ActiveRecord::Schema.define(version: 20171106074232) do
     t.bigint "invited_by_id"
     t.integer "invitations_count", default: 0
     t.integer "applications_count", default: 0
-    t.integer "agent_code", null: false
+    t.string "agent_code", null: false
+    t.json "profile_picture"
     t.index ["agency_id"], name: "index_agents_on_agency_id"
     t.index ["email"], name: "index_agents_on_email", unique: true
     t.index ["invitation_token"], name: "index_agents_on_invitation_token", unique: true
@@ -269,6 +270,7 @@ ActiveRecord::Schema.define(version: 20171106074232) do
     t.string "invited_by_type"
     t.bigint "invited_by_id"
     t.integer "invitations_count", default: 0
+    t.json "profile_picture"
     t.index ["email"], name: "index_salespeople_on_email", unique: true
     t.index ["invitation_token"], name: "index_salespeople_on_invitation_token", unique: true
     t.index ["invitations_count"], name: "index_salespeople_on_invitations_count"

@@ -1,6 +1,6 @@
 class PagesController < ApplicationController
   def index
-    render layout: 'home_page'
+    @templates = Template.all
   end
 
   def disclaimer

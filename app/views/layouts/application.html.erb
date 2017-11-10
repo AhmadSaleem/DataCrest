@@ -4,18 +4,67 @@
     <title>Datacrest</title>
     <%= csrf_meta_tags %>
 
-    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
-    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <%= stylesheet_link_tag    'application', media: 'all' %>
+    <%= javascript_include_tag 'application' %>
   </head>
 
   <body>
-    <%= render "shared/navbar" %>
-    <div class="wrapper">
-      <% if signed_in? %>
-        <%= render "shared/main_panel" %>
+    <%= render "layouts/navbar" %>
+    <div class="wrapper <%= yield :wrapper_class %>">
+      <% if dashboard? %>
+        <%= render "layouts/dashboard" %>
       <% else %>
-        <%= render "shared/content_panel" %>
+        <%= render "layouts/page" %>
       <% end %>
     </div>
+
+    <script type="text/javascript">
+      $(function() {
+        <%= yield :js_init %>
+      });
+    </script>
   </body>
+
+  <script type="text/javascript">
+    $(document).ready(function() {
+      $('#datatables').DataTable({
+        "pagingType": "full_numbers",
+        "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]],
+        responsive: true,
+        language: {
+          search: "_INPUT_",
+          searchPlaceholder: "Search records",
+        }
+
+      });
+
+
+      var table = $('#datatables').DataTable();
+
+      // Edit record
+      table.on( 'click', '.edit', function () {
+        $tr = $(this).closest('tr');
+
+        if($tr.hasClass('child')){
+          $tr = $tr.prev('.parent');
+        }
+
+        var data = table.row($tr).data();
+        alert( 'You press on Row: ' + data[0] + ' ' + data[1] + ' ' + data[2] + '\'s row.' );
+      } );
+
+      // Delete a record
+      table.on( 'click', '.remove', function (e) {
+        $tr = $(this).closest('tr');
+        table.row($tr).remove().draw();
+        e.preventDefault();
+      } );
+
+      //Like record
+      table.on( 'click', '.like', function () {
+        alert('You clicked on Like button');
+      });
+    });
+
+  </script>
 </html>

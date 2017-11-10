@@ -1,0 +1,40 @@
+<li>
+  <a data-toggle="collapse" href="#account-settings">
+    <i class="pe-7s-culture"></i>
+    <p>Company Settings<b class="caret"></b></p>
+  </a>
+  <div class="collapse>" id="account-settings">
+    <ul class="nav">
+      <% if current_salesperson.company_owner? %>
+        <li class="<%= active_class(dashboard_salespeople_invitations_path) %>"><%= link_to "Manage Employees", dashboard_salespeople_invitations_path %></li>
+        <li class="<%= active_class(edit_dashboard_wholesaler_path(current_salesperson.owned_wholesaler)) %>"><%= link_to "Edit Company Info", edit_dashboard_wholesaler_path(current_salesperson.owned_wholesaler) %></li>
+      <% end %>
+    </ul>
+  </div>
+</li>
+<li>
+  <a data-toggle="collapse" href="#applications">
+    <i class="pe-7s-note2"></i>
+    <p>Applications<b class="caret"></b></p>
+  </a>
+  <div class="collapse" id="applications">
+    <ul class="nav">
+      <li class="<%= active_class(new_dashboard_agent_invitation_path) %>">
+        <%= link_to "Send App", new_dashboard_agent_invitation_path %>
+      </li>
+      <li class="<%= active_class(dashboard_insurance_applications_path) %>">
+        <%= link_to "View Submissions", dashboard_insurance_applications_path %>
+      </li>
+      <li class="<%= active_class(dashboard_agent_wholesaler_applications_path) %>">
+        <%= link_to "Manage Applications", dashboard_agent_wholesaler_applications_path %>
+      </li>
+    </ul>
+  </div>
+</li>
+
+<li class="<%= active_class(dashboard_agents_path) %>">
+  <%= link_to dashboard_agents_path do %>
+    <i class="pe-7s-users"></i>
+    <p>Agents</p>
+  <% end %>
+</li>

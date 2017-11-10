@@ -8,10 +8,10 @@ class Agents::RegistrationsController < Devise::RegistrationsController
   private
 
     def sign_up_params
-      params.require(:agent).permit(:first_name, :last_name, :email, :password, :password_confirmation, owned_agency_attributes: [:title])
+      params.require(:agent).permit(:first_name, :last_name, :email, :password, :password_confirmation, :profile_picture, :profile_picture_cache ,owned_agency_attributes: [:title])
     end
 
     def account_update_params
-      params.require(:agent).permit(:first_name, :last_name, :email, :password, :password_confirmation, :current_password)
+      params.require(:agent).permit(:first_name, :last_name, :email, :password, :password_confirmation, :current_password, :profile_picture, :profile_picture_cache)
     end
 end

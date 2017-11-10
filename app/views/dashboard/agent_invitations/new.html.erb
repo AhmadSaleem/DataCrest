@@ -1,6 +1,6 @@
 <%= form_for @agent, url: dashboard_agent_invitations_path do |f| %>
   <div class="row agent-invitations">
-    <div class="col-md-12">
+    <div class="col-12">
       <div class="card">
         <div class="header">
           <h2 class="title">Send An App</h2>
@@ -25,9 +25,11 @@
 
                 <div class="col-md-2">
                   <div class="form-group">
-                    <%= f.label :agency_code, class: "control-label" %>
-                    <br />
-                    <%= f.number_field :agency_code, class: "form-control", required: true %>
+                    <%= f.fields_for :owned_agency do |agency| %>
+                      <%= agency.label :agency_code, class: "control-label" %>
+                      <br />
+                      <%= agency.text_field :agency_code, class: "form-control", required: true, id: "agency_code" %>
+                    <% end %>
                   </div>
                 </div>
 
@@ -35,7 +37,7 @@
                   <div class="form-group">
                     <%= f.label :agent_code, class: "control-label" %>
                     <br />
-                    <%= f.number_field :agent_code, class: "form-control", required: true %>
+                    <%= f.text_field :agent_code, class: "form-control", required: true %>
                   </div>
                 </div>
 
@@ -72,7 +74,7 @@
               </div>
 
               <div class="row hidden" id="existing-agent-fields">
-                <% if @agents.present? %>
+                <% if Agent.exists? %>
                   <div class="co-md-12">
                     <h2 class=" header title">Existing Agent</h2><br/>
                   </div>
@@ -120,4 +122,9 @@
       </div>
     </div>
   </div>
+<% end %>
+
+<% content_for :js_init do %>
+  Agents.agent_fields_init();
+  Agents.applications();
 <% end %>

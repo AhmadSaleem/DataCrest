@@ -13,11 +13,23 @@
 
 # Ignore all logfiles and tempfiles.
 /log/*
-/tmp/*
 !/log/.keep
-!/tmp/.keep
+/tmp/*
+config/database.yml
+.env
 
 /node_modules
 /yarn-error.log
 
 .byebug_history
+
+/public/uploads/*
+/public/assets/*
+
+/app/assets/stylesheets/.sass-cache/*
+
+.idea/*
+.idea
+.idea/workspace.xml
+
+*.rdb

@@ -6,6 +6,5 @@ class Agency < ApplicationRecord
 
   mount_uploader :logo, LogoUploader
 
-  validates :title, presence: true
-  validates :website, :state, :address_1, :city, :zip_code, :logo, presence: true, on: :update
+  validates :website, :state, :address_1, :city, :zip_code, :logo, :title, presence: true, on: :update
 end

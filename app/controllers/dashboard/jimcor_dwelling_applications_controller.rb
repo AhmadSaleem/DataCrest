@@ -20,6 +20,16 @@ class Dashboard::JimcorDwellingApplicationsController < ApplicationController
     end
   end
 
+  def create
+    template = Template.find_by(id: params[:id])
+    if template.present?
+      @jimcor_dwelling_application = current_client.jimcor_dwelling_applications.first_or_create
+      template.insurance_applications.find_or_create_by(client_application: @jimcor_dwelling_application)
+      return redirect_to edit_dashboard_jimcor_dwelling_application_path(@jimcor_dwelling_application)
+    end
+    redirect_to dashboard_path, alert: "Application wasn't found."
+  end
+
   private
 
     def set_jimcor_dwelling_application

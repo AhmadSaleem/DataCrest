@@ -1,8 +1,8 @@
 <%= form_for resource, as: resource_name, url: invitation_path(resource_name), html: { method: :put } do |f| %>
   <%= devise_error_messages! %>
   <%= f.hidden_field :invitation_token %>
-  <div class="row">
-    <div class="col-md-5">
+  <div class="row session-container">
+    <div class="col-md-6">
       <div class="card">
         <div class="header">
           <h2 class="title"><%= t 'devise.invitations.edit.header' %></h2>
@@ -10,6 +10,16 @@
 
         <div class="content">
           <% if f.object.class.require_password_on_accepting %>
+            <div class="row">
+              <div class="col-md-10">
+                <div class="form-group">
+                  <%= f.label :profile_picture, class: "control-label" %><br>
+                  <%= image_tag(f.object.profile_picture, class: "col-md-2") %>
+                  <%= f.file_field :profile_picture %>
+                </div>
+              </div>
+            </div>
+
             <div class="form-group">
               <%= f.label :password, class: "control-label" %>
               <br>
@@ -23,13 +33,82 @@
             </div>
           <% end %>
 
-          <div class="form-group">
-            <%= label_tag :title, "Agency", class: "control-label" %>
-            <br>
-            <%= text_field_tag :title, nil, class: "form-control" %>
-          </div>
+          <h2 class="header title">Company information</h2><br/>
+          <%= f.fields_for :owned_agency, resource.owned_agency do |owned_agency_form| %>
+            <div class="row">
+              <div class="col-md-6">
+                <%= owned_agency_form.label :agency_code, class: "control-label" %>
+                <br />
+                <%= owned_agency_form.text_field :agency_code, class: "form-control", readonly: true %>
+              </div>
 
-          <%= f.submit t("devise.invitations.edit.submit_button"), class: "btn btn-success" %></p>
+              <div class="col-md-6">
+                <%= f.label :agent_code, class: "control-label" %>
+                <br />
+                <%= f.text_field :agent_code, class: "form-control", readonly: true %>
+              </div>
+
+              <div class="col-md-12">
+                <%= owned_agency_form.label "Agency Title", class: "control-label" %>
+                <br />
+                <%= owned_agency_form.text_field :title, class: "form-control", required: true %>
+              </div>
+
+              <div class="col-md-12">
+                <div class="form-group">
+                  <%= owned_agency_form.label 'Comapny Logo', class: "control-label" %><br>
+                  <%= owned_agency_form.file_field :logo %>
+                </div>
+              </div>
+
+              <div class="col-md-12">
+                <div class="form-group">
+                  <%= owned_agency_form.label :website, class: "control-label" %><br>
+                  <%= owned_agency_form.text_field :website, class: "form-control", required: true %>
+                </div>
+              </div>
+
+              <div class="col-md-12">
+                <div class="form-group">
+                  <%= owned_agency_form.label :address_1, class: "control-label" %><br>
+                  <%= owned_agency_form.text_field :address_1, class: "form-control", required: true %>
+                </div>
+              </div>
+
+              <div class="col-md-12">
+                <div class="form-group">
+                  <%= owned_agency_form.label :address_2, class: "control-label" %><br>
+                  <%= owned_agency_form.text_field :address_2, class: "form-control" %>
+                </div>
+              </div>
+
+              <div class="col-md-4">
+                <div class="form-group">
+                  <%= owned_agency_form.label :city, class: "control-label" %><br>
+                  <%= owned_agency_form.text_field :city, required: true, class: "form-control" %>
+                </div>
+              </div>
+
+              <div class="col-md-4">
+                <div class="form-group">
+                  <%= owned_agency_form.label :state, class: "control-label" %><br>
+                  <%= owned_agency_form.select :state , us_states, { include_blank: true }, { class: "form-control chosen-select", required: true } %>
+                </div>
+              </div>
+
+              <div class="col-md-4">
+                <div class="form-group">
+                  <%= owned_agency_form.label :zip_code, class: "control-label" %><br>
+                  <%= owned_agency_form.number_field :zip_code, required: true, class: "form-control" %>
+                </div>
+              </div>
+            </div>
+          <% end %>
+          <div class="row">
+            <div class="col-md-12">
+              <%= f.submit "Create Account", class: "pull-right btn btn-success btn-fill" %>
+            </div>
+          </div>
         </div>
       </div>
     </div>

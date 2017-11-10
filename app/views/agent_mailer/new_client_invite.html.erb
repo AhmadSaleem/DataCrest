@@ -3,7 +3,7 @@
 <p><%= @client.invited_by_full_name %> invited you to complete the applications on DataCrest.
   you can accept it through link below.
 </p>
-<p><%= link_to "Accept Invite", accept_client_invitation_url(invitation_token: @token) %></p>
+<p><%= link_to "Accept Invite", accept_client_invitation_url(invitation_token: @token, application: @assigned_application), class: "btn" %></p>
 <br/>
 <p>
   If you don't want to accept the invitation, please ignore this email.<br/>

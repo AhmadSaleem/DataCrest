@@ -10,9 +10,10 @@ class AgentMailer < ApplicationMailer
     mail(to: @agent.email, subject: "Invitation instructions")
   end
 
-   def new_client_invite(client_id, token)
+   def new_client_invite(client_id, token, assigned_application_id)
     @client = Client.find(client_id)
     @token =  token
+    @assigned_application = InsuranceApplication.find_by(id: assigned_application_id)
     mail(to: @client.email, subject: "Invitation instructions")
   end
 

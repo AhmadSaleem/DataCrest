@@ -1,4 +1,4 @@
-class Agent < ApplicationRecord
+  class Agent < ApplicationRecord
   paginates_per 5
 
   # Include default devise modules. Others available are:
@@ -14,6 +14,8 @@ class Agent < ApplicationRecord
   has_many :agency_applications
   has_many :templates, through: :agency_applications
 
+  mount_uploader :profile_picture, ProfilePictureUploader
+
   belongs_to :agency, inverse_of: :agents
 
   accepts_nested_attributes_for :owned_agency
@@ -22,6 +24,7 @@ class Agent < ApplicationRecord
 
   delegate :full_name, :wholesaler_title, to: :invited_by, prefix: true, allow_nil: true
   delegate :title, :logo, :address_1, :city, :zip_code, :state, to: :agency, prefix: true
+  delegate :agency_code, to: :agency
 
   validates :first_name, :last_name, presence: true
   validates :agency, presence: true, unless: :company_owner?
