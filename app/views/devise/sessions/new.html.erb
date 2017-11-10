@@ -35,12 +35,9 @@
               <%= f.submit "Log in", class: "btn btn-info btn-fill btn-block" %>
             </div>
           </div>
+
           <div>
-          <% if resource_name == :client %>
-            <%= render "shared/client_devise_links" %>
-          <% else %>
             <%= render "devise/shared/links" %>
-          <% end %>
           </div>
         </div>
       </div>
