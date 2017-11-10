@@ -1,9 +1,10 @@
-<h1>Wholesalers</h1>
-<% if @wholesalers.present? %>
-  <div class="row">
-    <div class="col-md-8">
-      <div class="card">
-        <div class="content table-responsive table-full-width">
+<div class="row">
+  <div class="col-md-8">
+    <div class="card">
+      <div class="header">
+        <h2 class="title">Wholesalers</h2>
+      <div class="content table-responsive table-full-width">
+        <% if @wholesalers.present? %>
           <table class="table table-hover table-stripped">
             <thead>
               <th>Wholesaler Name</th>
@@ -17,16 +18,16 @@
                 </tr>
               <% end %>
             </tbody>
-          </table>
-        </div>
-      </div>
-
-      <div class="pull-right">
-        <%= paginate @wholesalers %>
-        <%= page_entries_info @wholesalers, entry_name: "wholesalers" %>
+          </table>  
+        <% else %>
+          <p>No wholesalers found</p>
+        <% end %>
       </div>
     </div>
+
+    <div class="pull-right">
+      <%= paginate @wholesalers %>
+      <%= page_entries_info @wholesalers, entry_name: "wholesalers" %>
+    </div>
   </div>
-<% else %>
-  <p>No wholesalers found</p>
-<% end %>
+</div>
