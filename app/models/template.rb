@@ -6,6 +6,8 @@ class Template < ApplicationRecord
 
   belongs_to :wholesaler
 
+  delegate :title, :location, to: :wholesaler, prefix: true
+
   scope :order_latest, -> { order("created_at DESC") }
 
   def application_model

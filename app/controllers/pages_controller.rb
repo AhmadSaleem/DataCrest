@@ -1,5 +1,6 @@
 class PagesController < ApplicationController
   def index
+    @templates = Template.all
   end
 
   def disclaimer

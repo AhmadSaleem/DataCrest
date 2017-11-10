@@ -19,4 +19,8 @@ class Wholesaler < ApplicationRecord
   def company_address
     "#{address_1}<br/> #{city}, #{state} #{zip_code}".html_safe
   end
+
+  def location
+    "#{city}, #{state} #{zip_code}"
+  end
 end
