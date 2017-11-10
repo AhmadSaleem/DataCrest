@@ -21,9 +21,7 @@ Rails.application.routes.draw do
       get 'agent_templates', on: :member
     end
     resources :pages, only: [:index]
-    resources :jimcor_dwelling_applications, only: [:index, :edit, :update, :show] do
-      get 'create_application', on: :member
-    end
+    resources :jimcor_dwelling_applications, only: [:index, :edit, :update, :show, :create]
     resources :insurance_applications, only: [:index, :edit, :update, :show]
     resources :agents, only: [:index, :show]
     resources :templates, only: [:show]
