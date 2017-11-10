@@ -26,6 +26,7 @@
 //= require bootstrap-table
 //= require bootstrap.min
 //= require demo.js
+//= require ct-navbar
 //= require fullcalendar.min
 //= require jquery-jvectormap
 //= require jquery.bootstrap.wizard.min
