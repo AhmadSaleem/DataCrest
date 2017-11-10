@@ -17,6 +17,12 @@
         <%= render "layouts/page" %>
       <% end %>
     </div>
+
+    <script type="text/javascript">
+      $(function() {
+        <%= yield :js_init %>
+      });
+    </script>
   </body>
 
   <script type="text/javascript">
