@@ -1,9 +1,11 @@
 <div class="content">
-  <%= render 'shared/layout/alerts' %>
+  <%= render 'layouts/alerts' %>
   <div class="container-fluid">
 
     <% if new_registration? %>
       <%= render 'layouts/sign_up' %>
+    <% elsif new_session? %>
+      <%= render 'layouts/sign_in' %>
     <% end %>
 
     <%= yield %>

@@ -1,4 +1,6 @@
 <h1>Dashboard</h1>
+<%= render 'template_charts' %>
+
 <% if agent_signed_in? %>
   <% if @agent_templates.present? %>
     <p>Following applications are assigned to you</p>

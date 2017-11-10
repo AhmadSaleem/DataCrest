@@ -49,13 +49,13 @@ var mobile_menu_visible = 0,
     isWindows = navigator.platform.indexOf('Win') > -1 ? true : false;
 
     if (isWindows && !$('body').hasClass('sidebar-mini')){
-        // if we are on windows OS we activate the perfectScrollbar function
-        $('.sidebar .sidebar-wrapper, .main-panel').perfectScrollbar();
+       // if we are on windows OS we activate the perfectScrollbar function
+       $('.sidebar .sidebar-wrapper, .main-panel').perfectScrollbar();
 
-        $('html').addClass('perfect-scrollbar-on');
-    } else {
-        $('html').addClass('perfect-scrollbar-off');
-    }
+       $('html').addClass('perfect-scrollbar-on');
+   } else {
+       $('html').addClass('perfect-scrollbar-off');
+   }
 })();
 
 $(document).ready(function(){
@@ -145,11 +145,11 @@ $(document).on('click', '.navbar-toggle', function(){
             lbd.misc.navbar_menu_visible = 0;
             $layer.removeClass('visible');
 
-            setTimeout(function(){
+             setTimeout(function(){
                 $layer.remove();
                 $toggle.removeClass('toggled');
 
-            }, 400);
+             }, 400);
         });
 
         $('html').addClass('nav-open');
@@ -312,42 +312,42 @@ lbd = {
         });
 
         $('[data-toggle="collapse-hover"]').hover(function(){
-                var thisdiv = $(this).attr("data-target");
-                if(!$(this).hasClass('state-open')){
-                    $(this).addClass('state-hover');
-                    $(thisdiv).css({
-                        'height':'30px'
-                    });
-                }
-
-            },
-            function(){
-                var thisdiv = $(this).attr("data-target");
-                $(this).removeClass('state-hover');
-
-                if(!$(this).hasClass('state-open')){
-                    $(thisdiv).css({
-                        'height':'0px'
-                    });
-                }
-            }).click(function(event){
-            event.preventDefault();
-
             var thisdiv = $(this).attr("data-target");
-            var height = $(thisdiv).children('.panel-body').height();
-
-            if($(this).hasClass('state-open')){
+            if(!$(this).hasClass('state-open')){
+                $(this).addClass('state-hover');
                 $(thisdiv).css({
-                    'height':'0px',
+                    'height':'30px'
                 });
-                $(this).removeClass('state-open');
-            } else {
-                $(thisdiv).css({
-                    'height':height + 30,
-                });
-                $(this).addClass('state-open');
             }
-        });
+
+        },
+        function(){
+            var thisdiv = $(this).attr("data-target");
+            $(this).removeClass('state-hover');
+
+            if(!$(this).hasClass('state-open')){
+                $(thisdiv).css({
+                    'height':'0px'
+                });
+            }
+        }).click(function(event){
+                event.preventDefault();
+
+                var thisdiv = $(this).attr("data-target");
+                var height = $(thisdiv).children('.panel-body').height();
+
+                if($(this).hasClass('state-open')){
+                    $(thisdiv).css({
+                        'height':'0px',
+                    });
+                    $(this).removeClass('state-open');
+                } else {
+                    $(thisdiv).css({
+                        'height':height + 30,
+                    });
+                    $(this).addClass('state-open');
+                }
+            });
     }
 }
 
@@ -358,14 +358,14 @@ lbd = {
 // leading edge, instead of the trailing.
 
 function debounce(func, wait, immediate) {
-    var timeout;
-    return function() {
-        var context = this, args = arguments;
-        clearTimeout(timeout);
-        timeout = setTimeout(function() {
-            timeout = null;
-            if (!immediate) func.apply(context, args);
-        }, wait);
-        if (immediate && !timeout) func.apply(context, args);
-    };
+	var timeout;
+	return function() {
+		var context = this, args = arguments;
+		clearTimeout(timeout);
+		timeout = setTimeout(function() {
+			timeout = null;
+			if (!immediate) func.apply(context, args);
+		}, wait);
+		if (immediate && !timeout) func.apply(context, args);
+	};
 };

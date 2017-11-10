@@ -35,6 +35,7 @@ gem 'jbuilder', '~> 2.5'
 
 gem 'devise'
 gem 'devise_invitable'
+gem 'font-awesome-rails'
 gem 'jquery-rails'
 gem 'kaminari'
 gem "select2-rails"

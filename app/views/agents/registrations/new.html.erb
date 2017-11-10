@@ -4,16 +4,8 @@
       <div class="icon">
         <i class="pe-7s-user"></i>
       </div>
-      <div class="content">
-        <%= render "shared/user_forms/common_form_fields", f: f %>
-        <div class="row">
-          <div class="col-sm-12">
-            <%= f.fields_for :owned_agency, resource.owned_agency || resource.build_owned_agency  do |agency| %>
-              <%= render 'owned_agency_fields', f: agency %>
-            <% end %>
-          </div>
-        </div>
     </div>
+
     <div class="media-body">
       <h4>Free Account</h4>
       Here you can write a feature description for your dashboard, let the users know what is the value that you give them.
@@ -26,6 +18,7 @@
         <i class="pe-7s-graph1"></i>
       </div>
     </div>
+
     <div class="media-body">
       <h4>Awesome Performances</h4>
       Here you can write a feature description for your dashboard, let the users know what is the value that you give them.
@@ -39,6 +32,7 @@
         <i class="pe-7s-headphones"></i>
       </div>
     </div>
+
     <div class="media-body">
       <h4>Global Support</h4>
       Here you can write a feature description for your dashboard, let the users know what is the value that you give them.

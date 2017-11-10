@@ -1,9 +1,0 @@
-<div class="sidebar" data-color="#1f77d0">
-  <div class="sidebar-wrapper">
-    <ul class="nav">
-      <%= render "shared/dashboard/sidenav/salesperson" if salesperson_signed_in? %>
-      <%= render "shared/dashboard/sidenav/agent" if agent_signed_in? %>
-      <%= render "shared/dashboard/sidenav/client" if client_signed_in? %>
-    </ul>
-  </div>
-</div>

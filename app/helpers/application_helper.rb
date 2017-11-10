@@ -10,4 +10,12 @@ module ApplicationHelper
   def new_registration?
     (controller_name.in?(['registrations']) && action_name.in?(['new']))
   end
+
+  def new_session?
+    (controller_name.in?(['sessions']) && action_name.in?(['new']))
+  end
+
+  def page?
+    (controller_name.in?(['pages']))
+  end
 end
