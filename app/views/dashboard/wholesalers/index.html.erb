@@ -12,7 +12,7 @@
             <tbody>
               <% @wholesalers.each do |wholesaler| %>
                 <tr>
-                  <th><%= wholesaler.full_name %></th>
+                  <th><%= wholesaler.owner_full_name %></th>
                   <th><%= link_to "View Applications", dashboard_wholesaler_path(wholesaler) %></th>
                 </tr>
               <% end %>
