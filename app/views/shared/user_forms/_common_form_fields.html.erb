@@ -8,6 +8,18 @@
   </div>
 </div>
 
+<div class="row">
+  <div class="col-md-10">
+    <div class="form-group">
+      <%= f.label :profile_picture, class: "control-label" %><br>
+      <%= image_tag(f.object.profile_picture, class: "col-md-2") %>
+      <%= f.file_field :profile_picture %>
+      <%= f.hidden_field :profile_picture_cache %>
+    </div>
+  </div>
+</div>
+<br/>
+
 <div class="row form-group">
   <div class="col-sm-12">
     <%= f.email_field :email, placeholder: 'email', class: "form-control" %>

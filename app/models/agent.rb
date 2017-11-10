@@ -1,4 +1,4 @@
-class Agent < ApplicationRecord
+  class Agent < ApplicationRecord
   paginates_per 5
 
   # Include default devise modules. Others available are:
@@ -13,6 +13,8 @@ class Agent < ApplicationRecord
   has_many :clients, through: :jimcor_dwelling_applications
   has_many :agency_applications
   has_many :templates, through: :agency_applications
+
+  mount_uploader :profile_picture, ProfilePictureUploader
 
   belongs_to :agency, inverse_of: :agents
 
