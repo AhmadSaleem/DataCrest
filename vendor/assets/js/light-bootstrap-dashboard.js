@@ -162,7 +162,8 @@ $(document).on('click', '.navbar-toggle', function(){
 // activate mobile menus when the windows is resized
 $(window).resize(function(){
     lbd.initSidebarsCheck();
-    lbd.initBootstrapNavbar();
+    //    lbd.initBootstrapNavbar();
+
 });
 
 
