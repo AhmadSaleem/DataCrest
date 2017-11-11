@@ -6,7 +6,7 @@
       </div>
 
       <div class="content">
-        <% if @wholesaler_applications.present? %>
+        <% if @applications.present? %>
           <div class="content table-responsive table-full-width">
             <table class="table table-hover table-stripped">
               <thead>
@@ -17,23 +17,15 @@
               </thead>
 
               <tbody>
-              <% @wholesaler_applications.each do |wholesaler_application| %>
-                <tr>
-                  <td><%= wholesaler_application.application_title %></td>
-                  <td><%= wholesaler_application.client_full_name %></td>
-                  <td><%= wholesaler_application.status %></td>
-                  <td>
-                    <%= link_to "View", dashboard_insurance_application_path(wholesaler_application) %> |
-                    <%= link_to "Edit", edit_dashboard_insurance_application_path(wholesaler_application) %>
-                  </td>
-                </tr>
+              <% @applications.each do |application| %>
+                 <%= render "#{current_user.class.name.downcase}_insurance_application", application: application %>
               <% end %>
               </tbody>
             </table>
           </div>
           <div class="pull-right">
-            <%= paginate @wholesaler_applications %>
-            <%= page_entries_info @wholesaler_applications, entry_name: "applications" %>
+            <%= paginate @applications %>
+            <%= page_entries_info @applications, entry_name: "applications" %>
           </div>
         <% else %>
             <p>You don't have any applications</p>

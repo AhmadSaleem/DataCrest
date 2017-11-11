@@ -1,9 +1,13 @@
 class Dashboard::InsuranceApplicationsController < DashboardController
-  before_action :authenticate_salesperson!
+  #before_action :authenticate_salesperson!
   before_action :set_insurance_application, only: [:show, :edit, :update]
 
   def index
-    @wholesaler_applications = current_salesperson.wholesaler_insurance_applications.page(params[:page])
+    if salesperson_signed_in?
+      @applications = current_user.wholesaler_insurance_applications.page(params[:page])
+    elsif client_signed_in?
+      @applications = current_user.jimcor_dwelling_applications.page(params[:page])
+    end
   end
 
   def show
