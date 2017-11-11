@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title><%= render_brand_name %></title>
+  <%= csrf_meta_tags %>
+  <%= stylesheet_link_tag    'application', media: 'all' %>
+  <%= javascript_include_tag 'application' %>
+</head>
+
+<body>
+<div class="wrapper <%= yield :wrapper_class %>">
+  <!--  start layout-unique content -->
+
+  <%= render 'layouts/dashboard/sidenav' %>
+
+  <div class="main-panel">
+    <%= render 'layouts/dashboard/top_navbar' %>
+    <div class="main-content">
+      <%= render 'layouts/alerts' %>
+      <%= render 'layouts/dashboard/preliminary_notifications' %>
+      <div class="container-fluid">
+        <%= yield %>
+      </div>
+    </div>
+    <%= render 'layouts/dashboard/footer' %>
+  </div>
+
+  <!-- end layout-unique content-->
+</div>
+</body>
+<script type="text/javascript">
+  $(function() {
+    <%= yield :js_init %>
+  });
+</script>
+</html>
