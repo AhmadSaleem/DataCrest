@@ -3,6 +3,10 @@ module ApplicationHelper
     datetime.strftime("%B %d, %Y %H:%M:%S")
   end
 
+  def current_user
+    current_salesperson || current_agent || current_client
+  end
+
   def dashboard?
     controller_path.split('/').first == 'dashboard' || edit_profile?
   end

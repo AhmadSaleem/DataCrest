@@ -6,10 +6,6 @@ module MenuHelper
     "DataCrest"
   end
 
-  def current_user
-    current_salesperson || current_agent || current_client
-  end
-
   def render_edit_account_path
     return edit_salesperson_registration_path if salesperson_signed_in?
     return edit_agent_registration_path if agent_signed_in?
