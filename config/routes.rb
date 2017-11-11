@@ -25,7 +25,7 @@ Rails.application.routes.draw do
     end
     resources :pages, only: [:index]
     resources :jimcor_dwelling_applications, only: [:index, :edit, :update, :show, :create]
-    resources :insurance_applications, only: [:index, :edit, :update, :show]
+    resources :insurance_applications, only: [:index, :edit, :update, :show], path: 'applications'
     resources :agents, only: [:index, :show]
     resources :templates, only: [:show]
   end
