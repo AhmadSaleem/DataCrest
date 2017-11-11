@@ -1,4 +1,4 @@
-class Dashboard::AgentWholesalerApplicationsController < ApplicationController
+class Dashboard::AgentWholesalerApplicationsController < DashboardController
   before_action :set_agent, only: [:agent_templates]
   before_action :authenticate_salesperson!
 

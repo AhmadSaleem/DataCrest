@@ -1,4 +1,4 @@
-class Dashboard::ClientInvitationsController < ApplicationController
+class Dashboard::ClientInvitationsController < DashboardController
   before_action :authenticate_agent!
   before_action :fields_validation, only: [:create]
 

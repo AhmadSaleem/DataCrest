@@ -1,4 +1,4 @@
-class Dashboard::CompaniesController < ApplicationController
+class Dashboard::CompaniesController < DashboardController
   before_action :authenticate_saleperson, only: [:wholesaler_account]
 
   def wholesaler_settings

@@ -1,4 +1,4 @@
-class Dashboard::AgenciesController < ApplicationController
+class Dashboard::AgenciesController < DashboardController
   before_action :authenticate_agent!
   before_action :authorize_agent
   before_action :set_agency

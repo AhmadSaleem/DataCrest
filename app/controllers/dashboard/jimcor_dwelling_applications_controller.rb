@@ -1,4 +1,4 @@
-class Dashboard::JimcorDwellingApplicationsController < ApplicationController
+class Dashboard::JimcorDwellingApplicationsController < DashboardController
   before_action :authenticate_client!
   before_action :set_jimcor_dwelling_application, only: [:edit, :update, :show]
 

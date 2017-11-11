@@ -1,4 +1,4 @@
-class Dashboard::AgentsController < ApplicationController
+class Dashboard::AgentsController < DashboardController
   before_action :authenticate_salesperson!
   before_action :set_agent, only: [:show]
 

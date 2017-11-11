@@ -1,5 +1,4 @@
-class Dashboard::SalespeopleInvitationsController < ApplicationController
-  before_action :authenticate_salesperson!
+class Dashboard::SalespeopleInvitationsController < DashboardController
   before_action :authorize_salesperson
 
   def index

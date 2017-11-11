@@ -1,4 +1,4 @@
-class Dashboard::PagesController < ApplicationController
+class Dashboard::PagesController < DashboardController
   def index
     @agent_templates = current_agent.templates.order_latest.page(params[:page]) if agent_signed_in?
   end

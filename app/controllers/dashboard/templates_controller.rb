@@ -1,4 +1,4 @@
-class Dashboard::TemplatesController < ApplicationController
+class Dashboard::TemplatesController < DashboardController
   before_action :set_template
 
   def show

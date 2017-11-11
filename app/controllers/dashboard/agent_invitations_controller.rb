@@ -1,4 +1,4 @@
-class Dashboard::AgentInvitationsController < ApplicationController
+class Dashboard::AgentInvitationsController < DashboardController
   before_action :authenticate_salesperson!
   before_action :fields_validation, only: [:create]
 
