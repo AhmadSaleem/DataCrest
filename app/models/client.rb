@@ -9,6 +9,8 @@ class Client < ApplicationRecord
 
   delegate :full_name, :email, to: :invited_by, prefix: true, allow_nil: true
 
+  mount_uploader :profile_picture, ProfilePictureUploader
+
   def full_name
    "#{first_name} #{last_name}"
   end
