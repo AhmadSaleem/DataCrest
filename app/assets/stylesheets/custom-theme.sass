@@ -21,6 +21,9 @@ nav
   span
     background-color: black !important
 
+.blurred-container > .img-src, .blurred-container
+  height: 400px
+
 .main-content .container-fluid
   h1, h2
     margin-top: 0
@@ -28,3 +31,19 @@ nav
 .card .content
   h3, h4
     margin-top: 0
+
+.form-control[disabled], .form-control[readonly], fieldset[disabled] .form-control
+  background-color: #808080
+
+li > a
+  i,p
+    vertical-align: middle
+
+body:not(.dashboard)
+  .alert
+    position: fixed
+    top: 0
+    width: 100%
+    z-index: 1
+  .alert + #navbar .navbar-fixed-top.navbar-transparent
+    top: 35px !important

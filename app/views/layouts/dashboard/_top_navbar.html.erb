@@ -1,11 +1,14 @@
-<nav class="navbar navbar-default">
+<nav class="navbar navbar-default navbar-fixed">
   <div class="container-fluid">
     <div class="navbar-minimize">
-      <button id="minimizeSidebar" class="btn btn-warning btn-fill btn-round btn-icon">
-        <i class="fa fa-ellipsis-v visible-on-sidebar-regular"></i>
+      <button id="minimizeSidebar" class="btn btn-fill btn-round btn-icon">
+        <i class="fa fa-arrows-h visible-on-sidebar-regular"></i>
         <i class="fa fa-navicon visible-on-sidebar-mini"></i>
       </button>
     </div>
+    <%= content_tag :div, id: 'dashboard-page-title' do %>
+      <%= content_tag :h1, @title if @title.present? %>
+    <% end %>
     <div class="navbar-header">
       <button type="button" class="navbar-toggle" data-toggle="collapse">
         <span class="sr-only">Toggle navigation</span>

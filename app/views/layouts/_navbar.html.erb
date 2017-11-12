@@ -15,7 +15,12 @@
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav navbar-right">
         <% if signed_in? %>
-            <li><%= link_to 'Dashboard', dashboard_path %></li>
+          <li>
+            <%= link_to dashboard_path do %>
+              <i class="pe-7s-graph"></i>
+              <p>Dashboard</p>
+            <% end %>
+          </li>
         <% else %>
           <% if new_registration? %>
             <li><%= link_to 'Looking to login?', new_agent_session_path %></li>

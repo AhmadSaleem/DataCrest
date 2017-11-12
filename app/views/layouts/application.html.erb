@@ -12,11 +12,11 @@
       <!--  start layout-unique content -->
 
       <div id="navbar-full">
+        <%= render 'layouts/alerts' %>
         <div id="navbar">
           <%= render "layouts/navbar" %>
         </div>
       </div>
-      <%= render 'layouts/alerts' %>
       <%= yield :hero %>
       <div class="content">
         <div class="container-fluid">
