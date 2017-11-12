@@ -7,7 +7,7 @@ Rails.application.routes.draw do
                                           registrations: "clients/registrations" }
   devise_for :salespeople, controllers: { registrations: "salespeople/registrations",
                                           invitations: "salespeople/invitations" }
-  get "dashboard", to: "dashboard/pages#index"
+  get "dashboard", to: "dashboard#index"
   get 'dashboard/wholesaler_settings', to: 'dashboard/companies#wholesaler_settings'
 
   namespace :dashboard do
@@ -23,9 +23,10 @@ Rails.application.routes.draw do
     resources :agent_wholesaler_applications, only: [:index, :destroy] do
       get 'agent_templates', on: :member
     end
-    resources :pages, only: [:index]
-    resources :jimcor_dwelling_applications, only: [:index, :edit, :update, :show, :create]
     resources :insurance_applications, only: [:index, :edit, :update, :show], path: 'applications'
+    namespace :insurance_applications, path: 'applications' do
+      resources :jimcor_dwelling_applications
+    end
     resources :agents, only: [:index, :show]
     resources :templates, only: [:show]
   end

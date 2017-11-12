@@ -1,0 +1,452 @@
+<div class="row">
+  <div class="col-md-12">
+
+    <div class="card" id="applicant">
+      <div class="header">
+        <h3 class="title">Applicant</h3>
+      </div>
+      <div class="content p-2">
+        <div class="row">
+          <div class="col-md-6">
+            <div class="form-group">
+              <%= f.label :applicant_name, class: "control-label" %><br>
+              <%= f.text_field :applicant_name, class: "form-control" %>
+            </div>
+          </div>
+
+          <div class="col-md-4">
+            <div class="form-group">
+              <%= f.label :applicant_phone_no, class: "control-label" %><br>
+              <%= f.text_field :applicant_phone_no, class: "form-control" %>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-10">
+            <div class="form-group">
+              <%= f.label :applicant_address, class: "control-label" %><br>
+              <%= f.text_field :applicant_address, class: "form-control" %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card" id="deductibles">
+      <div class="header">
+        <h3 class="title">Deducitbles</h3>
+      </div>
+      <div class="content p-2">
+        <div class="row">
+          <div class="col-md-5">
+            <div class="form-group">
+              <%= f.label :peril_deductible, class: "control-label" %><br>
+              <%= f.number_field :peril_deductible, min: 0, step: :any, class: "form-control" %>
+            </div>
+          </div>
+
+          <div class="col-md-5">
+            <div class="form-group">
+              <%= f.label :wind_hail_deductible, class: "control-label" %><br>
+              <%= f.number_field :wind_hail_deductible, min: 0, step: :any, class: "form-control" %>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-10">
+            <div class="form-group">
+              <%= f.label :water_demage_deductible, class: "control-label" %><br>
+              <%= f.number_field :water_demage_deductible, min: 0, step: :any, class: "form-control" %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card" id="risk-location">
+      <div class="header">
+        <h3 class="title">Risk Location</h3>
+      </div>
+      <div class="content p-2">
+        <div class="row">
+          <div class="col-md-5">
+            <div class="form-group">
+              <%= f.label :public_protection_class,  class: "control-label" %><br>
+              <%= f.number_field :public_protection_class, min: 0, step: :any, class: "form-control" %>
+            </div>
+          </div>
+
+          <div class="col-md-5">
+            <div class="form-group">
+              <%= f.label :risk_location_address, class: "control-label" %><br>
+              <%= f.number_field :risk_location_address, min: 0, step: :any, class: "form-control" %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card" id="limits-of-liability">
+      <div class="header">
+        <h3>Limits of Liability</h3>
+      </div>
+      <div class="content p-2">
+        <div class="row">
+          <div class="col-md-10">
+            <div class="form-group">
+              <%= f.label :personal_liability, class: "control-label" %><br>
+              <%= f.text_field :personal_liability, class: "form-control" %>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-10">
+            <div class="form-group">
+              <%= f.label :mdeical_liability, class: "control-label" %><br>
+              <%= f.text_field :mdeical_liability, class: "form-control" %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card" id="proposed-effective-date">
+      <div class="header">
+        <h3>Proposed Effective Date</h3>
+      </div>
+      <div class="content p-2">
+        <div class="row">
+          <div class="col-md-5">
+            <div class="form-group">
+              <%= f.label :proposed_start_date, class: "control-label" %><br>
+              <%= f.date_field :proposed_start_date, class: "form-control" %>
+            </div>
+          </div>
+
+          <div class="col-md-5">
+            <div class="form-group">
+              <%= f.label :proposed_end_date, class: "control-label" %><br>
+              <%= f.date_field :proposed_end_date, class: "form-control" %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card" id="coverages">
+      <div class="header">
+        <h3 class="title">Coverages</h3>
+      </div>
+      <div class="content p-2">
+        <div class="row">
+          <div class="col-md-7">
+            <div class="form-group">
+              <%= f.label :dwelling_coverage, class: "control-label" %><br>
+              <%= f.number_field :dwelling_coverage, min: 0, step: :any, class: "form-control" %>
+            </div>
+          </div>
+
+          <div class="col-md-4">
+            <div class="form-group">
+              <%= f.label :personal_property, class: "control-label" %>
+              <%= f.check_box :personal_property, class: "form-control" %>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-5">
+            <div class="form-group">
+              <%= f.label :rent_loss_coverage, class: "control-label" %><br>
+              <%= f.number_field :rent_loss_coverage, min: 0, step: :any, class: "form-control" %>
+            </div>
+          </div>
+
+          <div class="col-md-5">
+            <div class="form-group">
+              <%= f.label :other_structures_coverage, class: "control-label" %><br>
+              <%= f.number_field :other_structures_coverage, min: 0, step: :any, class: "form-control" %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card" id="underwriting-information">
+      <div class="header">
+        <h3 class="title">Underwriting Information</h3>
+      </div>
+      <div class="content p-2">
+
+        <div class="row">
+          <div class="col-md-5">
+            <div class="form-group">
+              <%= f.label :dwelling_replacement_cost, class: "control-label" %><br>
+              <%= f.number_field :dwelling_replacement_cost, min: 0, step: :any, class: "form-control" %>
+            </div>
+          </div>
+
+          <div class="col-md-5">
+            <div class="form-group">
+              <%= f.label :replacement_cost_formula, class: "control-label" %><br>
+              <%= f.text_field :replacement_cost_formula, class: "form-control" %>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-5">
+            <div class="form-group">
+              <%= f.label :market_value, class: "control-label" %><br>
+              <%= f.number_field :market_value, min: 0, step: :any, class: "form-control" %>
+            </div>
+          </div>
+
+          <div class="col-md-4">
+            <div class="form-group">
+              <%= f.label :square_feet, class: "control-label" %><br>
+              <%= f.number_field :square_feet, min: 0, step: :any, class: "form-control" %>
+            </div>
+          </div>
+
+          <div class="col-md-3">
+            <div class="form-group">
+              <%= f.label :built_year, class: "control-label" %><br>
+              <%= f.select :built_year, (Time.now.year - 100)..(Time.zone.now.year), {}, include_blank: true, class: "form-control chosen-select" %>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-5">
+            <div class="form-group">
+              <%= f.label :total_stories, class: "control-label" %><br>
+              <%= f.number_field :total_stories, min: 0, class: "form-control" %>
+            </div>
+          </div>
+
+          <div class="col-md-5">
+            <div class="form-group">
+              <%= f.label :total_families, class: "control-label" %><br>
+              <%= f.number_field :total_families, min: 0, class: "form-control" %>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-5">
+            <div class="form-group">
+              <%= f.label :fire_hydrant_distance, class: "control-label" %><br>
+              <%= f.text_field :fire_hydrant_distance, class: "form-control" %>
+            </div>
+          </div>
+
+          <div class="col-md-5">
+            <div class="form-group">
+              <%= f.label :fire_station_distance, class: "control-label" %><br>
+              <%= f.text_field :fire_station_distance, class: "form-control" %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card" id="construction">
+      <div class="header">
+        <h3 class="title">Construction</h3>
+      </div>
+      <div class="content p-2">
+        <div class="row">
+          <div class="col-md-5">
+            <div class="form-group">
+              <%= f.label :frame_construction_category, class: "control-label" %><br>
+              <%= f.check_box :frame_construction_category, class: "form-control" %>
+            </div>
+          </div>
+
+          <div class="col-md-5">
+            <div class="form-group">
+              <%= f.label :joisted_masonry_category, class: "control-label" %><br>
+              <%= f.check_box :joisted_masonry_category, class: "form-control" %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card" id="electrical">
+      <div class="header">
+        <h3 class="title">Electrical</h3>
+      </div>
+      <div class="content p-2">
+        <div class="row">
+          <div class="col-md-5">
+            <div class="form-group">
+              <%= f.label :amps_rated, class: "control-label" %><br>
+              <%= f.radio_button :amps_rated, :true %>
+              <%= label_tag :amps_rated_yes, "Yes" %>
+              <%= f.radio_button :amps_rated, :false %>
+              <%= label_tag :amps_rated_no, "No" %>
+            </div>
+          </div>
+
+          <div class="col-md-5">
+            <div class="form-group">
+              <%= f.label :electrics_update_year, class: "control-label" %><br>
+              <%= f.select :electrics_update_year, (Time.now.year - 100)..(Time.zone.now.year), {}, include_blank: true, class: "form-control chosen-select" %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card" id="title">
+      <div class="header">
+        <h3 class="title">Heating</h3>
+      </div>
+      <div class="content p-2">
+        <div class="row">
+          <div class="col-md-5">
+            <div class="form-group">
+              <%= f.label :heating_update_year, class: "control-label" %><br>
+              <%= f.select :heating_update_year, (Time.now.year - 100)..(Time.zone.now.year), {}, include_blank: true, class: "form-control chosen-select" %>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-3">
+            <div class="form-group">
+              <%= f.label :gas_heating, class: "control-label" %>
+              <%= f.check_box :gas_heating, class: "form-control" %>
+            </div>
+          </div>
+
+          <div class="col-md-3">
+            <div class="form-group">
+              <%= f.label :oil_heating, class: "control-label" %>
+              <%= f.check_box :oil_heating, class: "form-control" %>
+            </div>
+          </div>
+
+          <div class="col-md-3">
+            <div class="form-group">
+              <%= f.label :coal_heating, class: "control-label" %>
+              <%= f.check_box :coal_heating, class: "form-control" %>
+            </div>
+          </div>
+
+          <div class="col-md-3">
+            <div class="form-group">
+              <%= f.label :other_heating, class: "control-label" %>
+              <%= f.check_box :other_heating, class: "form-control" %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card" id="aux-heating">
+      <div class="header">
+        <h3 class="title">Aux Heating</h3>
+      </div>
+      <div class="content p-2">
+        <div class="row">
+          <div class="col-md-5">
+            <div class="form-group">
+              <%= f.label :aux_heating_unit_installed, class: "control-label" %><br>
+              <%= f.radio_button :aux_heating_unit_installed, :true %>
+              <%= label_tag :aux_heating_unit_installed_yes, "Yes" %>
+              <%= f.radio_button :aux_heating_unit_installed, :false %>
+              <%= label_tag :aux_heating_unit_installed_no, "No" %>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-3">
+            <div class="form-group">
+              <%= f.label :wood_stove_aux_heating, class: "control-label" %>
+              <%= f.check_box :wood_stove_aux_heating, class: "form-control" %>
+            </div>
+          </div>
+
+          <div class="col-md-3">
+            <div class="form-group">
+              <%= f.label :coal_stove_aux_heating, class: "control-label" %>
+              <%= f.check_box :coal_stove_aux_heating, class: "form-control" %>
+            </div>
+          </div>
+
+          <div class="col-md-3">
+            <div class="form-group">
+              <%= f.label :pellet_stove_aux_heating, class: "control-label" %>
+              <%= f.check_box :pellet_stove_aux_heating, class: "form-control" %>
+            </div>
+          </div>
+
+          <div class="col-md-3">
+            <div class="form-group">
+              <%= f.label :kerosene_aux_heater, class: "control-label" %>
+              <%= f.check_box :kerosene_aux_heater, class: "form-control" %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="card" id="roofing">
+      <div class="header">
+        <h3 class="title">Roofing</h3>
+      </div>
+      <div class="content p-2">
+        <div class="row">
+          <div class="col-md-5">
+            <div class="form-group">
+              <%= f.label :entire_roof_updated, class: "control-label" %><br>
+              <%= f.radio_button :entire_roof_updated, :true %>
+              <%= label_tag :entire_roof_updated_yes, "Yes" %>
+              <%= f.radio_button :entire_roof_updated, :false %>
+              <%= label_tag :entire_roof_updated_no, "No" %>
+            </div>
+          </div>
+
+          <div class="col-md-5">
+            <div class="form-group">
+              <%= f.label :roof_update_year, class: "control-label" %><br>
+              <%= f.select :roof_update_year, (Time.now.year - 100)..(Time.zone.now.year), {}, include_blank: true, class: "form-control chosen-select" %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card" id="plumbing">
+      <div class="header">
+        <h3 class="title">Plumbing</h3>
+      </div>
+      <div class="content p-2">
+        <div class="row">
+          <div class="col-md-5">
+            <div class="form-group">
+              <%= f.label :plumbing_update_year, class: "control-label" %><br>
+              <%= f.select :plumbing_update_year, (Time.now.year - 100)..(Time.zone.now.year), {}, include_blank: true, class: "form-control chosen-select" %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <%= render 'jimcor_dwelling_mortgagee_fields', f: f %>
+    <%= render 'general_questions', f: f %>
+    <%= render 'dwelling_questions', f: f %>
+
+    <div class="row">
+      <div class="col-sm-12 col-md-3">
+        <%= f.submit "Submit", class: "btn btn-lg btn-success btn-fill btn-block" %>
+      </div>
+    </div>
+  </div>
+</div>

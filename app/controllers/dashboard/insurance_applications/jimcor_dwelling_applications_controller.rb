@@ -1,5 +1,4 @@
-class Dashboard::JimcorDwellingApplicationsController < DashboardController
-  before_action :authenticate_client!
+class Dashboard::InsuranceApplications::JimcorDwellingApplicationsController < DashboardController
   before_action :set_jimcor_dwelling_application, only: [:edit, :update, :show]
 
   def index
@@ -10,6 +9,10 @@ class Dashboard::JimcorDwellingApplicationsController < DashboardController
   end
 
   def edit
+  end
+
+  def new
+    @title = 'New Jimcor Dwellings Application'
   end
 
   def update
