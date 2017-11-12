@@ -1,0 +1,48 @@
+<%= form_for JimcorDwellingApplication.new, url: new_dashboard_insurance_applications_jimcor_dwelling_application_path do |f| %>
+    <%= render 'form_fields', f: f %>
+<% end %>
+
+<% unless client_signed_in? %>
+    <div id="sign-in-modal" class="modal fade">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            <h4 class="modal-title">Sign-in Required</h4>
+          </div>
+          <div class="modal-body">
+            <p>You must be signed-in as a Client in order to submit an application entry</p>
+            <%= form_for(Client.new, url: session_path(Client.new)) do |f| %>
+              <div class="row">
+                <div class="col-md-8">
+                  <div class="form-group">
+                    <%= f.label :email, class: "control-label" %><br>
+                    <%= f.email_field :email, autofocus: true, class: "form-control" %>
+                  </div>
+
+                  <div class="form-group">
+                    <%= f.label :password, class: "control-label" %><br>
+                    <%= f.password_field :password, autocomplete: "off", class: "form-control" %>
+                  </div>
+
+                  <button type="submit" class="btn btn-fill btn-success btn-wd">Login</button>
+                </div>
+              </div>
+            <% end %>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+<% end %>
+
+<% content_for :js_init do %>
+  <% if client_signed_in? %>
+    InsuranceApplications.chosen_select_init();
+  <% else %>
+    InsuranceApplications.disable_all_fields();
+    InsuranceApplications.launch_modal();
+  <% end %>
+<% end %>
