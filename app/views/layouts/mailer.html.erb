@@ -16,7 +16,9 @@
             <table>
               <tr>
                 <td class="logo">
-                  <%= link_to "Home", root_url %>
+                  <%= link_to root_url do %>
+                    <%= image_tag 'site-logo.jpg' %>
+                  <% end %>
                 </td>
                 <td align="right">
                   <div class="social-icons">
