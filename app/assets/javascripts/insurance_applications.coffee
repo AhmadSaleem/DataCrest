@@ -21,4 +21,15 @@
       $('.sign-in-body').removeClass 'hidden'
       $('.sign-up-body').addClass 'hidden'
 
+  InsuranceApplications.init_sidebar_scroll = ->
+    $('body').scrollspy
+      target: '#insurance-application-sidebar'
+      offset: 90
+    $('#insurance-application-sidebar a[href^="#"]').on 'click', (e) ->
+      e.preventDefault()
+      target = @hash
+      $target = $(target)
+      $('html, body').stop().animate { 'scrollTop': $target.offset().top - 90 }, 900, 'swing', ->
+      return
+
 ).call this

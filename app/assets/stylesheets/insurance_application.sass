@@ -7,7 +7,16 @@ body.dashboard
     width: 12.5%
     .content
       padding-top: 5px
-      .list-group-item
-        border-radius: 0
-        padding: 8px 8px
-        font-size: 90%
+      .nav-pills
+        li
+          margin: 0
+          a
+            border-radius: 0
+            border: none
+            padding: 8px 8px
+            font-size: 90%
+            color: inherit
+          &.active
+            a
+              background-color: $primary-color
+              color: #fff
