@@ -30,7 +30,7 @@ class Dashboard::InsuranceApplications::JimcorDwellingApplicationsController < D
 
   def update
     if @jimcor_dwelling_application.update(jimcor_dwelling_params)
-      redirect_to dashboard_insurance_applications_jimcor_dwelling_applications_path, notice: "Application was updated successfully."
+      redirect_to dashboard_insurance_applications_path, notice: "Application was updated successfully."
     else
       render :edit
     end
