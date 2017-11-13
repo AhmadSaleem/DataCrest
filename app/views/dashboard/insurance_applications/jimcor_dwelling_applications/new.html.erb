@@ -1,13 +1,41 @@
+<%= content_for :body_class do %>data-spy='scroll' data-target='#insurance-application-sidebar' data-offset='50'<% end %>
+
 <%= render "shared/errors", resource: @jimcor_dwelling_application %>
 
-<% if @jimcor_dwelling_application.new_record? %>
-  <%= form_for @jimcor_dwelling_application, url: dashboard_insurance_applications_jimcor_dwelling_applications_path do |f| %>
-    <%= render 'form_fields', f: f %>
-  <% end %>
-<% else %>
-  <%= form_for @jimcor_dwelling_application, url: dashboard_insurance_applications_jimcor_dwelling_application_path(@jimcor_dwelling_application) do |f| %>
-    <%= render 'form_fields', f: f %>
-  <% end %>
+<%= form_for @jimcor_dwelling_application, url: @form_submit_path  do |f| %>
+  <div class="row">
+    <div class="col-md-10">
+      <%= render 'form_fields', f: f %>
+    </div>
+    <div class="col-md-2">
+      <div class="card" id="insurance-application-sidebar">
+        <div class="header">
+          <h4 class="title">Sections</h4>
+        </div>
+        <div class="content content-full-width">
+          <div class="list-group">
+            <a href="#applicant" class="list-group-item">Applicant</a>
+            <a href="#deductibles" class="list-group-item">Deductibles</a>
+            <a href="#risk-location" class="list-group-item">Risk Location</a>
+            <a href="#limits-of-liability" class="list-group-item">Limits of Liability</a>
+            <a href="#proposed-effective-date" class="list-group-item">Effective Date</a>
+            <a href="#underwriting-information" class="list-group-item">Underwriting</a>
+            <a href="#construction" class="list-group-item">Construction</a>
+            <a href="#electrical" class="list-group-item">Electrical</a>
+            <a href="#heating" class="list-group-item">Heating</a>
+            <a href="#aux-heating" class="list-group-item">Aux Heating</a>
+            <a href="#roofing" class="list-group-item">Roofing</a>
+            <a href="#plumbing" class="list-group-item">Plumbing</a>
+            <a href="#roofing" class="list-group-item">Roofing</a>
+            <a href="#mortgage_information" class="list-group-item">Mortgage Information</a>
+            <a href="#general-questions" class="list-group-item">General Questions</a>
+            <a href="#dwelling-questions" class="list-group-item">Dwelling Questions</a>
+          </div>
+          <%= f.submit "Save for Later", class: "btn btn-success btn-fill btn-block", style: 'margin: 0 5%; width: 90%;' %>
+        </div>
+      </div>
+    </div>
+  </div>
 <% end %>
 
 <% unless client_signed_in? %>

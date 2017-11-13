@@ -7,7 +7,7 @@
   <%= javascript_include_tag 'application' %>
 </head>
 
-<body class="dashboard">
+<body class="dashboard <%= yield :body_class %>">
 <div class="wrapper <%= yield :wrapper_class %>">
   <!--  start layout-unique content -->
 
