@@ -1,39 +1,7 @@
 <%= render "shared/errors", resource: @jimcor_dwelling_application %>
 
 <%= form_for @jimcor_dwelling_application, url: @form_submit_path  do |f| %>
-  <div class="row">
-    <div class="col-md-10">
-      <%= render 'form_fields', f: f %>
-    </div>
-    <div class="col-md-2">
-      <div class="card" id="insurance-application-sidebar">
-        <div class="header">
-          <%= f.submit "Save", class: "btn btn-success btn-fill btn-block", style: 'margin-bottom: 10px;' %>
-        </div>
-        <div class="content content-full-width">
-          <ul class="nav nav-pills nav-stacked">
-            <li><a href="#applicant" class="list-group-item">Applicant</a></li>
-            <li><a href="#deductibles" class="list-group-item">Deductibles</a></li>
-            <li><a href="#risk-location" class="list-group-item">Risk Location</a></li>
-            <li><a href="#limits-of-liability" class="list-group-item">Limits of Liability</a></li>
-            <li><a href="#proposed-effective-date" class="list-group-item">Effective Date</a></li>
-            <li><a href="#coverages" class="list-group-item">Coverages</a></li>
-            <li><a href="#underwriting-information" class="list-group-item">Underwriting</a></li>
-            <li><a href="#construction" class="list-group-item">Construction</a></li>
-            <li><a href="#electrical" class="list-group-item">Electrical</a></li>
-            <li><a href="#heating" class="list-group-item">Heating</a></li>
-            <li><a href="#aux-heating" class="list-group-item">Aux Heating</a></li>
-            <li><a href="#roofing" class="list-group-item">Roofing</a></li>
-            <li><a href="#plumbing" class="list-group-item">Plumbing</a></li>
-            <li><a href="#roofing" class="list-group-item">Roofing</a></li>
-            <li><a href="#mortgage_information" class="list-group-item">Mortgage Information</a></li>
-            <li><a href="#general-questions" class="list-group-item">General Questions</a></li>
-            <li><a href="#dwelling-questions" class="list-group-item">Dwelling Questions</a></li>
-          </ul>
-        </div>
-      </div>
-    </div>
-  </div>
+  <%= render 'form', f: f %>
 <% end %>
 
 <% unless client_signed_in? %>
@@ -113,13 +81,10 @@
 <% end %>
 
 <% content_for :js_init do %>
-  <% if client_signed_in? %>
-    InsuranceApplications.chosen_select_init();
-  <% else %>
+  <% unless client_signed_in? %>
     InsuranceApplications.disable_all_fields();
     InsuranceApplications.launch_modal();
     InsuranceApplications.show_signup_fields();
     InsuranceApplications.show_signin_fields();
   <% end %>
-  InsuranceApplications.init_sidebar_scroll();
 <% end %>
