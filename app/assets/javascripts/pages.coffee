@@ -42,4 +42,7 @@
     table.on 'click', '.like', ->
       alert 'You clicked on Like button'
 
+  Pages.sidenav = ->
+    $(".sidebar-wrapper .active").parents('div.collapse').siblings("a[data-toggle='collapse']").attr("aria-expanded","true")
+    $(".sidebar-wrapper .active").parents("div.collapse").addClass('in')
 ).call this
