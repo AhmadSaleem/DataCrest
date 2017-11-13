@@ -26,6 +26,10 @@ class Dashboard::InsuranceApplicationsController < DashboardController
     end
   end
 
+  def global
+    @templates = Template.all
+  end
+
   private
 
   def set_insurance_application

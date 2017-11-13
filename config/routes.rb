@@ -27,7 +27,9 @@ Rails.application.routes.draw do
       get 'agent_templates', on: :member
     end
 
-    resources :insurance_applications, only: [:index, :edit, :update, :show], path: 'insurance-applications'
+    resources :insurance_applications, except: [:new], path: 'applications' do
+      get 'global', on: :collection
+    end
 
     namespace :insurance_applications, path: 'applications' do
       resources :jimcor_dwelling_applications
