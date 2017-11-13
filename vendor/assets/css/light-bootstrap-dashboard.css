@@ -5658,6 +5658,9 @@ h1 .subtitle {
 }
 
 @media (min-width: 992px) {
+  .sidebar-mini .navbar-fixed {
+    width: 92.5%;
+  }
   .sidebar-mini .sidebar,
   .sidebar-mini .sidebar .sidebar-wrapper {
     width: 80px;
