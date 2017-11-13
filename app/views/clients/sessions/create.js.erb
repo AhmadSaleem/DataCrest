@@ -1,0 +1,9 @@
+<% if flash[:alert].blank? %>
+  location.reload();
+  $('#sign-in-modal').modal('hide');
+  $("form:not(#new_client) :input").prop('readonly', false);
+  $("form :input[type=radio], form select, form :input[type=checkbox]").attr('disabled', false);
+<% else %>
+  $('.sign-in-body').html("<%= j render 'clients/sessions/login_fields' %>");
+  $('.sign-in-body').prepend("<%= j render 'layouts/alerts' %>")
+<% end %>

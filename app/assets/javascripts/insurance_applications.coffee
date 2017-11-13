@@ -11,14 +11,12 @@
   InsuranceApplications.launch_modal = ->
     $('#sign-in-modal').modal 'show'
 
-  InsuranceApplications.show_signup_fields = ->
-    $('#sign-up-fields').click () ->
-      $('.sign-in-body').addClass 'hidden'
-      $('.sign-up-body').removeClass 'hidden'
-
-  InsuranceApplications.show_signin_fields = ->
-    $('#sign-in-fields').click () ->
-      $('.sign-in-body').removeClass 'hidden'
-      $('.sign-up-body').addClass 'hidden'
-
+  InsuranceApplications.toggle_modal_fields = ->
+    $('.modal-login-rb').change ->
+      if @value == "existing_account"
+        $('.sign-in-body').removeClass 'hidden'
+        $('.sign-up-body').addClass 'hidden'
+      else
+        $('.sign-in-body').addClass 'hidden'
+        $('.sign-up-body').removeClass 'hidden'
 ).call this

@@ -20,26 +20,14 @@
           <h4 class="modal-title">Sign-in Required</h4>
         </div>
         <div class="modal-body">
+          <%= radio_button(:new, "", :new_account, { required: true, class: 'modal-login-rb' }) %>
+          <%= label_tag :new_account, 'New Account' %>
+          <%= radio_button(:new, "", :existing_account, { required: true, checked: true, class: 'modal-login-rb' }) %>
+          <%= label_tag :existing_account, 'Existing Account' %>
+
           <p>You must be signed-in as a Client in order to submit an application entry</p>
           <div class="sign-in-body">
-            <%= form_for(Client.new, url: session_path(Client.new)) do |f| %>
-              <div class="row">
-                <div class="col-md-8">
-                  <div class="form-group">
-                    <%= f.label :email, class: "control-label" %><br>
-                    <%= f.email_field :email, autofocus: true, class: "form-control" %>
-                  </div>
-
-                  <div class="form-group">
-                    <%= f.label :password, class: "control-label" %><br>
-                    <%= f.password_field :password, autocomplete: "off", class: "form-control" %>
-                  </div>
-
-                  <button type="submit" class="btn btn-fill btn-success btn-wd">Login</button>
-                  <button type="button" class="btn btn-fill btn-success btn-wd  pull-right" id="sign-up-fields">Signup</button>
-                </div>
-              </div>
-            <% end %>
+            <%= render 'clients/sessions/login_fields' %>
           </div>
         </div>
 
@@ -74,7 +62,6 @@
                 </div>
 
                 <button type="submit" class="btn btn-fill btn-success btn-wd">Signup</button>
-                <button type="button" class="btn btn-fill btn-success btn-wd pull-right" id="sign-in-fields">Login</button>
               </div>
             </div>
           <% end %>
@@ -93,7 +80,6 @@
   <% else %>
     InsuranceApplications.disable_all_fields();
     InsuranceApplications.launch_modal();
-    InsuranceApplications.show_signup_fields();
-    InsuranceApplications.show_signin_fields();
+    InsuranceApplications.toggle_modal_fields();
   <% end %>
 <% end %>
