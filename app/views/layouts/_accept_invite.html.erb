@@ -15,6 +15,7 @@
               <div class="content">
                 <ul class="list-unstyled">
                   <li><strong>Name: </strong><%= resource.full_name %></li>
+                  <li><strong>Email: </strong><%= resource.email %></li>
                   <li><strong>Invited By: </strong><%= resource.invited_by.full_name %></li>
                   <li><strong>Role: </strong><%= resource.model_name %></li>
                   <% if resource.model_name == 'Agent' %>
