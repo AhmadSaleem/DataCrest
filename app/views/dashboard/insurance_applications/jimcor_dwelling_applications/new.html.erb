@@ -21,20 +21,60 @@
         </div>
         <div class="modal-body">
           <p>You must be signed-in as a Client in order to submit an application entry</p>
-          <%= form_for(Client.new, url: session_path(Client.new)) do |f| %>
+          <div class="sign-in-body">
+            <%= form_for(Client.new, url: session_path(Client.new)) do |f| %>
+              <div class="row">
+                <div class="col-md-8">
+                  <div class="form-group">
+                    <%= f.label :email, class: "control-label" %><br>
+                    <%= f.email_field :email, autofocus: true, class: "form-control" %>
+                  </div>
+
+                  <div class="form-group">
+                    <%= f.label :password, class: "control-label" %><br>
+                    <%= f.password_field :password, autocomplete: "off", class: "form-control" %>
+                  </div>
+
+                  <button type="submit" class="btn btn-fill btn-success btn-wd">Login</button>
+                  <button type="button" class="btn btn-fill btn-success btn-wd  pull-right" id="sign-up-fields">Signup</button>
+                </div>
+              </div>
+            <% end %>
+          </div>
+        </div>
+
+        <!-- Signup fields -->
+        <div class="sign-up-body hidden modal-body">
+          <%= form_for(Client.new, url: registration_path(Client.new)) do |f| %>
             <div class="row">
-              <div class="col-md-8">
+              <div class="col-md-9">
+                <div class="form-group">
+                  <%= f.label :first_name, class: "control-label" %><br>
+                  <%= f.text_field :first_name, autofocus: true, required: true, class: "form-control" %>
+                </div>
+
+                <div class="form-group">
+                  <%= f.label :last_name, class: "control-label" %><br>
+                  <%= f.text_field :last_name, class: "form-control", required: true %>
+                </div>
+
                 <div class="form-group">
                   <%= f.label :email, class: "control-label" %><br>
-                  <%= f.email_field :email, autofocus: true, class: "form-control" %>
+                  <%= f.email_field :email, class: "form-control", required: true %>
                 </div>
 
                 <div class="form-group">
                   <%= f.label :password, class: "control-label" %><br>
-                  <%= f.password_field :password, autocomplete: "off", class: "form-control" %>
+                  <%= f.password_field :password,  placeholder: "password (min #{@minimum_password_length} characters)",autocomplete: "off", class: "form-control", required: true %>
                 </div>
 
-                <button type="submit" class="btn btn-fill btn-success btn-wd">Login</button>
+                <div class="form-group">
+                  <%= f.label :password_confirmation, class: "control-label" %><br>
+                  <%= f.password_field :password_confirmation, autocomplete: "off", class: "form-control", required: true %>
+                </div>
+
+                <button type="submit" class="btn btn-fill btn-success btn-wd">Signup</button>
+                <button type="button" class="btn btn-fill btn-success btn-wd pull-right" id="sign-in-fields">Login</button>
               </div>
             </div>
           <% end %>
@@ -53,5 +93,7 @@
   <% else %>
     InsuranceApplications.disable_all_fields();
     InsuranceApplications.launch_modal();
+    InsuranceApplications.show_signup_fields();
+    InsuranceApplications.show_signin_fields();
   <% end %>
 <% end %>

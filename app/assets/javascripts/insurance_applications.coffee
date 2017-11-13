@@ -11,4 +11,14 @@
   InsuranceApplications.launch_modal = ->
     $('#sign-in-modal').modal 'show'
 
+  InsuranceApplications.show_signup_fields = ->
+    $('#sign-up-fields').click () ->
+      $('.sign-in-body').addClass 'hidden'
+      $('.sign-up-body').removeClass 'hidden'
+
+  InsuranceApplications.show_signin_fields = ->
+    $('#sign-in-fields').click () ->
+      $('.sign-in-body').removeClass 'hidden'
+      $('.sign-up-body').addClass 'hidden'
+
 ).call this
