@@ -2,6 +2,7 @@ class Dashboard::SalespeopleInvitationsController < DashboardController
   before_action :authorize_salesperson
 
   def index
+    @title = 'Manage Employees'
     @salespeople = current_salesperson.invited_salespeople.page(params[:page])
     @salesperson = Salesperson.new
   end
