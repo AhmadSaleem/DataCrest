@@ -3,7 +3,7 @@
     <i class="pe-7s-culture"></i>
     <p>Company Settings<b class="caret"></b></p>
   </a>
-  <div class="collapse>" id="account-settings">
+  <div class="collapse" id="account-settings">
     <ul class="nav">
       <% if current_salesperson.company_owner? %>
         <li class="<%= active_class(dashboard_salespeople_invitations_path) %>"><%= link_to "Manage Employees", dashboard_salespeople_invitations_path %></li>
