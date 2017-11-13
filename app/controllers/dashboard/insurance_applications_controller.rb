@@ -12,7 +12,7 @@ class Dashboard::InsuranceApplicationsController < DashboardController
 
   def show
     @jimcor_dwelling_application = @insurance_application.client_application
-    render 'dashboard/jimcor_dwelling_applications/show'
+    render 'dashboard/insurance_applications/jimcor_dwelling_applications/show'
   end
 
   def edit
