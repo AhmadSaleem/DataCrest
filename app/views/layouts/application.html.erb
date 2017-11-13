@@ -7,7 +7,7 @@
     <%= javascript_include_tag 'application' %>
   </head>
 
-  <body>
+  <body class="<%= yield :body_class %>">
     <div class="wrapper <%= yield :wrapper_class %>">
       <!--  start layout-unique content -->
 
@@ -21,9 +21,11 @@
       <div class="content">
         <div class="container-fluid">
           <% if new_registration? %>
-              <%= render 'layouts/sign_up' %>
+            <%= render 'layouts/sign_up' %>
           <% elsif new_session? %>
-              <%= render 'layouts/sign_in' %>
+            <%= render 'layouts/sign_in' %>
+          <% elsif accept_invite? %>
+            <%= render 'layouts/accept_invite' %>
           <% end %>
           <%= yield %>
         </div>
