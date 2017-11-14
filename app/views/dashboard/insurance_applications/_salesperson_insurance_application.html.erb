@@ -1,5 +1,6 @@
 <tr>
   <td><%= application.application_title %></td>
+  <td><%= application.agent.full_name  if application.agent.present? %></td>
   <td><%= application.client_full_name %></td>
   <td><%= application.status %></td>
   <td>
