@@ -21,6 +21,7 @@
   accepts_nested_attributes_for :owned_agency
 
   before_validation :assign_agency, on: :create
+  before_create     :assign_person_agency
 
   delegate :full_name, :wholesaler_title, to: :invited_by, prefix: true, allow_nil: true
   delegate :title, :logo, :address_1, :city, :zip_code, :state, to: :agency, prefix: true
@@ -47,8 +48,14 @@
   end
 
   private
-
+    #call on agency signup
     def assign_agency
       self.agency = owned_agency if owned_agency.present?
+    end
+
+    #call on agent invitation
+    def assign_person_agency
+      return if invited_by.blank?
+      self.agency = owned_agency if company_owner? && invited_by.model_name == "Salesperson"
     end
 end
