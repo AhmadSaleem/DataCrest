@@ -6,7 +6,7 @@ class Dashboard::InsuranceApplicationsController < DashboardController
     @title = 'Application Submissions'
     if salesperson_signed_in?
       @applications = current_user.wholesaler_insurance_applications.page(params[:page])
-    elsif client_signed_in?
+    elsif client_signed_in? || agent_signed_in?
       @applications = current_user.jimcor_dwelling_applications.page(params[:page])
     end
   end
