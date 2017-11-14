@@ -7,7 +7,7 @@ class Clients::InvitationsController < Devise::InvitationsController
   def update
     if params[:client][:application_id].present?
       insurance_application = InsuranceApplication.find_by(id: params[:client][:application_id])
-      session[:application_url] = { controller: "dashboard/#{insurance_application.client_application_type.tableize}",
+      session[:application_url] = { controller: "dashboard/insurance_applications/#{insurance_application.client_application_type.tableize}",
                                     action: "edit", id: insurance_application.client_application_id }
     end
 

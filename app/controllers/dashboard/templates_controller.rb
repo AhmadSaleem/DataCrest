@@ -4,7 +4,7 @@ class Dashboard::TemplatesController < DashboardController
   def show
     @jimcor_dwelling_application = @template.application_model.new if @template.present?
     application_directory = @template.class_name.tableize
-    render "dashboard/#{application_directory}/show"
+    render "dashboard/insurance_applications/#{application_directory}/show"
   end
 
   private

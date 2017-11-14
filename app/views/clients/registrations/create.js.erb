@@ -1,0 +1,9 @@
+<% if flash[:alert].present? %>
+  $('.sign-up-body').html("<%= j render 'clients/registrations/signup_fields' %>");
+  $('.sign-up-body').prepend("<%= j render 'layouts/alerts' %>")
+<% elsif @client.errors.any? %>
+  $('.sign-up-body').html("<%= j render 'clients/registrations/signup_fields' %>");
+  $('.sign-up-body').prepend("<%= j render 'shared/errors', resource: @client %>")
+<% else %>
+  location.reload();
+<% end %>
