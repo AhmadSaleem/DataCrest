@@ -5,7 +5,7 @@
     <span class="sr-only">Toggle Dropdown</span>
   </button>
   <ul class="dropdown-menu">
-    <li><%= link_to "Continue Application", edit_dashboard_jimcor_dwelling_application_path(application) %></li>
+    <li><%= link_to "Continue Application", edit_dashboard_insurance_applications_jimcor_dwelling_application_path(application) %></li>
     <% if application.complete? %>
       <li>
         <%= link_to "View Submission", dashboard_jimcor_dwelling_application_path(application) %>

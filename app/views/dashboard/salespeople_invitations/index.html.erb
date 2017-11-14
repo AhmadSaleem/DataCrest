@@ -44,15 +44,16 @@
 
 <% if @salespeople.present? %>
   <div class="row">
-    <div class="col-md-8">
+    <div class="col-12">
       <div class="card">
         <div class="header">
-          <h2>Invitations</h2>
+          <h2 class="title">Invitations</h2>
         </div>
 
         <div class="content table-responsive table-full-width">
           <table class="table table-hover table-stripped">
             <thead>
+              <th>Pic</th>
               <th>Name</th>
               <th>Email</th>
               <th>Invitation Status</th>
@@ -62,6 +63,7 @@
             <tbody>
               <% @salespeople.each do |salesperson| %>
                 <tr>
+                  <td><%= image_tag salesperson.profile_picture, style: 'max-width: 50px' %></td>
                   <td><%= salesperson.full_name %></td>
                   <td><%= salesperson.email %></td>
                   <td><%= salesperson.status %></td>

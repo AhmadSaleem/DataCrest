@@ -15,14 +15,6 @@ module ApplicationHelper
     current_salesperson || current_agent || current_client
   end
 
-  def dashboard?
-    controller_path.split('/').first == 'dashboard' || edit_profile?
-  end
-
-  def edit_profile?
-    (controller_name.in?(['registrations']) && action_name.in?(['edit', 'update']))
-  end
-
   def new_registration?
     (controller_name.in?(['registrations']) && action_name.in?(['new', 'create']))
   end
@@ -31,7 +23,8 @@ module ApplicationHelper
     (controller_name.in?(['sessions']) && action_name.in?(['new', 'create']))
   end
 
-  def page?
-    not dashboard?
+  def accept_invite?
+    (controller_name.in?(['invitations']))
   end
+
 end

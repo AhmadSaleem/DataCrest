@@ -292,15 +292,6 @@ h1 .subtitle{
     background-color: #FF4C40;
     background-color: rgba(255, 76, 64, 1);
 }
-.navbar:not(.navbar-transparent).navbar-ct-white{
-    background-color: #FFF;
-    background-color: rgba(255, 255, 255, 1);
-}
-.navbar:not(.navbar-transparent).navbar-ct-white.navbar-fixed-top {
-    -webkit-box-shadow:0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
-    -moz-box-shadow:0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
-    box-shadow:0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
-}
 
 .dropdown-menu > li > a {
     padding: 8px 20px;

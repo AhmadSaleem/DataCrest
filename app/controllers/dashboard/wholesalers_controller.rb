@@ -4,6 +4,7 @@ class Dashboard::WholesalersController < DashboardController
   before_action :set_wholesaler
 
   def edit
+    @title = 'Edit Company'
   end
 
   def update

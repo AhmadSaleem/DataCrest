@@ -1,10 +1,5 @@
-<h2>Edit Application</h2>
 <%= render "shared/errors", resource: @jimcor_dwelling_application %>
 
-<%= form_for @jimcor_dwelling_application, url: dashboard_jimcor_dwelling_application_path do |f| %>
-  <%= render 'form_fields', f: f %>
-<% end %>
-
-<% content_for :js_init do %>
-  InsuranceApplications.chosen_select_init();
+<%= form_for @jimcor_dwelling_application, url: dashboard_insurance_applications_jimcor_dwelling_application_path do |f| %>
+  <%= render 'form', f: f %>
 <% end %>

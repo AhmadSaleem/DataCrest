@@ -2,35 +2,50 @@
   <div class="col-12">
     <div class="card">
       <div class="header">
-        <h2 class="title">Agent Wholesaler Applications</h2>
+        <h2 class="title">Agents</h2>
       </div>
-      <div class="content">
+      <div class="content clearfix">
         <% if @agent_wholesalers.present? %>
           <div class="content table-responsive table-full-width">
             <table class="table table-hover table-striped">
               <thead>
               <tr>
                 <th>Name</th>
-                <th>Number of pplications</th>
+                <th>Number of Applications</th>
                 <th>Actions</th>
               </tr>
               </thead>
+              <tbody>
               <% @agent_wholesalers.each do |agent| %>
-                <tbody>
-                  <tr>
-                    <td><%= agent.full_name.titleize %></td>
-                    <td><%= agent.applications_count %></td>
-                    <td>
-                      <% if agent.applications_count > 0 %>
-                        <%= link_to "View applications", agent_templates_dashboard_agent_wholesaler_application_path(agent.id) %> |
-                        <%= link_to "Assign new application", new_dashboard_agent_invitation_path %>
-                      <% else %>
-                        <%= link_to "Assign new application", new_dashboard_agent_invitation_path %>
-                      <% end %>
-                    </td>
-                  </tr>
-                </tbody>
+                <tr>
+                  <td>
+                    <a data-toggle="modal" data-target="#agent-profile-<%= agent.id %>">
+                      <%= image_tag agent.profile_picture, style: 'max-width: 50px;' %><%= agent.full_name.titleize %></a>
+                    <div id="agent-profile-<%= agent.id %>" class="modal fade">
+                      <div class="modal-dialog">
+                        <div class="modal-content">
+                          <div class="modal-body">
+                            <%= render 'dashboard/agents/agent', agent: agent %>
+                          </div>
+                          <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </td>
+                  <td><%= agent.applications_count %></td>
+                  <td>
+                    <% if agent.applications_count > 0 %>
+                      <%= link_to "View applications", agent_templates_dashboard_agent_wholesaler_application_path(agent.id) %> |
+                      <%= link_to "Assign new application", new_dashboard_agent_invitation_path %>
+                    <% else %>
+                      <%= link_to "Assign new application", new_dashboard_agent_invitation_path %>
+                    <% end %>
+                  </td>
+                </tr>
               <% end %>
+              </tbody>
             </table>
           </div>
           <div class="pull-right">

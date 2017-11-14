@@ -1,13 +1,13 @@
 nav
   .navbar-brand img
     max-height: 50px
-.sidebar
-  .logo, .logo img
-    width: 100%
-  .logo img
-    padding: 0 25px
 
 .navbar:not(.navbar-transparent).navbar-ct-white
+  background-color: #FFF
+  &.navbar-fixed-top
+    -webkit-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset
+    -moz-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset
   .navbar-fixed-top:before, .navbar-fixed-top:after
     right: 10px
     left: auto
@@ -40,6 +40,19 @@ li > a
     vertical-align: middle
 
 body:not(.dashboard)
+  nav.navbar
+    .photo
+      width: 34px
+      height: 34px
+      overflow: hidden
+      border-radius: 50%
+      float: left
+      margin-right: 11px
+      margin-left: 23px
+      z-index: 5
+      border: 2px solid rgba(255, 255, 255, 0.3)
+      img
+        width: 100%
   .alert
     position: fixed
     top: 0

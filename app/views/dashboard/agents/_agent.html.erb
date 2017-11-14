@@ -1,0 +1,23 @@
+<div class="card card-user">
+  <div class="image">
+    <%= image_tag 'hero_1.jpg' %>
+  </div>
+  <div class="content">
+    <div class="author">
+      <a href="#">
+        <%= image_tag agent.profile_picture, class: 'avatar border-gray' %>
+        <h4 class="title"><%= agent.full_name %><br>
+          <small><%= agent.agency_title %></small><br>
+          <small><%= agent.email %></small>
+        </h4>
+      </a>
+    </div>
+  </div>
+  <hr>
+  <div class="text-center">
+    <button href="#" class="btn btn-simple"><i class="fa fa-facebook-square"></i></button>
+    <button href="#" class="btn btn-simple"><i class="fa fa-twitter"></i></button>
+    <button href="#" class="btn btn-simple"><i class="fa fa-google-plus-square"></i></button>
+  </div>
+</div>
+

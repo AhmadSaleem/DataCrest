@@ -14,22 +14,31 @@ Rails.application.routes.draw do
     resources :salespeople_invitations, only: [:index, :create, :destroy] do
       get 'resend_invitation', on: :member
     end
+
     resources :agent_invitations, only: [:new, :create] do
       get 'search_agents', on: :collection
     end
+
     resources :wholesalers, only: [:edit, :update]
     resources :agencies, only: [:edit, :update]
     resources :client_invitations, only: [:new, :create]
-    resources :agent_wholesaler_applications, only: [:index, :destroy] do
+
+    resources :agent_wholesaler_applications, only: [:index, :destroy], path: 'my-agents' do
       get 'agent_templates', on: :member
     end
-    resources :insurance_applications, only: [:index, :edit, :update, :show], path: 'applications'
+
+    resources :insurance_applications, except: [:new], path: 'applications' do
+      get 'global', on: :collection
+    end
+
     namespace :insurance_applications, path: 'applications' do
       resources :jimcor_dwelling_applications
     end
+
     resources :agents, only: [:index, :show]
     resources :templates, only: [:show]
   end
+
   resources :pages do
     collection do
       get "copyright"
@@ -37,6 +46,7 @@ Rails.application.routes.draw do
       get "disclaimer"
     end
   end
+
   resources :wholesalers, only: [:index, :show]
 
   root to: "pages#index"
