@@ -22,4 +22,9 @@ module ApplicationHelper
   def new_session?
     (controller_name.in?(['sessions']) && action_name.in?(['new', 'create']))
   end
+
+  def accept_invite?
+    (controller_name.in?(['invitations']))
+  end
+
 end
