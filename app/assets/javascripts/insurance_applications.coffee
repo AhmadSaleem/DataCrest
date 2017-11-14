@@ -9,7 +9,7 @@
     $("form :input[type=radio], form select, form :input[type=checkbox]").attr('disabled', true);
 
   InsuranceApplications.launch_modal = ->
-    $('#sign-in-modal').modal 'show'
+    $('#alert-modal').modal 'show'
 
   InsuranceApplications.show_signup_fields = ->
     $('#sign-up-fields').click () ->
