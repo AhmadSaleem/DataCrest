@@ -3,6 +3,7 @@ class Dashboard::AgentInvitationsController < DashboardController
   before_action :fields_validation, only: [:create]
 
   def new
+    @title = 'Send App to Agent'
     @agents = Agent.limit(2)
     @agent = Agent.new
     @agent.build_owned_agency
