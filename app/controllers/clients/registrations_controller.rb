@@ -1,4 +1,5 @@
 class Clients::RegistrationsController < Devise::RegistrationsController
+  layout "dashboard", only: [:edit, :update]
 
   def new
     super

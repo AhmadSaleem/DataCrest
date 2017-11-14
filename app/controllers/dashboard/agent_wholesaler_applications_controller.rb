@@ -3,10 +3,12 @@ class Dashboard::AgentWholesalerApplicationsController < DashboardController
   before_action :authenticate_salesperson!
 
   def index
+    @title = 'Agents'
     @agent_wholesalers = current_salesperson.accepted_wholesaler_agents.page(params[:page])
   end
 
   def agent_templates
+    @title = 'Agent Applications'
     @agent_templates = @agent.templates
   end
 

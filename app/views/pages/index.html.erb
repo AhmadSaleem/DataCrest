@@ -1,77 +1,15 @@
 <%= content_for :hero do %>
-  <div class="blurred-container">
+  <div class="blurred-container" style="margin-bottom: 50px;">
     <div class="img-src" style="background-image: url('<%= image_path 'hero_1.jpg' %>')"></div>
   </div>
 <% end  %>
 
-<div class="row" style="margin-top: 50px;">
+<div class="row">
   <div class="col-md-10 col-md-offset-1">
-    <div class="card">
-      <div class="header">
-        <h4 class="title">Applications Hosted on <%= render_brand_name %></h4>
-        <p class="category">Public Directory</p>
-      </div>
-      <div class="content">
-        <div class="toolbar">
-          <!--        Here you can write extra buttons/actions for the toolbar              -->
-        </div>
-        <div class="fresh-datatables">
-          <table id="datatables" class="table table-striped table-no-bordered table-hover" cellspacing="0" width="100%" style="width:100%">
-            <thead>
-            <tr>
-              <th>Title</th>
-              <th>Wholesaler</th>
-              <th>Location</th>
-              <th class="disabled-sorting text-right">Actions</th>
-            </tr>
-            </thead>
-            <tbody>
-              <%= render 'table_data' %>
-            </tbody>
-          </table>
-        </div>
-      </div>
-    </div>
+    <%= render 'dashboard/insurance_applications/global_insurance_applications_table' %>
   </div>
 </div>
 
 <%= content_for :js_init do %>
-    // should be moved to coffeescript
-    $('#datatables').DataTable({
-    "pagingType": "full_numbers",
-    "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]],
-    responsive: true,
-    language: {
-    search: "_INPUT_",
-    searchPlaceholder: "Search records",
-    }
-
-    });
-
-
-    var table = $('#datatables').DataTable();
-
-    // Edit record
-    table.on( 'click', '.edit', function () {
-    $tr = $(this).closest('tr');
-
-    if($tr.hasClass('child')){
-    $tr = $tr.prev('.parent');
-    }
-
-    var data = table.row($tr).data();
-    alert( 'You press on Row: ' + data[0] + ' ' + data[1] + ' ' + data[2] + '\'s row.' );
-    } );
-
-    // Delete a record
-    table.on( 'click', '.remove', function (e) {
-    $tr = $(this).closest('tr');
-    table.row($tr).remove().draw();
-    e.preventDefault();
-    } );
-
-    //Like record
-    table.on( 'click', '.like', function () {
-    alert('You clicked on Like button');
-    });
+  Pages.init();
 <% end %>

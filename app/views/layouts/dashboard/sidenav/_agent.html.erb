@@ -1,15 +1,30 @@
+<% if current_agent.company_owner? %>
+    <li>
+      <a data-toggle="collapse" href="#company-settings">
+        <i class="pe-7s-culture"></i>
+        <p>Company Settings<b class="caret"></b></p>
+      </a>
+      <div class="collapse" id="company-settings">
+        <ul class="nav">
+          <li class="<%= active_class(dashboard_agent_invitations_path) %>"><%= link_to "Manage Employees", dashboard_agent_invitations_path %></li>
+          <li class="<%= active_class(edit_dashboard_agency_path(current_agent.agency)) %>"><%= link_to "Edit Company Info", edit_dashboard_agency_path(current_agent.agency) %></li>
+        </ul>
+      </div>
+    </li>
+<% end %>
 <li>
-  <%= link_to "Account Settings", "#account-settings", data: { toggle: "collapse" },
-    aria: { controls: "account-settings", expanded: "false" } %>
-
-  <ul id="account-settings" class="collapse list-group">
-    <li class="list-styles"><%= link_to "Edit Account", edit_agent_registration_path %></li>
-    <li class="list-styles"><%= link_to "Invite client", new_dashboard_client_invitation_path %></li>
-
-    <% if current_agent.company_owner? %>
-      <li class="list-styles">
-        <%= link_to "Edit Company", edit_dashboard_agency_path(current_agent.owned_agency) %>
+  <a data-toggle="collapse" href="#applications">
+    <i class="pe-7s-note2"></i>
+    <p>Applications<b class="caret"></b></p>
+  </a>
+  <div class="collapse" id="applications">
+    <ul class="nav">
+      <li class="<%= active_class(new_dashboard_client_invitation_path) %>">
+        <%= link_to "Send App to Client", new_dashboard_client_invitation_path %>
       </li>
-    <% end %>
-  </ul>
+      <li class="<%= active_class(dashboard_insurance_applications_path) %>">
+        <%= link_to "View Submissions", dashboard_insurance_applications_path %>
+      </li>
+    </ul>
+  </div>
 </li>

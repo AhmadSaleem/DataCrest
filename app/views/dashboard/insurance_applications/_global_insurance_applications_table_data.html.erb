@@ -1,0 +1,12 @@
+<% @templates.each do |template| %>
+  <tr>
+    <td><%= template.title %></td>
+    <td><%= template.wholesaler_title %></td>
+    <td><%= template.wholesaler_location %></td>
+    <td class="text-right">
+      <%= link_to new_dashboard_insurance_applications_jimcor_dwelling_application_path(id: template.id), class: 'btn btn-sm btn-primary' do %>
+        link
+      <% end %>
+    </td>
+  </tr>
+<% end %>

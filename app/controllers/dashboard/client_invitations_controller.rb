@@ -3,6 +3,7 @@ class Dashboard::ClientInvitationsController < DashboardController
   before_action :fields_validation, only: [:create]
 
   def new
+    @title = 'Send App to Client'
     @client = Client.new
     @clients = Client.invitation_accepted
     @templates = current_agent.templates

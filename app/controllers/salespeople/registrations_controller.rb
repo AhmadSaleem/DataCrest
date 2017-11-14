@@ -1,4 +1,5 @@
 class Salespeople::RegistrationsController < Devise::RegistrationsController
+  layout "dashboard", only: [:edit, :update]
 
   def create
     super

@@ -4,24 +4,29 @@
       <div class="header">
         <h2 class="title">Agents</h2>
       </div>
-      <div class="content">
+      <div class="content clearfix">
         <% if @agents.present? %>
           <div class="content table-responsive table-full-width">
             <table class="table table-hover table-striped">
               <thead>
               <tr>
+                <th>Profile Pic</th>
+                <th>Name</th>
                 <th>Email</th>
                 <th>Actions</th>
               </tr>
               </thead>
+              <tbody>
               <% @agents.each do |agent| %>
-                <tbody>
                 <tr>
+                  <td><%= image_tag agent.profile_picture, style: 'max-width: 50px' %></td>
+                  <td><%= agent.full_name %></td>
                   <td><%= agent.email %></td>
+                  <td><%= agent.agency.title %></td>
                   <td><%= link_to "View", dashboard_agent_path(agent) %></td>
                 </tr>
-                </tbody>
               <% end %>
+              </tbody>
             </table>
           </div>
           <div class="pull-right">
