@@ -25,11 +25,6 @@
                 <span class="sidebar-normal">Edit Profile</span>
               <% end %>
             </li>
-            <% if agent_signed_in? && current_agent.company_owner? %>
-              <li class="<%= active_class(edit_dashboard_agency_path(current_agent.owned_agency)) %>">
-                <%= link_to "Edit Company", edit_dashboard_agency_path(current_agent.owned_agency) %>
-              </li>
-            <% end %>
             <li>
               <%= link_to render_logout_path, method: :delete do %>
                 <span class="sidebar-normal">Logout</span>
