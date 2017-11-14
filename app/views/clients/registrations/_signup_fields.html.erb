@@ -1,0 +1,32 @@
+<%= form_for(Client.new, url: registration_path(Client.new), remote: true) do |f| %>
+  <div class="row">
+    <div class="col-md-9">
+      <div class="form-group">
+        <%= f.label :first_name, class: "control-label" %><br>
+        <%= f.text_field :first_name, autofocus: true, required: true, class: "form-control" %>
+      </div>
+
+      <div class="form-group">
+        <%= f.label :last_name, class: "control-label" %><br>
+        <%= f.text_field :last_name, class: "form-control", required: true %>
+      </div>
+
+      <div class="form-group">
+        <%= f.label :email, class: "control-label" %><br>
+        <%= f.email_field :email, class: "form-control", required: true %>
+      </div>
+
+      <div class="form-group">
+        <%= f.label :password, class: "control-label" %><br>
+        <%= f.password_field :password,  placeholder: "password (min #{@minimum_password_length} characters)",autocomplete: "off", class: "form-control", required: true %>
+      </div>
+
+      <div class="form-group">
+        <%= f.label :password_confirmation, class: "control-label" %><br>
+        <%= f.password_field :password_confirmation, autocomplete: "off", class: "form-control", required: true %>
+      </div>
+
+      <button type="submit" class="btn btn-fill btn-success btn-wd">Signup</button>
+    </div>
+  </div>
+<% end %>
