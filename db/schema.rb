@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171111201909) do
+ActiveRecord::Schema.define(version: 20171114010220) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -27,7 +27,7 @@ ActiveRecord::Schema.define(version: 20171111201909) do
     t.datetime "updated_at", null: false
     t.json "logo"
     t.string "address_2"
-    t.string "agency_code", null: false
+    t.string "agency_code"
     t.index ["owner_id"], name: "index_agencies_on_owner_id"
   end
 
@@ -77,7 +77,7 @@ ActiveRecord::Schema.define(version: 20171111201909) do
     t.bigint "invited_by_id"
     t.integer "invitations_count", default: 0
     t.integer "applications_count", default: 0
-    t.string "agent_code", null: false
+    t.string "agent_code"
     t.json "profile_picture"
     t.index ["agency_id"], name: "index_agents_on_agency_id"
     t.index ["email"], name: "index_agents_on_email", unique: true
