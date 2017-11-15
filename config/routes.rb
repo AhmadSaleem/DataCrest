@@ -1,4 +1,7 @@
 Rails.application.routes.draw do
+  devise_for :admin_users, ActiveAdmin::Devise.config
+  ActiveAdmin.routes(self)
+
   devise_for :agents,      path: '', path_names: { sign_in: 'sign-in' },
                            controllers: { sessions: "agents/sessions",
                                           registrations: "agents/registrations",
@@ -7,6 +10,7 @@ Rails.application.routes.draw do
                                           registrations: "clients/registrations" }
   devise_for :salespeople, controllers: { registrations: "salespeople/registrations",
                                           invitations: "salespeople/invitations" }
+
   get "dashboard", to: "dashboard#index"
   get 'dashboard/wholesaler_settings', to: 'dashboard/companies#wholesaler_settings'
 

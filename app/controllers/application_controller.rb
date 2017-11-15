@@ -3,6 +3,10 @@ class ApplicationController < ActionController::Base
 
   protected
     def after_sign_in_path_for(resource)
-      session[:application_url] || dashboard_path
+      if resource.model_name == "AdminUser"
+        admin_dashboard_path
+      else
+        session[:application_url] || dashboard_path
+      end
     end
 end
