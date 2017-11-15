@@ -20,13 +20,17 @@
               <tbody>
               <% @applications.each do |application| %>
                 <tr>
-                  <td><%= application.insurance_application.template.title %></td>
-                  <td><%= application.agent.full_name if application.agent.present? %></td>
+                  <td><%= application.application_title %></td>
+                  <% if application.agent.present? %>
+                    <td><%= application.agent.full_name %></td>
+                  <% else %>
+                    <td>N/A</td>
+                  <% end %>
                   <td><%= application.client_full_name %></td>
                   <td><%= application.status %></td>
                   <td>
                     <%= link_to "View", dashboard_insurance_applications_jimcor_dwelling_application_path(application) %> |
-                    <%= link_to "Edit", edit_dashboard_insurance_applications_jimcor_dwelling_application_path(application) %>
+                    <%= link_to "Edit", edit_dashboard_insurance_application_path(application) %>
                   </td>
               <% end %>
               </tbody>

@@ -1,5 +1,5 @@
 class Dashboard::InsuranceApplications::JimcorDwellingApplicationsController < DashboardController
-  before_action :authenticate_client!, except: [:new]
+  before_action :authenticate_client!, except: [:new, :show]
   before_action :set_jimcor_dwelling_application, only: [:edit, :update, :show]
 
   def index
