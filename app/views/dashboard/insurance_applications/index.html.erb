@@ -21,11 +21,7 @@
               <% @applications.each do |application| %>
                 <tr>
                   <td><%= application.application_title %></td>
-                  <% if application.agent.present? %>
-                    <td><%= application.agent.full_name %></td>
-                  <% else %>
-                    <td>N/A</td>
-                  <% end %>
+                  <td><%= application.agent_name %></td>
                   <td><%= application.client_full_name %></td>
                   <td><%= application.status %></td>
                   <td>
@@ -41,7 +37,7 @@
             <%= page_entries_info @applications, entry_name: "applications" %>
           </div>
         <% else %>
-            <p>You don't have any applications</p>
+          <p>You don't have any applications</p>
         <% end %>
       </div>
     </div>
