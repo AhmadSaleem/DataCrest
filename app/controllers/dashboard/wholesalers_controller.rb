@@ -9,7 +9,7 @@ class Dashboard::WholesalersController < DashboardController
 
   def update
     if @wholesaler.update(wholesaler_params)
-      redirect_to edit_dashboard_wholesaler_path(@wholesaler), notice: "Company was updated successfully."
+      redirect_to dashboard_path, notice: "Company was updated successfully."
     else
       render :edit
     end
