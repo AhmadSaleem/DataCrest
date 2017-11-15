@@ -11,6 +11,7 @@ class Agents::SessionsController < Devise::SessionsController
       end
       respond_with user, location: after_sign_in_path_for(user)
     else
+      flash[:alert] = "Invalid email or password."
       self.resource = Agent.new
       render :new
     end
