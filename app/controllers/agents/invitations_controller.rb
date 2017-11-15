@@ -8,7 +8,6 @@ class Agents::InvitationsController < Devise::InvitationsController
         Agency::AgencyMailer.agent_invite_accept(resource).deliver_later
       else
         resource.wholesalers << resource.invited_by.wholesaler
-        resource.agency_applications.update_all(agency_id: @agency.id) if resource.agency_applications.present?
         UserMailer.welcome(resource.email).deliver_later
         CompanyOwnerMailer.agent_invite_accept(resource).deliver_later
       end
