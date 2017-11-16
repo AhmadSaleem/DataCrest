@@ -67,7 +67,7 @@
     #call on agent invitation
     def assign_person_agency
       return if invited_by.blank?
-      self.agency = owned_agency if company_owner? && invited_by.model_name == "Salesperson"
+      self.agency = owned_agency
       self.agency = invited_by.agency if invited_by.is_a?(Agent)
     end
 end

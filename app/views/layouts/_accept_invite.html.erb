@@ -18,7 +18,7 @@
                   <li><strong>Email: </strong><%= resource.email %></li>
                   <li><strong>Invited By: </strong><%= resource.invited_by.full_name %></li>
                   <li><strong>Role: </strong><%= resource.model_name %></li>
-                  <% if resource.model_name == 'Agent' %>
+                  <% if resource.is_a?(Agent) %>
                     <li><strong>Agent Code: </strong><%= resource.agent_code %></li>
                     <% if resource.company_owner? %>
                       <li><strong>Agency Code: </strong><%= resource.owned_agency.agency_code %></li>
@@ -36,7 +36,7 @@
                     <%= f.password_field :password_confirmation, class: "form-control" %>
                   </div>
                 <% end %>
-                <%= render 'agents/invitations/agency_fields', f: f if resource.model_name == 'Agent' && resource.company_owner? %>
+                <%= render 'agents/invitations/agency_fields', f: f if resource.is_a?(Agent) && resource.company_owner? %>
                 <div class="row">
                   <div class="col-md-12">
                     <%= f.submit "Create Account", class: "btn btn-success btn-fill" %>
