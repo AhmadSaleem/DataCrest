@@ -7,4 +7,8 @@ class Agency < ApplicationRecord
   mount_uploader :logo, LogoUploader
 
   validates :website, :title, presence: true, on: :update
+
+  def company_address
+    "#{address_1}<br/> #{city}, #{state} #{zip_code}".html_safe
+  end
 end
