@@ -1,5 +1,5 @@
 class Dashboard::InsuranceApplicationsController < DashboardController
-  #before_action :authenticate_salesperson!
+  before_action :authenticate_salesperson!, only: [:edit, :update]
   before_action :set_insurance_application, only: [:show, :edit, :update]
 
   def index
