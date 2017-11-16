@@ -1,54 +1,5 @@
 <%= form_for @agent, url: dashboard_agency_agent_invitations_path do |f| %>
-  <div class="row">
-    <div class="col-12">
-      <div class="card">
-        <div class="header">
-          <h2 class="title">New Invitation</h2>
-        </div>
-
-        <div class="content">
-          <div class="row">
-
-            <div class="col-md-2">
-              <div class="form-group">
-                <%= f.label :agent_code, class: "control-label" %>
-                <br />
-                <%= f.text_field :agent_code, class: "form-control", required: true %>
-              </div>
-            </div>
-
-            <div class="col-md-3">
-              <div class="form-group">
-                <%= f.label :first_name, class: "control-label" %>
-                <br />
-                <%= f.text_field :first_name, class: "form-control", required: true %>
-              </div>
-            </div>
-
-            <div class="col-md-3">
-              <div class="form-group">
-                <%= f.label :last_name, class: "control-label" %>
-                <br />
-                <%= f.text_field :last_name, class: "form-control", required: true %>
-              </div>
-            </div>
-
-            <div class="col-md-4">
-              <div class="form-group">
-                <%= f.label :email, class: "control-label" %>
-                <br />
-                <%= f.text_field :email, class: "form-control", required: true %>
-              </div>
-            </div>
-
-            <div class="col-md-3">
-              <%= f.submit "Send Invite", class: "btn btn-success" %>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
+  <%= render "shared/dashboard/employee_invitations/index", f: f %>
 <% end %>
 
 <% if @agents.present? %>
@@ -76,7 +27,7 @@
                   <td><%= agent.full_name %></td>
                   <td><%= agent.email %></td>
                   <td><%= agent.status %></td>
-                  <td><%= render partial: "actions", locals: { person: agent } %></td>
+                  <td><%= render partial: "shared/dashboard/employee_invitations/actions", locals: { person: agent } %></td>
                 </tr>
               <% end %>
             </tbody>
