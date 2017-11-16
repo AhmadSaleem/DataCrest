@@ -64,13 +64,15 @@
                 <i class="pe-7s-help1"></i> Help Center
               </a>
             </li>
-            <li class="divider"></li>
-            <li>
-              <%= link_to render_logout_path, method: :delete, class: 'text-danger' do %>
-                <i class="pe-7s-close-circle"></i>
-                Log out
-              <% end %>
-            </li>
+            <% if signed_in? %>
+              <li class="divider"></li>
+              <li>
+                <%= link_to render_logout_path, method: :delete, class: 'text-danger' do %>
+                  <i class="pe-7s-close-circle"></i>
+                  Log out
+                <% end %>
+              </li>
+            <% end %>
           </ul>
         </li>
       </ul>
