@@ -17,7 +17,7 @@ end
 
 ## 2) Salesperson
 ```
-  A salesperson is owner of some wholesaler or its employee. A person can also signed up and register their wholesaler on the platefrom. Salesperson belongs to a wholesaler company that we called the employees of that wholesaler. It may share applications with new agents and the existing agents. It can view the agents invited by its wholesaler. It can also view the applications submitted by the clients. 
+  A salesperson is owner or employee of some wholesaler. A salesperson can register their wholesaler on the platefrom or will be invited by the wholesaler owner. It may share applications with new and existing agents, it may also invite new agents on the plateform. It can view all the agents invited by its wholesaler. It can also view all the applications submitted by the clients. 
 ```
 
 ## 3) Template
@@ -32,7 +32,8 @@ end
 
 ## 5) Agency
 ```
-  It is a company registered on DataCrest which can invite the agents to join the agency as its employees and clients to complete the applications assigned by the wholesaler or the salesperson. It is owned by an agent who is either invited_by the wholesaler or signed up to join the Datacrest. It could have many applications and agents.It can ask the clients to complete the applications. Moreover , it can view the applicationS submitted by the client.```
+  It is a company registered on DataCrest which can invite the agents to join the agency as its employees and clients to complete the applications assigned by the wholesaler or the salesperson. It is owned by an agent who is either invited_by the wholesaler or signed up to join the Datacrest. It could have many applications and agents.It can ask the clients to complete the applications. Moreover , it can view the applicationS submitted by the client.
+```
 
 ## 6) Agent
 ```  
