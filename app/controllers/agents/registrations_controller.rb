@@ -15,4 +15,8 @@ class Agents::RegistrationsController < Devise::RegistrationsController
     def account_update_params
       params.require(:agent).permit(:first_name, :last_name, :email, :password, :password_confirmation, :current_password, :profile_picture, :profile_picture_cache)
     end
+
+    def after_update_path_for(resource)
+      dashboard_path
+    end
 end

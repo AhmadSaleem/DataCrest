@@ -19,6 +19,14 @@ class JimcorDwellingApplication < ApplicationRecord
     percentage_of_completion == 100
   end
 
+  def application_title
+    APPLICATION_TITLE
+  end
+
+  def agent_name
+    agent.present? ? agent_full_name : "N/A"
+  end
+
   private
 
     def calculate_completion_percentage

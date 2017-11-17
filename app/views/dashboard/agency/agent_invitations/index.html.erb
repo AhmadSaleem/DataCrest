@@ -1,8 +1,8 @@
-<%= form_for @salesperson, url: dashboard_salespeople_invitations_path do |f| %>
+<%= form_for @agent, url: dashboard_agency_agent_invitations_path do |f| %>
   <%= render "shared/dashboard/employee_invitations/index", f: f %>
 <% end %>
 
-<% if @salespeople.present? %>
+<% if @agents.present? %>
   <div class="row">
     <div class="col-12">
       <div class="card">
@@ -21,13 +21,13 @@
             </thead>
 
             <tbody>
-              <% @salespeople.each do |salesperson| %>
+              <% @agents.each do |agent| %>
                 <tr>
-                  <td><%= image_tag salesperson.profile_picture, style: 'max-width: 50px' %></td>
-                  <td><%= salesperson.full_name %></td>
-                  <td><%= salesperson.email %></td>
-                  <td><%= salesperson.status %></td>
-                  <td><%= render partial: "shared/dashboard/employee_invitations/actions", locals: { person: salesperson } %></td>
+                  <td><%= image_tag agent.profile_picture, style: 'max-width: 50px' %></td>
+                  <td><%= agent.full_name %></td>
+                  <td><%= agent.email %></td>
+                  <td><%= agent.status %></td>
+                  <td><%= render partial: "shared/dashboard/employee_invitations/actions", locals: { person: agent } %></td>
                 </tr>
               <% end %>
             </tbody>
@@ -36,8 +36,8 @@
       </div>
 
       <div class="pull-right">
-        <%= paginate @salespeople %>
-        <%= page_entries_info @salespeople, entry_name: "employees" %>
+        <%= paginate @agents %>
+        <%= page_entries_info @agents, entry_name: "employees" %>
       </div>
     </div>
   </div>

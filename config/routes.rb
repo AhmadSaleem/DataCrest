@@ -38,6 +38,12 @@ Rails.application.routes.draw do
 
     resources :agents, only: [:index, :show]
     resources :templates, only: [:show]
+
+    namespace :agency do
+      resources :agent_invitations, only: [:index, :create, :destroy] do
+        get 'resend_invitation', on: :member
+      end
+    end
   end
 
   resources :pages do
