@@ -43,6 +43,8 @@ Rails.application.routes.draw do
       resources :agent_invitations, only: [:index, :create, :destroy] do
         get 'resend_invitation', on: :member
       end
+
+      resources :clients, only: [:index]
     end
   end
 

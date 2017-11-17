@@ -58,6 +58,10 @@
     return "Accepted" unless invitation_accepted_at.blank?
   end
 
+  def agent_clients
+    clients.invitation_accepted
+  end
+
   private
     #call on agency signup
     def assign_agency
