@@ -8,7 +8,8 @@
     <% if current_salesperson %>
       <% if current_salesperson.company_owner? %>
         <li>
-          <%= link_to "Remove", dashboard_salespeople_invitation_path(person), method: :delete, data: { confirm: "Do you really want to remove this employee?" } %>
+          <%= link_to "Remove", "", class: "remove-employee", data: { id: person.id } %>
+          <%= link_to "", dashboard_salespeople_invitation_path(person), method: :delete , id: "person-#{person.id}", class: "hidden" %>
         </li>
       <% end %>
       <% if person.status != "Accepted" %>
@@ -17,7 +18,8 @@
     <% else %>
       <% if current_agent.company_owner? %>
         <li>
-          <%= link_to "Remove", dashboard_agency_agent_invitation_path(person), method: :delete, data: { confirm: "Do you really want to remove this employee?" } %>
+          <%= link_to "Remove", "", class: "remove-employee", data: { id: person.id } %>
+          <%= link_to "", dashboard_agency_agent_invitation_path(person), method: :delete , id: "person-#{person.id}", class: "hidden" %>
         </li>
       <% end %>
       <% if person.status != "Accepted" %>
@@ -26,3 +28,7 @@
     <% end %>
   </ul>
 </div>
+
+<% content_for :js_init do %>
+  SweetAlert.init();
+<% end %>
