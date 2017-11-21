@@ -1,5 +1,5 @@
 <%= form_for @wholesaler, url: dashboard_wholesaler_path do |f| %>
-  <div class="row">
+  <div class="row wholesaler-edit">
     <div class="col-12">
       <div class="card">
         <div class="header">
@@ -17,10 +17,10 @@
           </div>
 
           <div class="row">
-            <div class="col-md-10">
+            <div class="col-md-10 company-logo">
               <div class="form-group">
                 <%= f.label :logo, 'Comapny Logo', class: "control-label" %><br>
-                <%= image_tag(@wholesaler.logo, class: "col-md-2") %>
+                <%= image_tag(@wholesaler.logo, class: "col-md-3 logo") %>
                 <%= f.file_field :logo %>
                 <%= f.hidden_field :logo_cache %>
               </div>

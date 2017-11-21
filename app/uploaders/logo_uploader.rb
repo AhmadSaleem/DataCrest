@@ -2,7 +2,7 @@ class LogoUploader < CarrierWave::Uploader::Base
 
   # Include RMagick or MiniMagick support:
   # include CarrierWave::RMagick
-  # include CarrierWave::MiniMagick
+  include CarrierWave::MiniMagick
 
   # Choose what kind of storage to use for this uploader:
   storage :file
@@ -19,12 +19,11 @@ class LogoUploader < CarrierWave::Uploader::Base
     "/fallback/default_logo.jpg"
   end
 
-  # Process files as they are uploaded:
-  # process scale: [200, 300]
-  #
-  # def scale(width, height)
-  #   # do something
-  # end
+  process scale: [200, 200]
+
+  def scale(width, height)
+    resize_to_fit(width, height)
+  end
 
   # Create different versions of your uploaded files:
   # version :thumb do

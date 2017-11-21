@@ -9,11 +9,11 @@
 </div>
 
 <% if current_user %>
-  <div class="row form-group">
+  <div class="row form-group edit-user">
     <div class="col-md-12">
-      <div class="form-group">
+      <div class="form-group user-profile">
         <%= f.label :profile_picture, class: "control-label" %><br>
-        <%= image_tag(f.object.profile_picture, class: "col-md-2") %>
+        <%= image_tag(f.object.profile_picture, class: "col-md-3 profile-pic") %>
         <%= f.file_field :profile_picture %>
         <%= f.hidden_field :profile_picture_cache %>
       </div>
