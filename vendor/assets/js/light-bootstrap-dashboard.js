@@ -115,9 +115,8 @@ $(document).ready(function(){
 
 });
 
-$(document).on('click', '.navbar-toggle', function(){
+$(document).on('click', '#dashboard', function(){
     $toggle = $(this);
-
     if(lbd.misc.navbar_menu_visible == 1) {
         $('html').removeClass('nav-open');
         lbd.misc.navbar_menu_visible = 0;
