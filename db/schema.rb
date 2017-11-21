@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171121051807) do
+ActiveRecord::Schema.define(version: 20171121053553) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -137,7 +137,7 @@ ActiveRecord::Schema.define(version: 20171121051807) do
     t.string "applicant_address"
     t.string "applicant_phone_no"
     t.string "applicant_previous_carrier"
-    t.integer "policy_number"
+    t.string "policy_number"
     t.string "policy_period"
     t.float "peril_deductible"
     t.float "wind_hail_deductible"
