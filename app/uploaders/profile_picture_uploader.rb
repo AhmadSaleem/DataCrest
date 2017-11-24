@@ -19,16 +19,13 @@ class ProfilePictureUploader < CarrierWave::Uploader::Base
     "/fallback/default_pic.png"
   end
 
-  process scale: [200, 200]
-
-  def scale(width, height)
-    resize_to_fit(width, height)
+  version :small do
+    process resize_to_fit: [100, 100]
   end
 
-  # Create different versions of your uploaded files:
-  # version :thumb do
-  #   process resize_to_fit: [50, 50]
-  # end
+  version :medium do
+    process resize_to_fit: [400, 400]
+  end
 
   # Add a white list of extensions which are allowed to be uploaded.
   # For images you might use something like this:
