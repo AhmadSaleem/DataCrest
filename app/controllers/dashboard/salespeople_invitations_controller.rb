@@ -1,4 +1,5 @@
 class Dashboard::SalespeopleInvitationsController < DashboardController
+  before_action :authenticate_salesperson!
   before_action :authorize_salesperson
 
   def index
