@@ -1,90 +1,105 @@
-<nav class="navbar navbar-ct-blue navbar-fixed navbar-transparent" role="navigation">
-  <div class="container-fluid">
-    <div class="navbar-minimize">
-      <button id="minimizeSidebar" class="btn btn-fill btn-round btn-icon">
-        <i class="fa fa-arrows-h visible-on-sidebar-regular"></i>
-        <i class="fa fa-navicon visible-on-sidebar-mini"></i>
-      </button>
-    </div>
+<div class="application-navbar" id="dashboard-nav">
+  <nav class="navbar navbar-ct-blue navbar-fixed navbar-transparent" role="navigation">
+    <div class="container-fluid">
+      <div class="navbar-minimize">
+        <button id="minimizeSidebar" class="btn btn-fill btn-round btn-icon">
+          <i class="fa fa-arrows-h visible-on-sidebar-regular"></i>
+          <i class="fa fa-navicon visible-on-sidebar-mini"></i>
+        </button>
+      </div>
 
-    <div class="navbar-header">
-      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#toggle-options" id="dashboard">
-        <span class="sr-only">Toggle navigation</span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#user-menu">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
 
-      <button type="button" class="navbar-toggle pull-left" data-toggle="collapse" data-target="#user-menu">
-        <span class="sr-only">Toggle navigation</span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
+        <button type="button" class="navbar-toggle pull-left" data-toggle="collapse" id="sidebar-toggler">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
 
-      <%= content_tag :div, id: 'dashboard-page-title' do %>
-        <%= content_tag :h1, @title if @title.present? %>
-      <% end %>
-    </div>
-    <div class="collapse navbar-collapse" id="user-menu">
+        <%= content_tag :div, id: 'dashboard-page-title', class: "brand" do %>
+          <%= content_tag :h1, @title if @title.present? %>
+        <% end %>
+      </div>
 
-      <form class="navbar-form navbar-left navbar-search-form" role="search">
-        <div class="input-group">
-          <span class="input-group-addon"><i class="fa fa-search"></i></span>
-          <input type="text" value="" class="form-control" placeholder="Search...">
-        </div>
-      </form>
+      <div class="usernavbar-collapse collapse" id="user-menu">
+        <div class="navbar-options">
+          <ul class="nav navbar-nav navbar-right">
+            <form class="navbar-form navbar-search-form hidden" role="search">
+              <div class="input-group">
+                <span class="input-group-addon"><i class="fa fa-search"></i></span>
+                <input type="text" value="" class="form-control" placeholder="Search...">
+              </div>
+            </form>
 
-      <ul class="nav navbar-nav navbar-right" >
-        <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-            <i class="fa fa-bell-o"></i>
-            <span class="notification">5</span>
-            <p class="hidden-md hidden-lg">
-              Notifications
-              <b class="caret"></b>
-            </p>
-          </a>
-          <ul class="dropdown-menu">
-            <li><a href="#">Notification 1</a></li>
-            <li><a href="#">Notification 2</a></li>
-            <li><a href="#">Notification 3</a></li>
-            <li><a href="#">Notification 4</a></li>
-            <li><a href="#">Another notification</a></li>
-          </ul>
-        </li>
-
-        <li class="dropdown dropdown-with-icons">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-            <i class="fa fa-list"></i>
-            <p class="">
-              More
-              <b class="caret"></b>
-            </p>
-          </a>
-          <ul class="dropdown-menu dropdown-with-icons">
             <li>
-              <a href="#">
-                <i class="pe-7s-mail"></i> Messages
+              <a href="#" id="search">
+                <i class="fa fa-search"></i>
+                <p>Search</p>
               </a>
             </li>
-            <li>
-              <a href="#">
-                <i class="pe-7s-help1"></i> Help Center
+
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                <i class="fa fa-bell">
+                  <span class="notification">5</span>
+                </i>
+                <p>
+                  Notifications <b class="caret"></b>
+                </p>
               </a>
+              <ul class="dropdown-menu menu-styles">
+                <li><a href="#">Notification 1</a></li>
+                <li><a href="#">Notification 2</a></li>
+                <li><a href="#">Notification 3</a></li>
+                <li><a href="#">Notification 4</a></li>
+                <li><a href="#">Another notification</a></li>
+              </ul>
             </li>
-            <% if signed_in? %>
-              <li class="divider"></li>
-              <li>
-                <%= link_to render_logout_path, method: :delete, class: 'text-danger' do %>
-                  <i class="pe-7s-close-circle"></i>
-                  Log out
+
+            <li class="dropdown dropdown-with-icons">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                <i class="fa fa-list"></i>
+                <p>
+                  More
+                  <b class="caret"></b>
+                </p>
+              </a>
+              <ul class="dropdown-menu dropdown-with-icons menu-styles">
+                <li>
+                  <a href="#">
+                    <i class="pe-7s-mail"></i> Messages
+                  </a>
+                </li>
+                <li>
+                  <a href="#">
+                    <i class="pe-7s-help1"></i> Help Center
+                  </a>
+                </li>
+                <% if signed_in? %>
+                  <li class="divider"></li>
+                  <li>
+                    <%= link_to render_logout_path, method: :delete, class: 'text-danger' do %>
+                      <i class="pe-7s-close-circle"></i>
+                      Log out
+                    <% end %>
+                  </li>
                 <% end %>
-              </li>
-            <% end %>
+              </ul>
+            </li>
           </ul>
-        </li>
-      </ul>
+
+        </div>
+      </div>
     </div>
-  </div>
-</nav>
+  </nav>
+
+<% content_for :js_init do %>
+  Navbar.init();
+<% end %>

@@ -115,18 +115,19 @@ $(document).ready(function(){
 
 });
 
-$(document).on('click', '#dashboard', function(){
+$(document).on('click', '#sidebar-toggler', function() {
     $toggle = $(this);
     if(lbd.misc.navbar_menu_visible == 1) {
         $('html').removeClass('nav-open');
+        $('#dashboard-sidebar').hide();
         lbd.misc.navbar_menu_visible = 0;
-        setTimeout(function(){
+        setTimeout(function() {
             $toggle.removeClass('toggled');
             $('.close-layer').remove();
         }, 550);
 
     } else {
-        setTimeout(function(){
+        setTimeout(function() {
             $toggle.addClass('toggled');
         }, 580);
 
@@ -135,8 +136,9 @@ $(document).on('click', '#dashboard', function(){
         main_panel_height = $sidebar.length != 0 ? $('.main-panel')[0].scrollHeight : $('.wrapper')[0].scrollHeight;
         $layer.css('height',main_panel_height + 'px');
         $sidebar.length != 0 ? $layer.appendTo(".main-panel") : $layer.appendTo(".wrapper");
+        $('#dashboard-sidebar').show();
 
-        setTimeout(function(){
+        setTimeout(function() {
             $layer.addClass('visible');
         }, 100);
 
@@ -144,8 +146,9 @@ $(document).on('click', '#dashboard', function(){
             $('html').removeClass('nav-open');
             lbd.misc.navbar_menu_visible = 0;
             $layer.removeClass('visible');
+            $('#dashboard-sidebar').hide();
 
-             setTimeout(function(){
+             setTimeout(function() {
                 $layer.remove();
                 $toggle.removeClass('toggled');
 

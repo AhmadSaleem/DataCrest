@@ -42,16 +42,3 @@ $(document).scroll(function() {
         }
     }
 });
-
-
-
-
-
-
-
-
-
-
-
-
-

@@ -13,3 +13,35 @@
 #social-link-div .social-link-buttons
   border-radius: 33px
   margin-left: 1%
+
+.application-navbar
+  @media screen and(max-width: 768px)
+    nav.navbar
+      .navbar-options
+        .photo
+          margin-left: 47%
+          float: none
+
+    .navbar
+      .navbar-nav
+        p
+          display: block
+
+  @media screen and(max-width: 992px)
+    nav.navbar
+      .usernavbar-collapse
+        .collapse
+          display: block
+          height: auto
+          padding-bottom: 0
+          overflow: visible
+        .navbar-options
+          ul
+            float: none !important
+            text-align: center
+      ul
+        text-align: center
+
+  @media screen and(min-width: 992px)
+    .collapse
+      display: block

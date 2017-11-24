@@ -347,15 +347,12 @@ h1 .subtitle{
 .navbar-default .navbar-brand-logo .brand{
     color: #555;
 }
-@media (min-width: 768px){
+@media (min-width: 992px){
     .navbar-form {
         margin-bottom: 31px;
         margin-top: 31px;
         padding-left: 5px;
         padding-right: 5px;
-    }
-    .navbar-search-form{
-        display: none;
     }
 
     .navbar-nav > li > .dropdown-menu{
@@ -420,7 +417,6 @@ h1 .subtitle{
     }
 
     .dropdown-menu:after {
-        border-bottom: 11px solid #FFFFFF;
         border-left: 11px solid rgba(0, 0, 0, 0);
         border-right: 11px solid rgba(0, 0, 0, 0);
         content: "";
@@ -432,7 +428,7 @@ h1 .subtitle{
 
 }
 
-@media (max-width: 768px){
+@media (max-width: 992px){
     .navbar-transparent{
         padding-top: 15px;
         background-color: rgba(0, 0, 0, 0.45);
@@ -457,7 +453,6 @@ h1 .subtitle{
         width: 170px;
         margin: 0 auto;
     }
-
 }
 
 
