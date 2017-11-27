@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171127061327) do
+ActiveRecord::Schema.define(version: 20171127105037) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -420,6 +420,29 @@ ActiveRecord::Schema.define(version: 20171127061327) do
     t.index ["jimcor_dwelling_application_id"], name: "jimcor_dwelling_application_id"
   end
 
+  create_table "planned_events", force: :cascade do |t|
+    t.bigint "human_service_applications_id"
+    t.integer "event_type"
+    t.datetime "evnet_date"
+    t.integer "operation_hours"
+    t.float "anticpated_revenue"
+    t.string "held_location"
+    t.integer "no_of_participants"
+    t.integer "on_of_staff_members"
+    t.boolean "obtained_certificates", default: false
+    t.string "drinking_control_exlaination"
+    t.string "alcohol_provider_explanation"
+    t.string "bartenders_explanation"
+    t.string "sport_activities"
+    t.string "spectator_injury"
+    t.boolean "signed_waver", default: false
+    t.string "personal_health_proof"
+    t.boolean "bartender_tips"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["human_service_applications_id"], name: "index_planned_events_on_human_service_applications_id"
+  end
+
   create_table "salespeople", force: :cascade do |t|
     t.bigint "wholesaler_id"
     t.datetime "created_at", null: false
@@ -482,6 +505,7 @@ ActiveRecord::Schema.define(version: 20171127061327) do
   add_foreign_key "agent_wholesalers", "agents"
   add_foreign_key "agent_wholesalers", "wholesalers"
   add_foreign_key "agents", "agencies", on_delete: :cascade
+  add_foreign_key "planned_events", "human_service_applications", column: "human_service_applications_id"
   add_foreign_key "salespeople", "wholesalers", on_delete: :cascade
   add_foreign_key "wholesalers", "salespeople", column: "owner_id", on_delete: :cascade
 end

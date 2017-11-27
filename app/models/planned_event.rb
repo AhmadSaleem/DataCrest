@@ -1,0 +1,2 @@
+class PlannedEvent < ApplicationRecord
+end
