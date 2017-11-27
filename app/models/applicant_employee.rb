@@ -1,0 +1,2 @@
+class ApplicantEmployee < ApplicationRecord
+end

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171127105037) do
+ActiveRecord::Schema.define(version: 20171127110953) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -86,6 +86,17 @@ ActiveRecord::Schema.define(version: 20171127105037) do
     t.index ["invited_by_id"], name: "index_agents_on_invited_by_id"
     t.index ["invited_by_type", "invited_by_id"], name: "index_agents_on_invited_by_type_and_invited_by_id"
     t.index ["reset_password_token"], name: "index_agents_on_reset_password_token", unique: true
+  end
+
+  create_table "applicant_employees", force: :cascade do |t|
+    t.bigint "human_service_applications_id"
+    t.integer "profession"
+    t.integer "employee_type"
+    t.string "others_description"
+    t.integer "count"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["human_service_applications_id"], name: "index_applicant_employees_on_human_service_applications_id"
   end
 
   create_table "clients", force: :cascade do |t|
@@ -505,6 +516,7 @@ ActiveRecord::Schema.define(version: 20171127105037) do
   add_foreign_key "agent_wholesalers", "agents"
   add_foreign_key "agent_wholesalers", "wholesalers"
   add_foreign_key "agents", "agencies", on_delete: :cascade
+  add_foreign_key "applicant_employees", "human_service_applications", column: "human_service_applications_id"
   add_foreign_key "planned_events", "human_service_applications", column: "human_service_applications_id"
   add_foreign_key "salespeople", "wholesalers", on_delete: :cascade
   add_foreign_key "wholesalers", "salespeople", column: "owner_id", on_delete: :cascade
