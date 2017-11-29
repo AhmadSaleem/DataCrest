@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171128053117) do
+ActiveRecord::Schema.define(version: 20171129111352) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -314,6 +314,8 @@ ActiveRecord::Schema.define(version: 20171128053117) do
     t.boolean "applicant_circumstance", default: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "agent_id"
+    t.index ["agent_id"], name: "index_human_service_applications_on_agent_id"
   end
 
   create_table "insurance_applications", force: :cascade do |t|
@@ -529,6 +531,7 @@ ActiveRecord::Schema.define(version: 20171128053117) do
   add_foreign_key "agent_wholesalers", "wholesalers"
   add_foreign_key "agents", "agencies", on_delete: :cascade
   add_foreign_key "applicant_employees", "human_service_applications", on_delete: :cascade
+  add_foreign_key "human_service_applications", "agents", on_delete: :cascade
   add_foreign_key "planned_events", "human_service_applications", on_delete: :cascade
   add_foreign_key "salespeople", "wholesalers", on_delete: :cascade
   add_foreign_key "wholesalers", "salespeople", column: "owner_id", on_delete: :cascade
