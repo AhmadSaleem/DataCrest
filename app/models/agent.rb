@@ -13,6 +13,8 @@
   has_many :clients, through: :jimcor_dwelling_applications
   has_many :agency_applications
   has_many :templates, through: :agency_applications
+  has_many :human_service_applications
+  has_many :clients, through: :human_service_applications
 
   mount_uploader :profile_picture, ProfilePictureUploader
 

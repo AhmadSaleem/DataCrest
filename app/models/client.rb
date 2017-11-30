@@ -6,6 +6,8 @@ class Client < ApplicationRecord
 
   has_many :jimcor_dwelling_applications
   has_many :agents, through: :jimcor_dwelling_applications
+  has_many :human_service_applications
+  has_many :agents, through: :human_service_applications
 
   delegate :full_name, :email, to: :invited_by, prefix: true, allow_nil: true
 

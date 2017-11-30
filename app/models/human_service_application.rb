@@ -2,6 +2,9 @@ class HumanServiceApplication < ApplicationRecord
   has_many :planned_events
   has_many :applicant_employees
 
+  belongs_to :client
+  belongs_to :agent, optional: true
+
   enum fire_sprinkler:              { yes: 1, no: 2, not_available: 3}, _prefix: :true
   enum sprinkler_temperature:       { yes: 1, no: 2, not_available: 3}, _prefix: :minimum_temperature
   enum valves_exercised_annualy:    { yes: 1, no: 2, not_available: 3}, _prefix: :valves_exercised
