@@ -7,7 +7,8 @@ class Dashboard::InsuranceApplicationsController < DashboardController
     if salesperson_signed_in?
       @applications = current_user.wholesaler_insurance_applications.page(params[:page])
     elsif client_signed_in? || agent_signed_in?
-      @applications = current_user.jimcor_dwelling_applications.page(params[:page])
+      client_applications = (current_user.jimcor_dwelling_applications + current_user.human_service_applications)
+      @applications = Kaminari.paginate_array(client_applications).page(params[:page]).per(5)
     end
   end
 

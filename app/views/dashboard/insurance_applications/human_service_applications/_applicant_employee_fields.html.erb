@@ -1,0 +1,29 @@
+<div class="nested-fields">
+  <div class="col-md-3">
+    <div class="form-group">
+      <%= f.label "Profession" %><br/>
+      <%= f.select :profession, ApplicantEmployee.professions.keys, {}, class: "form-control" %>
+    </div>
+  </div>
+
+  <div class="col-md-3">
+    <div class="form-group">
+      <%= f.label "Type" %><br/>
+      <%= f.select :employee_type, ApplicantEmployee.employee_types.keys, {}, class: "form-control" %>
+    </div>
+  </div>
+
+  <div class="col-md-3">
+    <div class="form-group">
+      <%= f.label "Other" %><br/>
+      <%= f.text_field :others_description, class: "form-control", placeholder: "Describe If other proffession", id: "description-textbox" %>
+    </div>
+  </div>
+
+  <div class="col-md-3">
+    <div class="form-group">
+      <%= f.label "Count" %><br/>
+      <%= f.text_field :count, class: "form-control" %>
+    </div>
+  </div>
+</div>

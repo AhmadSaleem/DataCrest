@@ -1,0 +1,35 @@
+<div class="row">
+  <div class="col-md-10">
+    <%= render 'form_fields', f: f %>
+  </div>
+
+  <div class="col-md-2">
+    <div class="card" id="insurance-application-sidebar">
+      <div class="header">
+        <%= f.submit "Save", class: "btn btn-success btn-fill btn-block", style: 'margin-bottom: 10px;' %>
+      </div>
+      <div class="content content-full-width">
+        <ul class="nav nav-pills nav-stacked">
+          <li><a href="#applicant" class="list-group-item">Applicant</a></li>
+          <li><a href="#submission-requirements" class="list-group-item">Submission Requirements</a></li>
+          <li><a href="#life-safety" class="list-group-item">Life Safety</a></li>
+          <li><a href="#automobile" class="list-group-item">Automobile</a></li>
+          <li><a href="#general-liability" class="list-group-item">General Liability</a></li>
+          <li><a href="#professional-liability" class="list-group-item">Professional Liability</a></li>
+          <li><a href="#independent-contractors" class="list-group-item">Independent Contractors</a></li>
+          <li><a href="#abuse-molestation" class="list-group-item">Abusere & Molestation</a></li>
+          <li><a href="#claims-made" class="list-group-item">Claims Made</a></li>
+          <li><a href="#planned-events" class="list-group-item">Planned Events</a></li>
+          <li><a href="#winter-weather" class="list-group-item">Winter Weather</a></li>
+          <li><a href="#fraud-statement" class="list-group-item">Fraud Statement</a></li>
+          <li><a href="#cyber-security" class="list-group-item">Cyber Security</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<% content_for :js_init do %>
+  InsuranceApplications.chosen_select_init();
+  InsuranceApplications.init_sidebar_scroll();
+<% end %>

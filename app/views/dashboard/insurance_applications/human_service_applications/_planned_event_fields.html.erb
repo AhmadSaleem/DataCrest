@@ -1,0 +1,172 @@
+<div class="col-md-12">
+  <p>Questions</p>
+</div>
+
+<div class="col-md-6">
+  <%= f.label planned_events[:event_type], class: "control-label" %><br>
+</div>
+
+<div class="col-md-5">
+  <div class="form-group">
+    <%= f.select :event_type, PlannedEvent.event_types.keys, {}, class: "form-control" %>
+  </div>
+</div>
+
+<div class="col-md-6">
+  <%= f.label planned_events[:event_date], class: "control-label" %><br>
+</div>
+
+<div class="col-md-5">
+  <div class="form-group">
+    <%= f.date_field :event_date, class: "form-control" %>
+  </div>
+</div>
+
+<div class="col-md-6">
+  <%= f.label planned_events[:operation_hours], class: "control-label" %><br>
+</div>
+
+<div class="col-md-5">
+  <div class="form-group">
+    <%= f.number_field :operation_hours, min: 0, step: :any, class: "form-control" %>
+  </div>
+</div>
+
+<div class="col-md-6">
+  <%= f.label planned_events[:anticipated_revenue], class: "control-label" %><br>
+</div>
+
+<div class="col-md-5">
+  <div class="form-group">
+    <%= f.number_field :anticipated_revenue, min: 0, step: :any, class: "form-control" %>
+  </div>
+</div>
+
+<div class="col-md-6">
+  <%= f.label planned_events[:location], class: "control-label" %><br>
+</div>
+
+<div class="col-md-5">
+  <div class="form-group">
+    <%= f.number_field :location, min: 0, step: :any, class: "form-control" %>
+  </div>
+</div>
+
+<div class="col-md-6">
+  <%= f.label :no_of_participants, class: "control-label" %><br>
+</div>
+
+<div class="col-md-5">
+  <div class="form-group">
+    <%= f.number_field :no_of_participants, min: 0, class: "form-control" %>
+  </div>
+</div>
+
+<div class="col-md-6">
+  <%= f.label :no_of_staff_members, class: "control-label" %><br>
+</div>
+
+<div class="col-md-5">
+  <div class="form-group">
+    <%= f.number_field :no_of_staff_members, min: 0, class: "form-control" %>
+  </div>
+</div>
+
+<div class="col-md-6">
+  <%= f.label planned_events[:drinking_control_explanation], class: "control-label" %><br>
+</div>
+
+<div class="col-md-5">
+  <div class="form-group">
+    <%= f.text_field :drinking_control_explanation, class: "form-control" %>
+  </div>
+</div>
+
+<div class="col-md-6">
+  <%= f.label planned_events[:alcohol_provider_explanation], class: "control-label" %><br>
+</div>
+
+<div class="col-md-5">
+  <div class="form-group">
+    <%= f.text_field :alcohol_provider_explanation, class: "form-control" %>
+  </div>
+</div>
+
+<div class="col-md-6">
+  <%= f.label planned_events[:bartenders_explanation], class: "control-label" %><br>
+</div>
+
+<div class="col-md-5">
+  <div class="form-group">
+    <%= f.text_field :bartenders_explanation, class: "form-control" %>
+  </div>
+</div>
+
+<div class="col-md-6">
+  <%= f.label planned_events[:sport_activities], class: "control-label" %><br>
+</div>
+
+<div class="col-md-5">
+  <div class="form-group">
+    <%= f.text_field :sport_activities, class: "form-control" %>
+  </div>
+</div>
+
+<div class="col-md-6">
+  <%= f.label planned_events[:spectator_injury], class: "control-label" %><br>
+</div>
+
+<div class="col-md-5">
+  <div class="form-group">
+    <%= f.text_field :spectator_injury, class: "form-control" %>
+  </div>
+</div>
+
+<div class="col-md-6">
+  <%= f.label planned_events[:signed_waiver], class: "control-label" %><br>
+</div>
+
+<div class="col-md-5">
+  <div class="form-group">
+    <%= f.radio_button :signed_waiver, :true %>
+    <%= label_tag :signed_waiver_yes, "Yes" %>
+    <%= f.radio_button :signed_waiver, :false %>
+    <%= label_tag :signed_waiver_no, "No" %>
+  </div>
+</div>
+
+<div class="col-md-6">
+  <%= f.label planned_events[:personal_health_proof], class: "control-label" %><br>
+</div>
+
+<div class="col-md-5">
+  <div class="form-group">
+    <%= f.text_field :personal_health_proof, class: "form-control" %>
+  </div>
+</div>
+
+<div class="col-md-6">
+  <%= f.label planned_events[:bartender_tips], class: "control-label" %><br>
+</div>
+
+<div class="col-md-5">
+  <div class="form-group">
+    <%= f.radio_button :bartender_tips, :true %>
+    <%= label_tag :bartender_tips_yes, "Yes" %>
+    <%= f.radio_button :bartender_tips, :false %>
+    <%= label_tag :bartender_tips_no, "No" %>
+  </div>
+</div>
+
+<div class="col-md-6">
+  <%= f.label planned_events[:obtained_certificates], class: "control-label" %><br>
+</div>
+
+<div class="col-md-5">
+  <div class="form-group">
+    <%= f.radio_button :obtained_certificates, :true %>
+    <%= label_tag :obtained_certificates_yes, "Yes" %>
+    <%= f.radio_button :obtained_certificates, :false %>
+    <%= label_tag :obtained_certificates_no, "No" %>
+  </div>
+</div>

@@ -34,6 +34,7 @@ Rails.application.routes.draw do
 
     namespace :insurance_applications, path: 'applications' do
       resources :jimcor_dwelling_applications
+      resources :human_service_applications
     end
 
     resources :agents, only: [:index, :show]

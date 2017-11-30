@@ -1,0 +1,5 @@
+<%= render "shared/errors", resource: @human_service_application %>
+
+<%= form_for @human_service_application, url: dashboard_insurance_applications_human_service_application_path do |f| %>
+  <%= render 'form', f: f %>
+<% end %>

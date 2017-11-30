@@ -1,0 +1,1133 @@
+<div class="row">
+  <div class="col-md-12">
+    <div class="card">
+      <div class="header">
+        <h2 class="title">Application Submission</h2>
+      </div>
+
+      <div class="content p-2">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="card">
+              <div class="card-header">
+                <h3 class=header>APPLICANT</h3>
+              </div>
+
+              <div class="content p-2">
+                <div class="row">
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      Name:
+                      <%= label_tag @human_service_application.applicant_name %>
+                    </div>
+                  </div>
+
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      Mailing Address:<br>
+                      <%= label_tag @human_service_application.mailing_address %>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-md-4">
+                    <div class="form-group">
+                      City:<br>
+                      <%= label_tag @human_service_application.city %>
+                    </div>
+                  </div>
+
+                  <div class="col-md-4">
+                    <div class="form-group">
+                      State:<br>
+                      <%= label_tag @human_service_application.state %>
+                    </div>
+                  </div>
+
+                  <div class="col-md-4">
+                    <div class="form-group">
+                      Zip Code:<br>
+                      <%= label_tag @human_service_application.zip_code %>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-md-12">
+                    <div class="form-group">
+                      Total staff:
+                      <ol>
+                        <li>Full Time: <%= label_tag @human_service_application.full_time_staff %></li>
+                        <li>Part Time: <%= label_tag @human_service_application.full_time_staff %></li>
+                      </ol>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-md-4">
+                    <div class="form-group">
+                      SIC#:<br>
+                      <%= label_tag @human_service_application.sic_number %>
+                    </div>
+                  </div>
+
+                  <div class="col-md-4">
+                    <div class="form-group">
+                      FEIN#:<br>
+                      <%= label_tag @human_service_application.fein_number %>
+                    </div>
+                  </div>
+
+                  <div class="col-md-4">
+                    <div class="form-group">
+                      Website#:<br>
+                      <%= label_tag @human_service_application.website %>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-md-4">
+                    <div class="form-group">
+                      Non-Profit:<br>
+                      <%= label_tag @human_service_application.non_profit %>
+                    </div>
+                  </div>
+
+                  <div class="col-md-4">
+                    <div class="form-group">
+                      For-Profit:<br>
+                      <%= label_tag @human_service_application.for_profit %>
+                    </div>
+                  </div>
+
+                  <div class="col-md-4">
+                    <div class="form-group">
+                      Annual Revenue:<br>
+                      <%= label_tag @human_service_application.annual_revenue %>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-md-12">
+                    <div class="form-group">
+                      Number of years this facility has been:
+                      <ol>
+                        <li>Operational Years: <%= label_tag @human_service_application.operational_years %></li>
+                        <li>
+                          Current Management years: <%= label_tag @human_service_application.current_management_years %>
+                        </li>
+                      </ol>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-md-4">
+                    <div class="form-group">
+                      Risk Management Contact:<br>
+                      <%= label_tag @human_service_application.risk_management_contact %>
+                    </div>
+                  </div>
+
+                  <div class="col-md-4">
+                    <div class="form-group">
+                      Phone No:<br>
+                      <%= label_tag @human_service_application.phone_number %>
+                    </div>
+                  </div>
+
+                  <div class="col-md-4">
+                    <div class="form-group">
+                      Email:<br>
+                      <%= label_tag @human_service_application.email %>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-12">
+            <div class="card">
+              <div class="card-header">
+                <h3 class="header">SECTION I – LIFE SAFETY</h3>
+              </div>
+              <hr>
+
+              <div class="content p-2">
+                <div class="row">
+                  <div class="col-sm-10">
+                    <div class="form-group">
+                      <div class="col-md-6">
+                        Questions
+                      </div>
+
+                      <div class="col-md-1">
+                        Status
+                      </div>
+
+                      <div class="col-md-5 text-center">
+                        Location(s)
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <hr>
+
+                <div class="row">
+                  <div class="col-sm-10">
+                    <div class="form-group">
+                      <div class="col-md-6">
+                        <%= label_tag "Fire Alarms:" %>
+                      </div>
+                      <div class="col-md-3">
+                        <%= label_tag @human_service_application.fire_alrams %>
+                      </div>
+                      <div class="col-md-3">
+                        <%= label_tag @human_service_application.alarm_locations %>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <hr>
+
+                <div class="row">
+                  <div class="col-sm-10">
+                    <div class="form-group">
+                      <div class="col-md-6">
+                        <%= label_tag "Smoke Detectors:" %>
+                      </div>
+                      <div class="col-md-3">
+                        <%= label_tag @human_service_application.smoke_detectors %>
+                      </div>
+                      <div class="col-md-3">
+                        <%= label_tag @human_service_application.smoke_detector_locations %>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <hr>
+
+                <div class="row">
+                  <div class="col-sm-10">
+                    <div class="form-group">
+                      <div class="col-md-2">
+                        <%= label_tag "Hard Wired Detectors:" %>
+                      </div>
+                      <div class="col-md-1">
+                        <%= label_tag @human_service_application.hard_wired_smoke_detectors %>
+                      </div>
+                      <div class="col-md-2">
+                        <%= label_tag "Battery Operated:" %>
+                      </div>
+                      <div class="col-md-1">
+                        <%= label_tag @human_service_application.battery_operated_smoke_detectors %>
+                      </div>
+
+                      <div class="col-md-5">
+                        <%= label_tag @human_service_application.detector_locations %>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <hr>
+
+                <div class="row">
+                  <div class="col-sm-10">
+                    <div class="form-group">
+                      <div class="col-md-6">
+                        <%= label_tag "Emergency Lighting:" %>
+                      </div>
+                      <div class="col-md-3">
+                        <%= label_tag @human_service_application.emergency_lighting %>
+                      </div>
+                      <div class="col-md-3">
+                        <%= label_tag @human_service_application.lighting_locations %>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <hr>
+
+                <div class="row">
+                  <div class="col-sm-10">
+                    <div class="form-group">
+                      <div class="col-md-6">
+                        <%= label_tag "Sprinklers:" %>
+                      </div>
+
+                      <div class="col-md-3">
+                        <%= label_tag @human_service_application.sprinklers %>
+                      </div>
+
+                      <div class="col-md-3">
+                        <%= label_tag @human_service_application.sprinkler_locations %>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <hr>
+
+                <div class="row">
+                  <div class="col-md-10">
+                    <div class="form-group">
+                      <div class="col-md-6">
+                        <%= label_tag life_safety[:exterior_evacuation_routes] %>
+                      </div>
+
+                      <div class="col-md-3">
+                        <%= label_tag @human_service_application.exterior_evacuation_routes %>
+                      </div>
+
+                      <div class="col-md-3">
+                        <%= label_tag @human_service_application.evacuation_route_locations %>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <hr>
+
+                <div class="row">
+                  <div class="col-md-10">
+                    <div class="form-group">
+                      <div class="col-md-6">
+                        <%= label_tag life_safety[:central_meeting_point] %>
+                      </div>
+
+                      <div class="col-md-3">
+                        <%= label_tag @human_service_application.central_meeting_point %>
+                      </div>
+
+                      <div class="col-md-3">
+                        <%= label_tag @human_service_application.meeting_point_locations %>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <hr>
+
+                <div class="row">
+                  <div class="col-md-10">
+                    <div class="form-group">
+                      <div class="col-md-6">
+                        <%= label_tag life_safety[:exit_signs] %>
+                      </div>
+
+                      <div class="col-md-3">
+                        <%= label_tag @human_service_application.exit_signs %>
+                      </div>
+
+                      <div class="col-md-3">
+                        <%= label_tag @human_service_application.exit_sign_locations %>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <hr>
+
+                <div class="row">
+                  <div class="col-md-10">
+                    <div class="form-group">
+                      <div class="col-md-6">
+                        <%= label_tag life_safety[:fire_drills] %>
+                      </div>
+
+                      <div class="col-md-6">
+                        <%= label_tag @human_service_application.fire_drills %>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <hr>
+
+                <div class="row">
+                  <div class="col-md-10">
+                    <div class="form-group">
+                      <div class="col-md-6">
+                        <%= label_tag life_safety[:two_exit_doors] %>
+                      </div>
+
+                      <div class="col-md-3">
+                        <%= label_tag @human_service_application.two_exit_doors %>
+                      </div>
+
+                      <div class="col-md-3">
+                        <%= label_tag @human_service_application.exit_door_locations %>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <hr>
+
+                <div class="row">
+                  <div class="col-md-10">
+                    <div class="form-group">
+                      <div class="col-md-6">
+                        <%= label_tag life_safety[:panic_exit_doors] %>
+                      </div>
+
+                      <div class="col-md-3">
+                        <%= label_tag @human_service_application.panic_exit_doors %>
+                      </div>
+
+                      <div class="col-md-3">
+                        <%= label_tag @human_service_application.panic_exit_door_locations %>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <hr>
+
+                <div class="row">
+                  <div class="col-md-10">
+                    <div class="form-group">
+                      <div class="col-md-6">
+                        <%= label_tag life_safety[:smoking_permitted] %>
+                      </div>
+
+                      <div class="col-md-3">
+                        <%= label_tag @human_service_application.smoking_permitted %>
+                      </div>
+
+                      <div class="col-md-3">
+                        <%= label_tag @human_service_application.smoking_locations %>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <hr>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-12">
+            <div class="card">
+              <div class="card-header">
+                <h3 class="header">SECTION II - AUTOMOBILE</h3>
+              </div>
+              <hr>
+
+              <div class="content p-2">
+                <div class="row vdivide">
+                  <div class="col-sm-10">
+                    <div class="form-group">
+                      <div class="col-md-8">
+                        Questions
+                      </div>
+
+                      <div class="col-md-4">
+                        Remarks
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <hr>
+
+                <div class="row">
+                  <div class="col-sm-10">
+                    <div class="form-group">
+                      <div class="row">
+                        <div class="col-md-8">
+                          <%= label_tag automobile[:vehicle_use] %>
+                          <hr>
+                        </div>
+                      </div>
+
+                      <div class="row">
+                        <div class="col-md-6 text-center">
+                          <%= label_tag "Employees %" %>
+                        </div>
+                        <div class="col-md-6 text-center">
+                          <%= label_tag @human_service_application.percentage_of_employee %>
+                        </div>
+                      </div>
+
+                      <div class="row">
+                        <div class="col-md-6 text-center">
+                          <%= label_tag "Volunteers %" %>
+                        </div>
+
+                        <div class="col-md-6 text-center">
+                          <%= label_tag @human_service_application.percentage_of_volunteer %>
+                        </div>
+                      </div>
+
+                    </div>
+                  </div>
+                </div>
+                <hr>
+
+                <div class="row">
+                  <div class="col-sm-10">
+                    <div class="form-group">
+                      <div class="col-md-8">
+                        <%= label_tag  automobile[:require_employees_and_volunteers] %>
+                      </div>
+
+                      <div class="col-md-4">
+                        <%= label_tag @human_service_application.require_employees_and_volunteers %>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <hr>
+
+                <div class="row">
+                  <div class="col-sm-10">
+                    <div class="form-group">
+                      <div class="col-md-8">
+                        <%= label_tag  automobile[:required_limits] %>
+                      </div>
+
+                      <div class="col-md-4">
+                        <%= label_tag @human_service_application.required_limits %>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <hr>
+
+                <div class="row">
+                  <div class="col-sm-10">
+                    <div class="form-group">
+                      <div class="col-md-8">
+                        <%= label_tag automobile[:use_mvr] %>
+                      </div>
+
+                      <div class="col-md-4">
+                        <%= label_tag @human_service_application.use_mvr %>
+                      </div>
+                    </div>
+
+                    <div class="form-group col-md-8">
+                      <%= label_tag "if yes , How often? " %>
+                    </div>
+
+                    <div class="form-group col-md-4">
+                      <%= label_tag automobile[:how_often_use_mvr] %>
+                    </div>
+                  </div>
+                </div>
+                <hr>
+
+                <div class="row">
+                  <div class="col-sm-10">
+                    <div class="form-group">
+                      <div class="col-md-8">
+                        <%= label_tag  automobile[:driver_safety_program] %>
+                      </div>
+
+                      <div class="col-md-4">
+                        <%= label_tag @human_service_application.driver_safety_program %>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <hr>
+
+                <div class="row">
+                  <div class="col-sm-10">
+                    <div class="form-group">
+                      <div class="col-md-8">
+                        <%= label_tag automobile[:transport_clients] %>
+                      </div>
+
+                      <div class="col-md-4">
+                        <%= label_tag @human_service_application.transport_clients %>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <hr>
+
+                <div class="row">
+                  <div class="col-sm-10">
+                    <div class="form-group">
+                      <div class="col-md-8">
+                        <%= label_tag automobile[:new_employee_training] %>
+                      </div>
+
+                      <div class="col-md-4">
+                        <%= label_tag @human_service_application.new_employee_training %>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <hr>
+
+                <div class="row">
+                  <div class="col-sm-10">
+                    <div class="form-group">
+                      <div class="col-md-8">
+                        <%= label_tag automobile[:transport_governmental_or_public_clients] %>
+                      </div>
+
+                      <div class="col-md-4">
+                        <%= label_tag @human_service_application.transport_governmental_or_public_clients %>
+                      </div>
+                    </div>
+
+                    <div class="form-group col-md-8">
+                      <%= label_tag "if yes , Please explain" %>
+                    </div>
+
+                    <div class="form-group col-md-4">
+                      <%= label_tag @human_service_application[:explain_transportation] %>
+                    </div>
+
+                    <div class="form-group col-md-8">
+                      <%= label_tag "if yes , for fee?" %>
+                    </div>
+
+                    <div class="form-group col-md-4">
+                      <%= label_tag @human_service_application[:explain_transportation] %>
+                    </div>
+                  </div>
+                </div>
+                <hr>
+
+                <div class="row">
+                  <div class="col-sm-10">
+                    <div class="form-group">
+                      <div class="col-md-8">
+                        <%= label_tag automobile[:utilize_gps_fleets] %>
+                      </div>
+
+                      <div class="col-md-4">
+                        <%= label_tag @human_service_application.utilize_gps_fleets %>
+                      </div>
+
+                      <div class="col-md-8">
+                        <%= label_tag "If yes, please check off the fleet telematics being utilized:" %>
+                      </div>
+
+                      <div class="form-group col-md-8">
+                        <%= label_tag "Plug in" %>
+                      </div>
+
+                      <div class="col-md-4">
+                        <%= label_tag @human_service_application.plug_in_gps_telematics %>
+                      </div>
+
+                      <div class="form-group col-md-8">
+                        <%= label_tag "Hard Wired" %>
+                      </div>
+
+                      <div class="col-md-4">
+                        <%= label_tag @human_service_application.hard_wired_gps_telematics %>
+                      </div>
+
+                      <div class="form-group col-md-8">
+                        <%= label_tag "Mobile Phone" %>
+                      </div>
+
+                      <div class="col-md-4">
+                        <%= label_tag @human_service_application.mobile_phone_gps_telematics %>
+                      </div>
+
+                      <div class="form-group col-md-6">
+                        <%= label_tag "Other" %>
+                      </div>
+
+                      <div class="col-md-2 text-center">
+                        <%= label_tag @human_service_application.other_gps_telematics %>
+                      </div>
+
+                      <div class="col-md-4">
+                        <%= label_tag @human_service_application.telematic_device %>
+                      </div>
+
+                    </div>
+                  </div>
+                </div>
+                <hr>
+
+                <div class="row">
+                  <div class="col-sm-10">
+                    <div class="form-group">
+                      <div class="col-md-8">
+                        <%= label_tag automobile[:fleet_telematics_percentage] %>
+                      </div>
+
+                      <div class="col-md-4">
+                        <%= label_tag @human_service_application.fleet_telematics_percentage %>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <hr>
+
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-12">
+            <div class="card">
+              <div class="card-header">
+                <h3 class="header">SECTION III – GENERAL LIABILITY</h3>
+              </div>
+              <hr>
+
+              <div class="content p-2">
+                <div class="row">
+                  <div class="col-sm-10">
+                    <div class="form-group">
+                      <div class="col-md-5">
+                        Questions
+                      </div>
+
+                      <div class="col-md-7 text-center">
+                        Remarks
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <hr>
+
+                <div class="row">
+                  <div class="col-sm-10">
+                    <div class="form-group">
+                      <div class="col-md-5">
+                        <%= label_tag general_liability[:operation_narrative] %>
+                      </div>
+
+                      <div class="col-md-7 text-center">
+                        <%= label_tag @human_service_application.operation_narrative %>
+                      </div>
+
+                    </div>
+                  </div>
+                </div>
+                <hr>
+
+                <div class="row">
+                  <div class="col-sm-10">
+                    <div class="form-group">
+                      <div class="col-md-5">
+                        <%= label_tag "Annual Operating Budget: " %>
+                      </div>
+
+                      <div class=" text-center col-md-7">
+                        <%= label_tag @human_service_application.annual_budget %>
+                      </div>
+
+                    </div>
+                  </div>
+                </div>
+                <hr>
+
+                <div class="row">
+                  <div class="col-sm-10">
+                    <div class="form-group">
+                      <div class="col-md-5">
+                        <%= label_tag "Annual Pay roll: " %>
+                      </div>
+
+                      <div class=" text-center col-md-7">
+                        <%= label_tag @human_service_application.annual_payroll %>
+                      </div>
+
+                    </div>
+                  </div>
+                </div>
+                <hr>
+
+                <div class="row">
+                  <div class="col-sm-10">
+                    <div class="form-group">
+                      <div class="col-md-5">
+                        <%= label_tag general_liability[:clients_per_year] %>
+                      </div>
+
+                      <div class=" text-center col-md-7">
+                        <% if @human_service_application.no_clients? %>
+                          <%=  label_tag "N/A" %>
+                        <% else %>
+                          <%= label_tag @human_service_application.clients_per_year %>
+                        <% end %>
+                      </div>
+
+                    </div>
+                  </div>
+                </div>
+                <hr>
+
+                <div class="row">
+                  <div class="col-sm-10">
+                    <div class="form-group">
+                      <div class="col-md-5">
+                        <%= label_tag "No Of Students" %>
+                      </div>
+
+                      <div class=" text-center col-md-7">
+                        <%= label_tag @human_service_application.number_of_students %>
+                      </div>
+
+                    </div>
+                  </div>
+                </div>
+                <hr>
+
+                <div class="row">
+                  <div class="col-sm-10">
+                    <div class="form-group">
+                      <div class="col-md-5">
+                        <%= label_tag general_liability[:no_of_beds] %>
+                      </div>
+
+                      <div class=" text-center col-md-7">
+                        <%= label_tag @human_service_application.no_of_beds %>
+                      </div>
+
+                    </div>
+                  </div>
+                </div>
+                <hr>
+
+                <div class="row">
+                  <div class="col-sm-10">
+                    <div class="form-group">
+                      <div class="col-md-5">
+                        <%= label_tag general_liability[:sheltered_workshops] %>
+                      </div>
+
+                      <div class=" text-center col-md-7">
+                        <%= label_tag @human_service_application.sheltered_workshops %>
+                      </div>
+
+                    </div>
+                  </div>
+                </div>
+                <hr>
+
+                <div class="row">
+                  <div class="col-sm-10">
+                    <div class="form-group">
+                      <div class="col-md-5">
+                        <%= label_tag general_liability[:shelter_location_no] %>
+                      </div>
+
+                      <div class=" text-center col-md-7">
+                        <%= label_tag @human_service_application.shelter_location_no %>
+                      </div>
+
+                    </div>
+                  </div>
+                </div>
+                <hr>
+
+                <div class="row">
+                  <div class="col-sm-10">
+                    <div class="form-group">
+                      <div class="col-md-5">
+                        <%= label_tag general_liability[:workshop_function] %>
+                      </div>
+
+                      <div class=" text-center col-md-7">
+                        <%= label_tag @human_service_application.workshop_function %>
+                      </div>
+
+                    </div>
+                  </div>
+                </div>
+                <hr>
+
+                <div class="row">
+                  <div class="col-sm-10">
+                    <div class="form-group">
+                      <div class="col-md-6">
+                        <%= label_tag general_liability[:janitorial_services] %>
+                      </div>
+
+                      <div class=" text-center col-md-5">
+                        <%= label_tag @human_service_application.janitorial_services %>
+                      </div>
+
+                      <div class="form-group col-md-8">
+                        <%= label_tag "Landscaping Services" %>
+                      </div>
+
+                      <div class="col-md-4">
+                        <%= label_tag @human_service_application.landscaping_services %>
+                      </div>
+
+                      <div class="form-group col-md-8">
+                        <%= label_tag "Other" %>
+                      </div>
+
+                      <div class="col-md-4">
+                        <%= label_tag @human_service_application.other_mobile_work %>
+                      </div>
+
+                      <div class="form-group col-md-8">
+                        <%= label_tag "If yes, please provide payroll:" %>
+                      </div>
+
+                      <div class="col-md-4">
+                      </div>
+
+                      <div class="form-group col-md-8">
+                        <%= label_tag "Janitorial Payroll" %>
+                      </div>
+
+                      <div class="col-md-4">
+                        <%= label_tag @human_service_application.janitorial_payroll %>
+                      </div>
+
+                      <div class="form-group col-md-8">
+                        <%= label_tag "Landscaping Payroll" %>
+                      </div>
+
+                      <div class="col-md-4">
+                        <%= label_tag @human_service_application.landscaping_payroll %>
+                      </div>
+
+                      <div class="form-group col-md-8">
+                        <%= label_tag "Other Payroll" %>
+                      </div>
+
+                      <div class="col-md-4">
+                        <%= label_tag @human_service_application.other_payroll %>
+                      </div>
+
+                      <div class="form-group col-md-8">
+                        <%= label_tag general_liability[:worker_compensation] %>
+                      </div>
+
+                      <div class="col-md-4">
+                        <%= label_tag @human_service_application.worker_compensation %>
+                      </div>
+
+
+                    </div>
+                  </div>
+                </div>
+                <hr>
+
+                <div class="row">
+                  <div class="col-sm-10">
+                    <div class="form-group">
+                      <div class="col-md-6">
+                        <%= label_tag general_liability[:day_care_programe] %>
+                      </div>
+
+                      <div class=" text-center col-md-5">
+                        <%= label_tag @human_service_application.day_care_programe %>
+                      </div>
+
+                      <div class="form-group col-md-8">
+                        <%= label_tag "Indicate Location No:" %>
+                      </div>
+
+                      <div class="col-md-4">
+                        <%= label_tag @human_service_application.location_number %>
+                      </div>
+
+                      <div class="form-group col-md-8">
+                        <%= label_tag "Maximum childern suprevised" %>
+                      </div>
+
+                      <div class="col-md-4">
+                        <%= label_tag @human_service_application.no_of_children_supervised %>
+                      </div>
+
+                      <div class="form-group col-md-8">
+                        <%= label_tag "Ratio of childern to staff" %>
+                      </div>
+
+                      <div class="col-md-4">
+                        <%= label_tag @human_service_application.children_to_staff_ratio %>
+                      </div>
+
+                      <div class="form-group col-md-8">
+                        <%= label_tag :age_range %>
+                      </div>
+
+                      <div class="col-md-4">
+                        <%= label_tag @human_service_application.age_range %>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <hr>
+
+                <div class="row">
+                  <div class="col-sm-10">
+                    <div class="form-group">
+                      <div class="col-md-6">
+                        <%= label_tag general_liability[:foster_care] %>
+                      </div>
+
+                      <div class=" text-center col-md-5">
+                        <%= label_tag @human_service_application.day_care_programe %>
+                      </div>
+
+                      <div class="form-group col-md-8">
+                        <%= label_tag general_liability[:foster_care_explanation] %>
+                      </div>
+
+                      <div class="col-md-4">
+                        <%= label_tag @human_service_application.foster_care_explanation %>
+                      </div>
+
+                      <div class="form-group col-md-8">
+                        <%= label_tag general_liability[:total_operation_percentage] %>
+                      </div>
+
+                      <div class="col-md-4">
+                        <%= label_tag @human_service_application.total_operation_percentage %>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <hr>
+
+                <div class="row">
+                  <div class="col-sm-10">
+                    <div class="form-group">
+                      <div class="col-md-6">
+                        <%= label_tag general_liability[:leased_locations] %>
+                      </div>
+
+                      <div class=" text-center col-md-5">
+                        <%= label_tag @human_service_application.leased_locations %>
+                      </div>
+
+                      <div class="form-group col-md-8">
+                        <%= label_tag "Indicate location no:" %>
+                      </div>
+
+                      <div class="col-md-4">
+                        <%= label_tag @human_service_application.leased_location_number %>
+                      </div>
+
+                      <div class="form-group col-md-8">
+                        <%= label_tag :square_feet %>
+                      </div>
+
+                      <div class="col-md-4">
+                        <%= label_tag @human_service_application.square_feet %>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <hr>
+
+                <div class="row">
+                  <div class="col-sm-10">
+                    <div class="form-group">
+                      <div class="col-md-6">
+                        <%= label_tag general_liability[:own_swimming_pool] %>
+                      </div>
+
+                      <div class=" text-center col-md-5">
+                        <%= label_tag @human_service_application.own_swimming_pool %>
+                      </div>
+
+                      <div class="form-group col-md-8">
+                        <%= label_tag general_liability[:building_or_location] %>
+                      </div>
+
+                      <div class="col-md-4">
+                        <%= label_tag @human_service_application.building_or_location %>
+                      </div>
+
+                      <div class="form-group col-md-8">
+                        <%= label_tag "Diving Board/slide" %>
+                      </div>
+
+                      <div class="col-md-4">
+                        <%= label_tag @human_service_application.diving_board %>
+                      </div>
+
+                      <div class="form-group col-md-8">
+                        <%= label_tag general_liability[:spa_safety_act] %>
+                      </div>
+
+                      <div class="col-md-4">
+                        <%= label_tag @human_service_application.spa_safety_act %>
+                      </div>
+
+                      <div class="form-group col-md-8">
+                        <%= label_tag general_liability[:time_table_or_action_plan] %>
+                      </div>
+
+                      <div class="col-md-4">
+                        <%= label_tag @human_service_application.time_table_or_action_plan %>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <hr>
+
+                <div class="row">
+                  <div class="col-sm-10">
+                    <div class="form-group">
+                      <div class="col-md-6">
+                        <%= label_tag general_liability[:lead_paint] %>
+                      </div>
+
+                      <div class=" text-center col-md-5">
+                        <%= label_tag @human_service_application.lead_paint %>
+                      </div>
+
+                      <div class="form-group col-md-8">
+                        <%= label_tag general_liability[:abatement_plan] %>
+                      </div>
+
+                      <div class="col-md-4">
+                        <%= label_tag @human_service_application.abatement_plan %>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <hr>
+
+                <div class="row">
+                  <div class="col-sm-10">
+                    <div class="form-group">
+                      <div class="col-md-6">
+                        <%= label_tag general_liability[:target_classes] %>
+                      </div>
+
+                      <div class="col-md-6">
+                      </div>
+
+                      <div class="form-group col-md-8">
+                        <%= label_tag "Sexual Offenders?" %>
+                      </div>
+
+                      <div class="col-md-4">
+                        <%= label_tag @human_service_application.sexual_offenders_therapy %>
+                      </div>
+
+                      <div class="form-group col-md-8">
+                        <%= label_tag "Sexual Predators?" %>
+                      </div>
+
+                      <div class="col-md-4">
+                        <%= label_tag @human_service_application.sexual_predators_therapy %>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <hr>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

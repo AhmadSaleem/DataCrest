@@ -27,4 +27,42 @@ class ApplicationAttributes
       :mortgage_lending_organization, :mortgage_2_loan_number, :mortgage_2_address,
       :mortgage_2_lending_organization ]
   end
+
+  def self.human_service
+    [ :applicant_name, :mailing_address, :city, :zip_code, :state, :full_time_staff, :part_time_staff, :sic_number,
+      :fein_number, :website, :non_profit, :for_profit, :annual_revenue, :operational_years, :current_management_years,
+      :risk_management_contact, :phone_number, :email, :fire_alrams, :alarm_locations, :smoke_detectors, :smoke_detector_locations,
+      :hard_wired_smoke_detectors, :battery_operated_smoke_detectors, :detector_locations, :emergency_lighting, :lighting_locations,
+      :sprinklers, :sprinkler_locations, :exterior_evacuation_routes, :evacuation_route_locations, :central_meeting_point,
+      :meeting_point_locations, :exit_signs, :exit_sign_locations, :fire_drills, :two_exit_doors, :exit_door_locations, :panic_exit_doors,
+      :panic_exit_door_locations, :smoking_permitted, :smoking_locations, :percentage_of_employee, :percentage_of_volunteer,
+      :vehicle_use, :require_employees_and_volunteers, :required_limits, :use_mvr, :how_often_use_mvr, :driver_safety_program, :transport_clients,
+      :new_employee_training, :transport_governmental_or_public_clients, :explain_transportation, :transport_fee, :utilize_gps_fleets,
+      :plug_in_gps_telematics, :hard_wired_gps_telematics, :mobile_phone_gps_telematics, :other_gps_telematics, :telematic_device,
+      :fleet_telematics_percentage, :operation_narrative, :annual_budget, :annual_payroll, :clients_per_year, :no_clients,
+      :number_of_students, :no_students, :no_of_beds, :sheltered_workshops, :shelter_location_no, :workshop_function, :janitorial_services,
+      :landscaping_services, :other_mobile_work, :janitorial_payroll, :landscaping_payroll, :other_payroll, :worker_compensation,
+      :day_care_programe, :location_number, :no_of_children_supervised, :children_to_staff_ratio, :age_range, :foster_care, :foster_care_explanation,
+      :total_operation_percentage, :leased_locations, :leased_location_number, :square_feet, :own_swimming_pool, :building_or_location,
+      :diving_board, :spa_safety_act, :time_table_or_action_plan, :lead_paint, :abatement_plan, :sexual_offenders_therapy, :sexual_predators_therapy,
+      :professional_liability_coverage, :occurrence, :claims_made, :professional_liability_limits, :professional_carrier, :effective_date,
+      :full_time_employees, :part_time_employees, :volunteers, :malpractice_insurance, :company, :liability_limits, :accredited, :accrediting_organization,
+      :date_of_accreditation, :term_of_accreditation, :dentist, :nurse_practitioner, :optometrist, :physicians, :psychiatrist,
+      :other_contracted_services, :other_services_details, :written_agreements, :abuse_or_molestation, :abuse_occurrence, :claims_made_abuse,
+      :liability_limits_for_abuse, :abuse_carrier, :abuse_effective_date, :convicted_of_crime, :crisis_plan, :written_complaint_procedure,
+      :explain_complaint_procedure, :written_supervision_plan, :written_hiring_procedure, :volunteers_work_with_clients,
+      :formal_training, :formal_training_occurrence, :client_staff_relation, :closed_door_meeting, :patient_welfare, :sexual_abuse_incident,
+      :case_settled, :case_trialled, :amount_paid, :employee_criminal_background, :volunteer_criminal_background, :policy_effective_date,
+      :line_of_business, :written_notice, :notice_explanation, :claim_coverages, :claim_coverage_explanation, :fire_sprinkler,
+      :sprinkled_percentage, :wet_pipe_sprinkler, :dry_pipe_sprinkler, :both_types, :sprinkler_temperature, :sprinkler_freeze_prevention,
+      :freeze_winterization_review, :ul_monitoring_company, :water_valves_accessible, :valves_exercised_annualy, :staff_qualified,
+      :automatic_shutoff, :formal_process, :water_lines_temperature, :water_lines_freeze_prevention, :general_comments, :operation_nature,
+      :collect_pii, :collect_ssn, :collect_phi, :collect_credit_card_info, :applicant_alleged, :lawsuit_faced, :subject_of_investigation,
+      :applicant_circumstance, applicant_employees_attributes: [:id, :profession, :employee_type, :others_description, :count],
+      planned_events_attributes: [:id, :event_type, :event_date, :operation_hours, :anticipated_revenue, :location, :no_of_participants,
+                                 :no_of_staff_members, :obtained_certificates, :drinking_control_explanation, :alcohol_provider_explanation,
+                                 :bartenders_explanation, :sport_activities, :spectator_injury, :signed_waiver, :personal_health_proof,
+                                  :bartender_tips]
+    ]
+  end
 end
