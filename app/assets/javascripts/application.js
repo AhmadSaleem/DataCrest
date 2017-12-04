@@ -16,6 +16,7 @@
 //= require jquery.validate.min
 //= require moment.min
 //= require chartist.min
+//= require perfect-scrollbar.jquery.min
 //= require light-bootstrap-dashboard
 //= require bootstrap-checkbox-radio-switch
 //= require bootstrap-datetimepicker.min
@@ -31,7 +32,6 @@
 //= require jquery-jvectormap
 //= require jquery.bootstrap.wizard.min
 //= require nouislider.min
-//= require perfect-scrollbar.jquery.min
 //= require jquery.datatables
 //= require select2
 //= require sweetalert2
