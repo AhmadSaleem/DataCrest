@@ -1,16 +1,11 @@
 class Clients::InvitationsController < Devise::InvitationsController
+  before_action :set_application_path, only: [:update]
 
   def edit
     super
   end
 
   def update
-    if params[:client][:application_id].present?
-      insurance_application = InsuranceApplication.find_by(id: params[:client][:application_id])
-      session[:application_url] = { controller: "dashboard/#{insurance_application.client_application_type.tableize}",
-                                    action: "edit", id: insurance_application.client_application_id }
-    end
-
     super
 
     if resource.invitation_accepted?

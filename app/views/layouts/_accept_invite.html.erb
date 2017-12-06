@@ -23,6 +23,8 @@
                     <li><strong>Agency Code: </strong><%= resource.agent_code %></li>
                   <% end %>
                 </ul>
+                <%= hidden_field_tag :application_id, params[:application] %>
+
                 <% if f.object.class.require_password_on_accepting %>
                   <div class="form-group">
                     <%= f.label :password, class: "control-label" %>
