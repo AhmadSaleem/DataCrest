@@ -22,6 +22,7 @@
                 <%= f.label :logo, 'Comapny Logo', class: "control-label" %><br>
                 <%= image_tag(@wholesaler.logo, class: "col-md-2") %>
                 <%= f.file_field :logo %>
+                <%= f.hidden_field :logo_cache %>
               </div>
             </div>
           </div>

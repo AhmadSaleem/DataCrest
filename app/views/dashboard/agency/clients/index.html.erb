@@ -1,0 +1,67 @@
+<div class="row users-page">
+  <div class="col-12">
+    <div class="card">
+      <div class="header">
+        <h2 class="title">Clients</h2>
+      </div>
+
+      <div class="content clearfix">
+        <% if @agent_clients.present? %>
+          <div class="content table-responsive table-full-width">
+            <table class="table table-hover table-striped">
+              <thead>
+                <tr>
+                  <th>Name</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+
+              <tbody>
+                <% @agent_clients.each do |client| %>
+                  <tr>
+                    <td>
+                      <div class="row">
+                        <a data-toggle="modal" data-target="#client-profile-<%= client.id %>">
+                          <div class="col-md-2">
+                            <%= image_tag client.profile_picture, class: "profile-pic" %>
+                          </div>
+                          <div class="col-md-2">
+                            <%= client.full_name.titleize %>
+                          </div>
+                        </a>
+                      </div>
+
+                      <div id="client-profile-<%= client.id %>" class="modal fade">
+                        <div class="modal-dialog">
+                          <div class="modal-content">
+                            <div class="modal-body">
+                              <%= render 'shared/dashboard/user_profile', resource: client %>
+                            </div>
+                            <div class="modal-footer">
+                              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </td>
+
+                    <td>
+                      <%= link_to "Assign new application", new_dashboard_client_invitation_path %>
+                    </td>
+                  </tr>
+                <% end %>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="pull-right">
+            <%= paginate @agent_clients %>
+            <%= page_entries_info @agent_clients, entry_name: "clients" %>
+          </div>
+        <% else %>
+            <p>No clients found <%= link_to "Click here", new_dashboard_client_invitation_path %> to invite client</p>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
