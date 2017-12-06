@@ -34,6 +34,7 @@ Rails.application.configure do
 
   # Enable serving of images, stylesheets, and JavaScripts from an asset server.
 
+  config.action_mailer.asset_host = ENV['DEFAULT_URL']
   # config.action_controller.asset_host = 'https://datacrest-staging.herokuapp.com/'
 
   # Specifies the header that your server uses for sending files.

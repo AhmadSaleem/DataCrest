@@ -21,10 +21,12 @@
   accepts_nested_attributes_for :owned_agency
 
   before_validation :assign_agency, on: :create
+  before_create     :assign_person_agency
 
   delegate :full_name, :wholesaler_title, to: :invited_by, prefix: true, allow_nil: true
   delegate :title, :logo, :address_1, :city, :zip_code, :state, to: :agency, prefix: true
   delegate :agency_code, to: :agency
+  delegate :agents, to: :owned_agency, allow_nil: true, prefix: true
 
   validates :first_name, :last_name, presence: true
   validates :agency, presence: true, unless: :company_owner?
@@ -46,9 +48,26 @@
     agency_logo.blank? || agency_address_1.blank? || agency_city.blank? || agency_state.blank? || agency_zip_code.blank?
   end
 
-  private
+  def invited_agents
+    return unless owned_agency_agents.present?
+    owned_agency_agents.joins(:agency).where('agencies.owner_id != agents.id')
+  end
 
+  def status
+    return "Pending"  if invitation_accepted_at.blank? && !invitation_sent_at.blank?
+    return "Accepted" unless invitation_accepted_at.blank?
+  end
+
+  private
+    #call on agency signup
     def assign_agency
       self.agency = owned_agency if owned_agency.present?
+    end
+
+    #call on agent invitation
+    def assign_person_agency
+      return if invited_by.blank?
+      self.agency = owned_agency
+      self.agency = invited_by.agency if invited_by.is_a?(Agent)
     end
 end

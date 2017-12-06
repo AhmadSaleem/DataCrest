@@ -32,4 +32,12 @@
       $('html, body').stop().animate { 'scrollTop': $target.offset().top - 90 }, 900, 'swing', ->
       return
 
+  InsuranceApplications.toggle_modal_fields = ->
+    $('.modal-login-rb').change ->
+      if @value == "existing_account"
+        $('.sign-in-body').removeClass 'hidden'
+        $('.sign-up-body').addClass 'hidden'
+      else
+        $('.sign-in-body').addClass 'hidden'
+        $('.sign-up-body').removeClass 'hidden'
 ).call this

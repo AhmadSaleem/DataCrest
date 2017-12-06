@@ -1,0 +1,46 @@
+<%= form_for @agent, url: dashboard_agency_agent_invitations_path do |f| %>
+  <%= render "shared/dashboard/employee_invitations/index", f: f %>
+<% end %>
+
+<% if @agents.present? %>
+  <div class="row">
+    <div class="col-12">
+      <div class="card">
+        <div class="header">
+          <h2 class="title">Invitations</h2>
+        </div>
+
+        <div class="content table-responsive table-full-width">
+          <table class="table table-hover table-stripped">
+            <thead>
+              <th>Pic</th>
+              <th>Name</th>
+              <th>Email</th>
+              <th>Invitation Status</th>
+              <th>Action</th>
+            </thead>
+
+            <tbody>
+              <% @agents.each do |agent| %>
+                <tr>
+                  <td><%= image_tag agent.profile_picture, style: 'max-width: 50px' %></td>
+                  <td><%= agent.full_name %></td>
+                  <td><%= agent.email %></td>
+                  <td><%= agent.status %></td>
+                  <td><%= render partial: "shared/dashboard/employee_invitations/actions", locals: { person: agent } %></td>
+                </tr>
+              <% end %>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="pull-right">
+        <%= paginate @agents %>
+        <%= page_entries_info @agents, entry_name: "employees" %>
+      </div>
+    </div>
+  </div>
+<% else %>
+  <p>There are no outstanding invitations.</p>
+<% end %>

@@ -8,7 +8,7 @@ class Dashboard::AgenciesController < DashboardController
 
   def update
     if @agency.update(agency_params)
-      redirect_to edit_dashboard_agency_path(@agency), notice: "Company was updated successfully."
+      redirect_to dashboard_path, notice: "Company was updated successfully."
     else
       render :edit
     end

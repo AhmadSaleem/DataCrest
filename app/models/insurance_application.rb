@@ -2,7 +2,7 @@ class InsuranceApplication < ApplicationRecord
   belongs_to :template
   belongs_to :client_application, polymorphic: true
 
-  delegate :client_full_name, :agent, to: :client_application, allow_nil: true
+  delegate :client_full_name, :agent, :agent_full_name, to: :client_application, allow_nil: true
 
   enum status: {
     incomplete:   0,
@@ -13,5 +13,9 @@ class InsuranceApplication < ApplicationRecord
 
   def application_title
     template.title
+  end
+
+  def agent_name
+    agent.present? ? agent_full_name : "N/A"
   end
 end

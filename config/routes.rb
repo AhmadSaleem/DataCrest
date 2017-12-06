@@ -4,7 +4,8 @@ Rails.application.routes.draw do
                                           registrations: "agents/registrations",
                                           invitations: "agents/invitations" }
   devise_for :clients,     controllers: { invitations: "clients/invitations",
-                                          registrations: "clients/registrations" }
+                                          registrations: "clients/registrations",
+                                          sessions: "clients/sessions" }
   devise_for :salespeople, controllers: { registrations: "salespeople/registrations",
                                           invitations: "salespeople/invitations" }
   get "dashboard", to: "dashboard#index"
@@ -37,6 +38,12 @@ Rails.application.routes.draw do
 
     resources :agents, only: [:index, :show]
     resources :templates, only: [:show]
+
+    namespace :agency do
+      resources :agent_invitations, only: [:index, :create, :destroy] do
+        get 'resend_invitation', on: :member
+      end
+    end
   end
 
   resources :pages do
