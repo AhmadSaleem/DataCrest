@@ -1,9 +1,7 @@
-<div class="btn-group">
-  <button type="button" class="btn btn-default btn-fill">Action</button>
-  <button type="button" class="btn btn-default btn-fill dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-    <span class="caret"></span>
-    <span class="sr-only">Toggle Dropdown</span>
-  </button>
+<div class="dropdown">
+  <%= link_to "", class: "btn btn-default btn-fill dropdown-toggle", data: { toggle: "dropdown" },  aria: { haspopup: "false", expanded: "false" } do %>
+    Actions <span class="caret"></span>
+  <% end %>
   <ul class="dropdown-menu">
     <% if current_salesperson %>
       <% if current_salesperson.company_owner? %>
