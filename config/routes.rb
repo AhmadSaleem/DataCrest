@@ -24,7 +24,13 @@ Rails.application.routes.draw do
     resources :client_invitations, only: [:new, :create]
 
     resources :agent_wholesaler_applications, only: [:index, :destroy], path: 'my-agents' do
-      get 'agent_templates', on: :member
+      get "templates", on: :collection
+      member do
+        get 'agent_templates'
+        get "assign_application"
+      end
+
+
     end
 
     resources :insurance_applications, except: [:new], path: 'applications' do

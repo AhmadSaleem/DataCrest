@@ -4,6 +4,7 @@
       <div class="header">
         <h2 class="title">Agents</h2>
       </div>
+
       <div class="content clearfix">
         <% if @agent_wholesalers.present? %>
           <div class="content table-responsive table-full-width">
@@ -38,9 +39,9 @@
                   <td>
                     <% if agent.applications_count > 0 %>
                       <%= link_to "View applications", agent_templates_dashboard_agent_wholesaler_application_path(agent.id) %> |
-                      <%= link_to "Assign new application", new_dashboard_agent_invitation_path %>
+                      <%= link_to "Assign new application", templates_dashboard_agent_wholesaler_applications_path(agent_id: agent.id) %>
                     <% else %>
-                      <%= link_to "Assign new application", new_dashboard_agent_invitation_path %>
+                      <%= link_to "Assign new application", templates_dashboard_agent_wholesaler_applications_path(agent_id: agent.id) %>
                     <% end %>
                   </td>
                 </tr>
@@ -48,6 +49,7 @@
               </tbody>
             </table>
           </div>
+
           <div class="pull-right">
             <%= paginate @agent_wholesalers %>
             <%= page_entries_info @agent_wholesalers, entry_name: "agents" %>
