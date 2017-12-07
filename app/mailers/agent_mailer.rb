@@ -5,7 +5,7 @@ class AgentMailer < ApplicationMailer
     mail(to: @agent.email, subject: "Invitation instructions")
   end
 
-  def existing_agent_invite(agent_id, token)
+  def existing_agent_invite(agent_id)
     @agent = Agent.find(agent_id)
     mail(to: @agent.email, subject: "Invitation instructions")
   end
