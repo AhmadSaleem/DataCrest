@@ -71,7 +71,7 @@ end
 puts 'give company application templates'
 class_name = 'JimcorDwellingApplication'
 wholesaler.templates.create([
-  {class_name: class_name, title: 'Human Services Application'},
+  {class_name: class_name, title: 'Human Services'},
   {class_name: class_name, title: 'Commercial Auto'},
   {class_name: class_name, title: 'Cyber Security'},
   {class_name: class_name, title: 'Environmental'},
