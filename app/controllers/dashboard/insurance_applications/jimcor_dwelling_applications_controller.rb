@@ -13,8 +13,8 @@ class Dashboard::InsuranceApplications::JimcorDwellingApplicationsController < D
   end
 
   def new
+    @title = 'New Jimcor Dwellings Application'
     template = Template.find_by(id: params[:id])
-    @title = template.title + ' Application'
     if current_client && template.present?
       @jimcor_dwelling_application = current_client.jimcor_dwelling_applications.first_or_create
       template.insurance_applications.find_or_create_by(client_application: @jimcor_dwelling_application)
