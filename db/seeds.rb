@@ -111,3 +111,13 @@ agency_owner.agency_id = agency.id
 agency_owner.save
 
 AgentWholesaler.create!(agent_id: agency_owner.id, wholesaler_id: wholesaler.id, status: 1)
+
+client = Client.new(
+    first_name: 'Colin',
+    last_name: 'Ambler',
+    email: 'colinambler@me.com',
+    password: 'password',
+    password_confirmation: 'password',
+    profile_picture: open(Rails.root.to_s + '/db/users/colin.jpg'),
+)
+client.save

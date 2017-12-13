@@ -6,12 +6,20 @@
     </a>
     <div class="collapse" id="company-settings">
       <ul class="nav">
-        <li class="<%= active_class(dashboard_salespeople_invitations_path) %>"><%= link_to "Manage Employees", dashboard_salespeople_invitations_path %></li>
         <li class="<%= active_class(edit_dashboard_wholesaler_path(current_salesperson.owned_wholesaler)) %>"><%= link_to "Edit Company Info", edit_dashboard_wholesaler_path(current_salesperson.owned_wholesaler) %></li>
+        <li class="<%= active_class(dashboard_salespeople_invitations_path) %>"><%= link_to "Manage Employees", dashboard_salespeople_invitations_path %></li>
       </ul>
     </div>
   </li>
 <% end %>
+
+<li class="<%= active_class(dashboard_agents_path) %>">
+  <%= link_to dashboard_agent_wholesaler_applications_path do %>
+    <i class="pe-7s-users"></i>
+    <p>Agents</p>
+  <% end %>
+</li>
+
 <li>
   <a data-toggle="collapse" href="#applications">
     <i class="pe-7s-note2"></i>
@@ -27,11 +35,4 @@
       </li>
     </ul>
   </div>
-</li>
-
-<li class="<%= active_class(dashboard_agents_path) %>">
-  <%= link_to dashboard_agent_wholesaler_applications_path do %>
-    <i class="pe-7s-users"></i>
-    <p>Agents</p>
-  <% end %>
 </li>

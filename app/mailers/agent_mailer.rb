@@ -6,6 +6,7 @@ class AgentMailer < ApplicationMailer
   end
 
   def existing_agent_invite(agent_id, token)
+    @wholesaler = AgentWholesaler.last.wholesaler
     @agent = Agent.find(agent_id)
     mail(to: @agent.email, subject: "Invitation instructions")
   end

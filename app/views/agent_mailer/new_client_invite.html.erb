@@ -1,10 +1,10 @@
-<p> Dear <%= @client.email %>,</p>
-<br/>
-<p><%= @client.invited_by_full_name %> invited you to complete the applications on DataCrest.
-  you can accept it through link below.
-</p>
-<p><%= link_to "Accept Invite", accept_client_invitation_url(invitation_token: @token, application: @assigned_application), class: "btn" %></p>
-<br/>
+<p> Dear <%= @client.first_name %>,</p>
+<p>Tom Young has invited you to complete the following application:</p>
+<ul>
+  <li>Human Services</li>
+</ul>
+
+<p><%= link_to "Accept Invite & Begin Application", accept_client_invitation_url(invitation_token: @token, application: @assigned_application), class: "btn" %></p>
 <p>
   If you don't want to accept the invitation, please ignore this email.<br/>
   Your account won't be created until you access the link above and set your password.
