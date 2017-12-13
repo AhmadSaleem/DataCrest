@@ -50,140 +50,137 @@
 <% else %>
 <%= render "shared/errors", resource: @jimcor_dwelling_application %>
 
-<div class="main-content">
-  <div class="container-fluid">
-    <div class="row">
-      <div class="col-md-8 col-md-offset-2">
-        <div class="card card-wizard" id="wizardCard">
-          <form id="wizardForm" method="" action="">
-            <div class="header text-center">
-              <h3 class="title">Trigger Questions</h3>
-              <p class="category">Answer these questions to get a customized application form</p>
-            </div>
+<div class="row">
+  <div class="col-md-12">
+    <div class="card card-wizard" id="wizardCard">
+      <form id="wizardForm" method="" action="">
+        <div class="header text-center">
+          <h3 class="title">Preliminary Discovery</h3>
+          <p class="category">Answer these questions to get a customized application form</p>
+        </div>
 
-            <div class="content">
-              <ul class="nav">
-                <li><a href="#tab1" data-toggle="tab">Questions</a></li>
-                <li><a href="#tab2" data-toggle="tab">Confirmation</a></li>
-              </ul>
+        <div class="content">
+          <ul class="nav">
+            <li><a href="#tab1" data-toggle="tab">Preliminary Discovery</a></li>
+            <li><a href="#tab2" data-toggle="tab">Confirmation</a></li>
+          </ul>
 
-              <div class="tab-content">
-                <div class="tab-pane" id="tab1">
-                  <h5 class="text-center">Please tell us more about yourself.</h5>
-                  <div class="row">
-                    <div class="col-md-10 col-md-offset-1">
-                      <div class="form-group">
-                        <label class="control-label">Do you own or lease any vehicles?</label><br>
-                        <input type="radio" required="true" name="vehicles" value="yes"> Yes<br>
-                        <input type="radio" required="true" name="vehicles" value="no"> No<br>
-                      </div>
-
-                      <div class="form-group">
-                        <label class="control-label">Do you have any Adoption / Foster Care services?</label><br>
-                        <input type="radio" required="true" name="adoption" value="yes"> Yes<br>
-                        <input type="radio" required="true" name="adoption" value="no"> No<br>
-                      </div>
-
-                      <div class="form-group">
-                        <label class="control-label">Do you operate any Food Bank or Food Preparation Facilities?</label><br>
-                        <input type="radio" required="true" name="food_bank" value="yes"> Yes<br>
-                        <input type="radio" required="true" name="food_bank" value="no"> No<br>
-                      </div>
-
-                      <div class="form-group">
-                        <label class="control-label">Do you operate a Sheltered Workshop?</label><br>
-                        <input type="radio" required="true" name="sheltered_workshop" value="yes"> Yes<br>
-                        <input type="radio" required="true" name="sheltered_workshop" value="no"> No<br>
-                      </div>
-
-                      <div class="form-group">
-                        <label class="control-label">Do you operate any Residential Facilities?</label><br>
-                        <input type="radio" required="true" name="residential_facilities" value="yes"> Yes<br>
-                        <input type="radio" required="true" name="residential_facilities" value="no"> No<br>
-                      </div>
-
-                      <div class="form-group">
-                        <label class="control-label">Do you operate any Clinics / Medical Facilities?</label><br>
-                        <input type="radio" required="true" name="clinical_facilities" value="yes"> Yes<br>
-                        <input type="radio" required="true" name="clinical_facilities" value="no"> No<br>
-                      </div>
-
-                      <div class="form-group">
-                        <label class="control-label">Do you operate any In-Home Support Services, Substance Abuse, Outpatient Facilities?</label><br>
-                        <input type="radio" required="true" name="fundraisers" value="yes"> Yes<br>
-                        <input type="radio" required="true" name="fundraisers" value="no"> No<br>
-                      </div>
-
-                      <div class="form-group">
-                        <label class="control-label">Do you own or occupy a building in one or more of these states:  AR, CT, DC, DE, GA, IL, IN, KY, ME, MD, MA, MI, MO, NY, NJ, NC, OH, PA, RI, SC, TN, TX, VT, VA, WV, WI?</label><br>
-                        <input type="radio" required="true" name="building_occupied" value="yes"> Yes<br>
-                        <input type="radio" required="true" name="building_occupied" value="no"> No<br>
-                      </div>
-                    </div>
+          <div class="tab-content">
+            <div class="tab-pane" id="tab1">
+              <h5 class="text-center">Please tell us more about yourself.</h5>
+              <div class="row">
+                <div class="col-md-10 col-md-offset-1">
+                  <div class="form-group">
+                    <label class="control-label">Do you own or lease any vehicles?</label><br>
+                    <input type="radio" required="true" name="vehicles" value="yes"> Yes<br>
+                    <input type="radio" required="true" name="vehicles" value="no"> No<br>
                   </div>
-                </div>
 
-                <div class="tab-pane" id="tab2">
-                  <p>
-                    Do you own or lease any vehicles?
-                    <strong id="vehicles"></strong>
-                  </p>
+                  <div class="form-group">
+                    <label class="control-label">Do you have any Adoption / Foster Care services?</label><br>
+                    <input type="radio" required="true" name="adoption" value="yes"> Yes<br>
+                    <input type="radio" required="true" name="adoption" value="no"> No<br>
+                  </div>
 
-                  <p>
-                    Do you have any Adoption / Foster Care services?
-                    <strong id="adoption"></strong>
-                  </p>
+                  <div class="form-group">
+                    <label class="control-label">Do you operate any Food Bank or Food Preparation Facilities?</label><br>
+                    <input type="radio" required="true" name="food_bank" value="yes"> Yes<br>
+                    <input type="radio" required="true" name="food_bank" value="no"> No<br>
+                  </div>
 
-                  <p>
-                    Do you operate any Food Bank or Food Preparation Facilities?
-                    <strong id="food_bank"></strong>
-                  </p>
+                  <div class="form-group">
+                    <label class="control-label">Do you operate a Sheltered Workshop?</label><br>
+                    <input type="radio" required="true" name="sheltered_workshop" value="yes"> Yes<br>
+                    <input type="radio" required="true" name="sheltered_workshop" value="no"> No<br>
+                  </div>
 
-                  <p>
-                    Do you operate a Sheltered Workshop?
-                    <strong id="sheltered_workshop"></strong>
-                  </p>
+                  <div class="form-group">
+                    <label class="control-label">Do you operate any Residential Facilities?</label><br>
+                    <input type="radio" required="true" name="residential_facilities" value="yes"> Yes<br>
+                    <input type="radio" required="true" name="residential_facilities" value="no"> No<br>
+                  </div>
 
-                  <p>
-                    Do you operate any Residential Facilities?
-                    <strong id="residential_facilities"></strong>
-                  </p>
+                  <div class="form-group">
+                    <label class="control-label">Do you operate any Clinics / Medical Facilities?</label><br>
+                    <input type="radio" required="true" name="clinical_facilities" value="yes"> Yes<br>
+                    <input type="radio" required="true" name="clinical_facilities" value="no"> No<br>
+                  </div>
 
-                  <p>
-                    Do you operate any Clinics / Medical Facilities?
-                    <strong id="clinical_facilities"></strong>
-                  </p>
+                  <div class="form-group">
+                    <label class="control-label">Do you operate any In-Home Support Services, Substance Abuse, Outpatient Facilities?</label><br>
+                    <input type="radio" required="true" name="fundraisers" value="yes"> Yes<br>
+                    <input type="radio" required="true" name="fundraisers" value="no"> No<br>
+                  </div>
 
-                  <p>
-                    Do you operate any In-Home Support Services, Substance Abuse, Outpatient Facilities?
-                    <strong id="fundraisers"></strong>
-                  </p>
-
-                  <p>
-                    Do you own or occupy a building in one or more of these states:  AR, CT, DC, DE, GA, IL, IN, KY, ME, MD, MA, MI, MO, NY, NJ, NC, OH, PA, RI, SC, TN, TX, VT, VA, WV, WI?
-                    <strong id="building_occupied"></strong>
-                  </p>
-
-                  <h2 class="text-center text-space">Yuhuuu! <br><small> Click on "<b>Finish</b>" to proceed to the application</small></h2>
-                </div>
-
-                <div class="footer">
-                  <button type="button" class="btn btn-default btn-fill btn-wd btn-previous pull-left">Back</button>
-
-                  <button type="button" class="btn btn-info btn-fill btn-wd btn-next pull-right">Next</button>
-
-                  <button type="button" class="btn btn-info btn-fill btn-wd btn-finish pull-right" onclick="onFinishWizard()">Finish</button>
-
-                  <div class="clearfix"></div>
+                  <div class="form-group">
+                    <label class="control-label">Do you own or occupy a building in one or more of these states:  AR, CT, DC, DE, GA, IL, IN, KY, ME, MD, MA, MI, MO, NY, NJ, NC, OH, PA, RI, SC, TN, TX, VT, VA, WV, WI?</label><br>
+                    <input type="radio" required="true" name="building_occupied" value="yes"> Yes<br>
+                    <input type="radio" required="true" name="building_occupied" value="no"> No<br>
+                  </div>
                 </div>
               </div>
             </div>
-          </form>
+
+            <div class="tab-pane" id="tab2">
+              <p>
+                Do you own or lease any vehicles?
+                <strong id="vehicles"></strong>
+              </p>
+
+              <p>
+                Do you have any Adoption / Foster Care services?
+                <strong id="adoption"></strong>
+              </p>
+
+              <p>
+                Do you operate any Food Bank or Food Preparation Facilities?
+                <strong id="food_bank"></strong>
+              </p>
+
+              <p>
+                Do you operate a Sheltered Workshop?
+                <strong id="sheltered_workshop"></strong>
+              </p>
+
+              <p>
+                Do you operate any Residential Facilities?
+                <strong id="residential_facilities"></strong>
+              </p>
+
+              <p>
+                Do you operate any Clinics / Medical Facilities?
+                <strong id="clinical_facilities"></strong>
+              </p>
+
+              <p>
+                Do you operate any In-Home Support Services, Substance Abuse, Outpatient Facilities?
+                <strong id="fundraisers"></strong>
+              </p>
+
+              <p>
+                Do you own or occupy a building in one or more of these states:  AR, CT, DC, DE, GA, IL, IN, KY, ME, MD, MA, MI, MO, NY, NJ, NC, OH, PA, RI, SC, TN, TX, VT, VA, WV, WI?
+                <strong id="building_occupied"></strong>
+              </p>
+
+              <h2 class="text-center text-space">Yuhuuu! <br><small> Click on "<b>Finish</b>" to proceed to the application</small></h2>
+            </div>
+
+            <div class="footer">
+              <button type="button" class="btn btn-default btn-fill btn-wd btn-previous pull-left">Back</button>
+
+              <button type="button" class="btn btn-info btn-fill btn-wd btn-next pull-right">Next</button>
+
+              <button type="button" class="btn btn-info btn-fill btn-wd btn-finish pull-right" onclick="onFinishWizard()">Finish</button>
+
+              <div class="clearfix"></div>
+            </div>
+          </div>
         </div>
-      </div>
+      </form>
     </div>
   </div>
 </div>
+
 
 <script type="text/javascript">
   $().ready(function(){
