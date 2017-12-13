@@ -29,6 +29,7 @@
 //= require ct-navbar
 //= require fullcalendar.min
 //= require jquery-jvectormap
+//= require jquery-jvectormap-us-aea
 //= require jquery.bootstrap.wizard.min
 //= require nouislider.min
 //= require perfect-scrollbar.jquery.min
