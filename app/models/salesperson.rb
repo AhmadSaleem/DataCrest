@@ -47,7 +47,7 @@ class Salesperson < ApplicationRecord
   end
 
   def role
-    return "Wholesaler Owner" if company_owner?
+    return "Carrier Owner" if company_owner?
     return "Salesperson"
   end
 
