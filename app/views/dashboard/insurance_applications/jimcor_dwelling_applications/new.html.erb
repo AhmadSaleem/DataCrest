@@ -164,7 +164,7 @@
                       <strong id="building_occupied"></strong>
                     </p>
 
-                    <h2 class="text-center text-space">Yuhuuu! <br><small> Click on "<b>Finish</b>" to proceed to the application</small></h2>
+                    <h2 class="text-center text-space" id="steps-saved"><br><small> Click on "<b>Finish</b>" to proceed to the application</small></h2>
                   </div>
 
                   <div class="footer">
@@ -200,14 +200,22 @@
                 return false;
               }
               else {
-                $('#vehicles').html($('[name=vehicles]').val());
-                $('#adoption').html($('[name=adoption]').val());
-                $('#food_bank').html($('[name=food_bank]').val());
-                $('#sheltered_workshop').html($('[name=sheltered_workshop]').val());
-                $('#residential_facilities').html($('[name=residential_facilities]').val());
-                $('#clinical_facilities').html($('[name=clinical_facilities]').val());
-                $('#fundraisers').html($('[name=fundraisers]').val());
-                $('#building_occupied').html($('[name=building_occupied]').val());
+                $('#vehicles').html($('[name=vehicles]:checked').val());
+                $('#adoption').html($('[name=adoption]:checked').val());
+                $('#food_bank').html($('[name=food_bank]:checked').val());
+                $('#sheltered_workshop').html($('[name=sheltered_workshop]:checked').val());
+                $('#residential_facilities').html($('[name=residential_facilities]:checked').val());
+                $('#clinical_facilities').html($('[name=clinical_facilities]:checked').val());
+                $('#fundraisers').html($('[name=fundraisers]:checked').val());
+                $('#building_occupied').html($('[name=building_occupied]:checked').val());
+
+                count = 0
+                $('input[type=radio]:checked').map(function(){
+                  if($(this).val() == 'no')
+                     count++;
+                })
+                if (count > 0)
+                  $('#steps-saved').prepend('You saved ' + count + ' step(s)!')
               }
             },
 
