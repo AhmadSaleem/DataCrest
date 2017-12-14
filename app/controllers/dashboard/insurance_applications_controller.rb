@@ -22,6 +22,7 @@ class Dashboard::InsuranceApplicationsController < DashboardController
 
   def update
     if @insurance_application.update(update_params)
+      ClientMailer.application_status(@insurance_application.id).deliver_later
       redirect_to dashboard_insurance_applications_path, notice: "Status was updated successfully."
     else
       render :edit

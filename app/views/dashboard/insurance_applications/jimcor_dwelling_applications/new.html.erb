@@ -4,44 +4,4 @@
   <%= render 'form', f: f %>
 <% end %>
 
-<% if !current_user || salesperson_signed_in? || agent_signed_in? %>
-  <div id="alert-modal" class="modal fade">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-          <h4 class="modal-title">Sign-in Required(Clients Only)</h4>
-        </div>
-
-        <div class="modal-body">
-          <%= radio_button(:new, "", :new_account, { required: true, class: 'modal-login-rb' }) %>
-          <%= label_tag :new_account, 'New Account' %>
-          <%= radio_button(:new, "", :existing_account, { required: true, checked: true, class: 'modal-login-rb' }) %>
-          <%= label_tag :existing_account, 'Existing Account' %>
-
-          <p>You must be signed-in as a Client in order to submit an application entry</p>
-          <div class="sign-in-body">
-            <%= render 'clients/sessions/login_fields' %>
-          </div>
-
-          <!-- Signup fields -->
-          <div class="sign-up-body hidden">
-            <%= render "clients/registrations/signup_fields" %>
-          </div>
-        </div>
-
-        <div class="modal-footer">
-          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        </div>
-      </div>
-    </div>
-  </div>
-<% end %>
-
-<% content_for :js_init do %>
-  <% if !current_user || salesperson_signed_in? || agent_signed_in? %>
-    InsuranceApplications.disable_all_fields();
-    InsuranceApplications.launch_modal();
-    InsuranceApplications.toggle_modal_fields();
-  <% end %>
-<% end %>
+<%= render 'authenticate_client' %>
