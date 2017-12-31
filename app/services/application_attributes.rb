@@ -1,0 +1,30 @@
+class ApplicationAttributes
+  def self.jimcor_dwelling
+    [ :applicant_name, :applicant_phone_no, :applicant_address, :peril_deductible,
+      :wind_hail_deductible, :water_demage_deductible, :public_protection_class,
+      :risk_location_address, :personal_liability, :mdeical_liability, :proposed_start_date,
+      :proposed_end_date, :dwelling_coverage, :personal_property, :rent_loss_coverage,
+      :other_structures_coverage, :dwelling_replacement_cost, :replacement_cost_formula,
+      :market_value, :square_feet, :built_year, :total_stories, :total_families,
+      :fire_hydrant_distance, :fire_station_distance, :frame_construction_category,
+      :amps_rated, :electrics_update_year, :heating_update_year, :gas_heating,
+      :oil_heating, :coal_heating, :other_heating, :aux_heating_unit_installed,
+      :wood_stove_aux_heating, :coal_stove_aux_heating, :pellet_stove_aux_heating,
+      :kerosene_aux_heater, :entire_roof_updated, :roof_update_year, :plumbing_update_year,
+      :banckrupt, :banckrupt_remarks, :foreclosured, :foreclosured_remarks, :unemloyed,
+      :unemployed_remarks, :canceled, :canceled_remarks, :lapsed, :lapsed_remarks,
+      :policy_number, :policy_period, :applicant_previous_carrier, :owner_occupied,
+      :owner_occupied_remarks, :portion_unoccupied, :portion_unoccupied_remarks,
+      :under_renovation, :under_renovation_remarks, :under_construction, :business_conducted,
+      :under_construction_remarks, :domestic_employees, :business_conducted_remarks,
+      :domestic_employees_remarks, :horses_owned, :horses_owned_remarks, :non_domestic_animals,
+      :non_domestic_animals_remarks, :domestic_animals, :domestic_animals_remarks,
+      :contains_smoke_detectors, :smoke_detector_remarks, :furthest_to_ocean, :joisted_masonry_category,
+      :saltwater_bay_remarks, :nearby_ocean, :nearby_ocean_remarks, :contiains_swimming_pool,
+      :swimming_pool_remarks, :contains_trampoline, :trampoline_remarks, :secondary_residence,
+      :contains_exterior_steps, :exterior_step_remarks, :secondary_residence_remarks,
+      :mortgage_loan_number, :mortgage_name, :mortgage_address, :mortgage_2_name,
+      :mortgage_lending_organization, :mortgage_2_loan_number, :mortgage_2_address,
+      :mortgage_2_lending_organization ]
+  end
+end

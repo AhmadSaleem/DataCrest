@@ -1,0 +1,7 @@
+<p> Dear <%= @client.full_name %>,</p>
+<p> We would like to provide you with an improved process to complete the needed insurance application.</p>
+<p>
+  <%= link_to "Accept Invite", accept_client_invitation_url(invitation_token: @token, application: @assigned_application), class: "btn" %>
+
+</p>
+<p>Thank you for your business.<br>Your agent</p>

@@ -1,13 +1,8 @@
-<h3> Hi, <%= @agent.email %></h3>
-<br/>
-<p><%= @agent.invited_by_full_name %> invited you to join comapny
-  <strong><%= @agent.invited_by_wholesaler_title %>.</strong> on DataCrest
-  you can accept it through link below.
-</p>
-
-<p><%= link_to "Accept Invite", accept_agent_invitation_url(invitation_token: @token) %></p>
-<br/>
+<p> Dear <%= @agent.full_name.titleize %>,</p>
 <p>
-  If you don't want to accept the invitation, please ignore this email.<br/>
-  Your account won't be created until you access the link above and set your password.
+  Your <%= @agent.invited_by_wholesaler_title %> representative, <%= @agent.invited_by_full_name %>, has invited you to complete Jimcor Dwelling Application.
 </p>
+<p>Click this link to continue to the application portal.</p>
+<p><%= link_to "Accept Invite", accept_agent_invitation_url(invitation_token: @token), class: "btn" %></p>
+<p>Thank you for your business.</p>
+<p>Your <%= @agent.invited_by_wholesaler_title %> team.</p>

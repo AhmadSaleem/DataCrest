@@ -1,0 +1,35 @@
+<div class="row">
+  <div class="col-12">
+    <div class="card">
+      <div class="header">
+        <h2 class="title"><%= @agent.full_name.titleize %> Applications</h2>
+      </div>
+      <div class="content table-responsive table-full-width">
+        <% if @agent_templates.present? %>
+          <table class="table table-hover table-striped">
+            <thead>
+              <tr>
+                <th>Title</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+            <% @agent_templates.each do |agent_template| %>
+              <tr>
+                <td><%= agent_template.title %></td>
+                <td>
+                  <%= link_to "Delete", dashboard_agent_wholesaler_application_path(agent_template, agent_id: @agent.id), method: :delete, data: {confirm: "Are you sure?"} %>
+                </td>
+              </tr>
+            <% end %>
+            </tbody>
+          </table>
+        <% else %>
+          <p>No applications found</p>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
+
+<%= link_to "Go Back", dashboard_agent_wholesaler_applications_path %>

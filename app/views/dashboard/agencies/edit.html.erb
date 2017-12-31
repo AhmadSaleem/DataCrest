@@ -20,7 +20,7 @@
             <div class="col-md-10">
               <div class="form-group">
                 <%= f.label :logo, 'Comapny Logo', class: "control-label" %><br>
-                <%= image_tag(@agency.logo, class: "col-md-2") if @agency.logo? %>
+                <%= image_tag(@agency.logo, class: "col-md-2") %>
                 <%= f.file_field :logo %>
               </div>
             </div>
@@ -69,7 +69,7 @@
             <div class="col-md-4">
               <div class="form-group">
                 <%= f.label :zip_code, class: "control-label" %><br>
-                <%= f.number_field :zip_code, min: 0, class: "form-control", required: true %>
+                <%= f.text_field :zip_code, class: "form-control", required: true %>
               </div>
             </div>
           </div>
@@ -83,4 +83,8 @@
       </div>
     </div>
   </div>
+<% end %>
+
+<% content_for :js_init do %>
+  $('.chosen-select').select2();
 <% end %>

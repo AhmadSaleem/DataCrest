@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= [@title, app_name].compact.join(" | ") %></title>
+    <%= csrf_meta_tags %>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <%= stylesheet_link_tag    'application', media: 'all' %>
+    <%= javascript_include_tag 'application' %>
+    <%= favicon_link_tag '/images/favicon.ico' %>
+  </head>
+
+  <body class="dashboard <%= yield :body_class %>">
+    <div class="wrapper <%= yield :wrapper_class %>">
+      <!--  start layout-unique content -->
+
+      <%= render 'layouts/dashboard/sidenav' %>
+
+      <div class="main-panel">
+        <%= render 'layouts/dashboard/top_navbar' %>
+        <div class="main-content">
+          <%= render 'layouts/alerts' %>
+          <%= render 'layouts/dashboard/preliminary_notifications' %>
+          <div class="container-fluid">
+            <%= yield %>
+          </div>
+        </div>
+        <%= render 'layouts/dashboard/footer' %>
+      </div>
+
+      <!-- end layout-unique content-->
+    </div>
+  </body>
+
+  <script type="text/javascript">
+    $(function() {
+      <%= yield :js_init %>
+      Pages.sidenav();
+    });
+  </script>
+</html>

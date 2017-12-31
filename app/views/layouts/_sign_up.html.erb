@@ -1,0 +1,49 @@
+<%= content_for :wrapper_class do %>wrapper-full-page<% end %>
+
+<div class="full-page register-page" data-color="blue" data-image="<%= image_path 'hero_1.jpg' %>">
+  <!--   you can change the color of the filter page using: data-color="blue | azure | green | orange | red | purple" -->
+  <div class="content">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-8 col-md-offset-2">
+          <div class="header-text">
+            <h2>Register as <%= render_brand_name %> <%= resource.model_name %></h2>
+            <h4>Join with free account and experience the dashboard today</h4>
+            <hr />
+          </div>
+        </div>
+
+        <div class="col-md-4 col-md-offset-2">
+          <%= yield :sign_up_incentives %>
+        </div>
+
+        <div class="col-md-4 col-md-offset-s1">
+          <div class="card card-plain">
+            <div class="content">
+              <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+                <%= devise_error_messages! %>
+
+                <% if resource.is_a? Salesperson %>
+                  <%= f.fields_for :owned_wholesaler, resource.owned_wholesaler || resource.build_owned_wholesaler  do |wholesaler| %>
+                    <%= render "shared/user_forms/common_company_fields", f: wholesaler %>
+                  <% end %>
+                <% elsif resource.is_a? Agent %>
+                  <%= f.fields_for :owned_agency, resource.owned_agency || resource.build_owned_agency  do |agency| %>
+                    <%= render "shared/user_forms/common_company_fields", f: agency %>
+                  <% end %>
+                <% end %>
+
+                <%= render "shared/user_forms/common_form_fields", f: f %>
+                <div class="form-group">
+                  <%= f.submit "Sign up", class: "btn btn-success btn-fill" %>
+                </div>
+              <% end %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <%= render 'layouts/devise_footer' %>
+</div>

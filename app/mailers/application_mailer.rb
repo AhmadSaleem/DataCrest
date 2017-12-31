@@ -1,4 +1,5 @@
 class ApplicationMailer < ActionMailer::Base
-  default from: 'from@example.com'
+  default from: 'no-reply@mydatacrest.com',
+          bcc:   Settings["bcc_emails"]
   layout 'mailer'
 end

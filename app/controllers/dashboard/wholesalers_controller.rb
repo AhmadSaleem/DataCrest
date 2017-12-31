@@ -1,14 +1,15 @@
-class Dashboard::WholesalersController < ApplicationController
+class Dashboard::WholesalersController < DashboardController
   before_action :authenticate_salesperson!
   before_action :authorize_salesperson
   before_action :set_wholesaler
 
   def edit
+    @title = 'Edit Company'
   end
 
   def update
     if @wholesaler.update(wholesaler_params)
-      redirect_to edit_dashboard_wholesaler_path(@wholesaler), notice: "Company was updated successfully."
+      redirect_to dashboard_path, notice: "Company was updated successfully."
     else
       render :edit
     end
@@ -21,7 +22,7 @@ class Dashboard::WholesalersController < ApplicationController
     end
 
     def wholesaler_params
-      params.require(:wholesaler).permit(:title, :logo, :website, :address_1, :address_2, :state, :city, :zip_code)
+      params.require(:wholesaler).permit(:title, :logo, :website, :address_1, :address_2, :state, :city, :zip_code, :logo_cache)
     end
 
     def set_wholesaler

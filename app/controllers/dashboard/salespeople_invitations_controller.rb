@@ -1,8 +1,9 @@
-class Dashboard::SalespeopleInvitationsController < ApplicationController
+class Dashboard::SalespeopleInvitationsController < DashboardController
   before_action :authenticate_salesperson!
   before_action :authorize_salesperson
 
   def index
+    @title = 'Manage Employees'
     @salespeople = current_salesperson.invited_salespeople.page(params[:page])
     @salesperson = Salesperson.new
   end
@@ -40,6 +41,6 @@ class Dashboard::SalespeopleInvitationsController < ApplicationController
   end
 
   def authorize_salesperson
-    redirect_to root_path, alert: 'You are not authorized' unless current_salesperson.company_owner?
+    redirect_to dashboard_path, alert: 'You are not authorized' unless current_salesperson.company_owner?
   end
 end

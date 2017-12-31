@@ -1,0 +1,21 @@
+<h4 class="title">Company information</h4><br/>
+<%= f.fields_for :owned_agency, resource.owned_agency do |owned_agency_form| %>
+  <div class="row">
+    <div class="col-md-12">
+      <div class="form-group">
+        <%= owned_agency_form.label "Agency Title", class: "control-label" %>
+        <%= owned_agency_form.text_field :title, class: "form-control", required: true %>
+      </div>
+    </div>
+
+    <div class="col-md-12">
+      <div class="form-group">
+        <%= owned_agency_form.label :website, class: "control-label" %>
+        <%= owned_agency_form.text_field :website, class: "form-control", required: true %>
+      </div>
+    </div>
+
+  </div>
+<% end %>
+
+

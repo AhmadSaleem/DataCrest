@@ -1,0 +1,42 @@
+<div class="row">
+  <div class="col-12">
+    <div class="card">
+      <div class="header">
+        <h2 class="title">Agents</h2>
+      </div>
+      <div class="content clearfix">
+        <% if @agents.present? %>
+          <div class="content table-responsive table-full-width">
+            <table class="table table-hover table-striped">
+              <thead>
+              <tr>
+                <th>Profile Pic</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Actions</th>
+              </tr>
+              </thead>
+              <tbody>
+              <% @agents.each do |agent| %>
+                <tr>
+                  <td><%= image_tag agent.profile_picture, style: 'max-width: 50px' %></td>
+                  <td><%= agent.full_name %></td>
+                  <td><%= agent.email %></td>
+                  <td><%= agent.agency.title %></td>
+                  <td><%= link_to "View", dashboard_agent_path(agent) %></td>
+                </tr>
+              <% end %>
+              </tbody>
+            </table>
+          </div>
+          <div class="pull-right">
+            <%= paginate @agents %>
+            <%= page_entries_info @agents, entry_name: "agents" %>
+          </div>
+        <% else %>
+          <p>No agents found <%= link_to "Click here", new_dashboard_agent_invitation_path %> to invite agent</p>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

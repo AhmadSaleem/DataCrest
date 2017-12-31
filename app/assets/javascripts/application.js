@@ -11,15 +11,30 @@
 // about supported directives.
 //
 //= require rails-ujs
-//= require turbolinks
 //= require jquery3
 //= require jquery_ujs
+//= require jquery.validate.min
+//= require moment.min
 //= require chartist.min
+//= require perfect-scrollbar.jquery.min
 //= require light-bootstrap-dashboard
+//= require bootstrap-checkbox-radio-switch
+//= require bootstrap-datetimepicker.min
 //= require bootstrap-notify
 //= require bootstrap-select
+//= require bootstrap-selectpicker
+//= require bootstrap-switch-tags.min
+//= require bootstrap-table
 //= require bootstrap.min
 //= require demo.js
-//= require bootstrap-checkbox-radio-switch
+//= require ct-navbar
+//= require fullcalendar.min
+//= require jquery-jvectormap
+//= require jquery.bootstrap.wizard.min
+//= require nouislider.min
+//= require jquery.datatables
 //= require select2
+//= require sweetalert2
+//= require bootstrap-table
+
 //= require_tree .

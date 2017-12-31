@@ -1,0 +1,17 @@
+<footer class="footer">
+  <div class="container-fluid">
+    <nav class="pull-left">
+      <ul>
+        <li>
+          <%= link_to 'Home', root_path %>
+        </li>
+        <li>
+          <%= link_to 'Company', render_brand_website, target: '_blanks' %>
+        </li>
+      </ul>
+    </nav>
+    <p class="copyright pull-right">
+      <%= render_copyright_text %>
+    </p>
+  </div>
+</footer>

@@ -1,0 +1,35 @@
+<div class="full-page login-page" data-color="blue">
+  <!--   you can change the color of the filter page using: data-color="blue | azure | green | orange | red | purple" -->
+  <div class="content">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-4 col-sm-6 col-md-offset-4 col-sm-offset-3">
+          <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+            <%= devise_error_messages! %>
+            <div class="card">
+              <div class="header text-center">Login</div>
+              <div class="content">
+                <div class="form-group">
+                  <%= f.label :email, class: "control-label" %><br>
+                  <%= f.email_field :email, autofocus: true, class: "form-control" %>
+                </div>
+
+                <%= hidden_field_tag :application_id, params[:application] %>
+
+                <div class="form-group">
+                  <%= f.label :password, class: "control-label" %><br>
+                  <%= f.password_field :password, autocomplete: "off", class: "form-control" %>
+                </div>
+              </div>
+              <div class="footer text-center">
+                <button type="submit" class="btn btn-fill btn-warning btn-wd">Login</button>
+              </div>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <%= render 'layouts/devise_footer' %>
+</div>

@@ -1,9 +1,9 @@
 <%= form_for @wholesaler, url: dashboard_wholesaler_path do |f| %>
   <div class="row">
-    <div class="col-md-10">
+    <div class="col-12">
       <div class="card">
         <div class="header">
-          <h2 class="title">Edit Comapny</h2>
+          <h2 class="title">Edit Company</h2>
         </div>
         <div class="content">
           <%= render "shared/errors", resource: @wholesaler %>
@@ -20,8 +20,9 @@
             <div class="col-md-10">
               <div class="form-group">
                 <%= f.label :logo, 'Comapny Logo', class: "control-label" %><br>
-                <%= image_tag(@wholesaler.logo, class: "col-md-2") if @wholesaler.logo? %>
+                <%= image_tag(@wholesaler.logo, class: "col-md-2") %>
                 <%= f.file_field :logo %>
+                <%= f.hidden_field :logo_cache %>
               </div>
             </div>
           </div>
@@ -83,4 +84,8 @@
       </div>
     </div>
   </div>
+<% end %>
+
+<% content_for :js_init do %>
+  $('.chosen-select').select2();
 <% end %>

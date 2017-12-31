@@ -1,0 +1,8 @@
+<p> Dear <%= @client.email %>,</p>
+<br/>
+<p><%= @client.invited_by_full_name %> invited you to complete the applications on DataCrest.
+  Login to your account to accept/reject the invitation.
+</p>
+<p><%= link_to "Login", agent_session_url(application: @assigned_application.id), class: "btn" %></p>
+<br/>
+<%= @client.invited_by_full_name %>

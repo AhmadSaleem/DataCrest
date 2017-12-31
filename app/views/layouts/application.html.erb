@@ -1,21 +1,44 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Datacrest</title>
+    <title><%= [@title, app_name].compact.join(" | ") %></title>
     <%= csrf_meta_tags %>
-
-    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
-    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <%= stylesheet_link_tag    'application', media: 'all' %>
+    <%= javascript_include_tag 'application' %>
+    <%= favicon_link_tag '/images/favicon.ico' %>
   </head>
 
-  <body>
-    <%= render "shared/navbar" %>
-    <div class="wrapper">
-      <% if signed_in? %>
-        <%= render "shared/main_panel" %>
-      <% else %>
-        <%= render "shared/content_panel" %>
-      <% end %>
+  <body class="<%= yield :body_class %>">
+    <div class="wrapper <%= yield :wrapper_class %>">
+      <!--  start layout-unique content -->
+
+      <div id="navbar-full">
+        <%= render 'layouts/alerts' %>
+        <div id="navbar">
+          <%= render "layouts/navbar" %>
+        </div>
+      </div>
+      <%= yield :hero %>
+      <div class="content">
+        <div class="container-fluid">
+          <% if new_registration? %>
+            <%= render 'layouts/sign_up' %>
+          <% elsif new_session? %>
+            <%= render 'layouts/sign_in' %>
+          <% elsif accept_invite? %>
+            <%= render 'layouts/accept_invite' %>
+          <% end %>
+          <%= yield %>
+        </div>
+      </div>
+
+      <!-- end layout-unique content-->
     </div>
   </body>
+  <script type="text/javascript">
+    $(function() {
+      <%= yield :js_init %>
+    });
+  </script>
 </html>

@@ -1,0 +1,62 @@
+nav
+  .navbar-brand img
+    max-height: 50px
+
+.navbar:not(.navbar-transparent).navbar-ct-white
+  background-color: #FFF
+  &.navbar-fixed-top
+    -webkit-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset
+    -moz-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset
+  .navbar-fixed-top:before, .navbar-fixed-top:after
+    right: 10px
+    left: auto
+    -webkit-transform: skew(8deg) rotate(3deg)
+    -moz-transform: skew(8deg) rotate(3deg)
+    -ms-transform: skew(8deg) rotate(3deg)
+    -o-transform: skew(8deg) rotate(3deg)
+    transform: skew(8deg) rotate(3deg)
+  *
+    color: black !important
+  span
+    background-color: black !important
+
+.blurred-container > .img-src, .blurred-container
+  height: 400px
+
+.main-content .container-fluid
+  h1, h2
+    margin-top: 0
+
+.card .content
+  h3, h4
+    margin-top: 0
+
+.form-control[disabled], .form-control[readonly], fieldset[disabled] .form-control
+  background-color: #808080
+
+li > a
+  i,p
+    vertical-align: middle
+
+body:not(.dashboard)
+  nav.navbar
+    .photo
+      width: 34px
+      height: 34px
+      overflow: hidden
+      border-radius: 50%
+      float: left
+      margin-right: 11px
+      margin-left: 23px
+      z-index: 5
+      border: 2px solid rgba(255, 255, 255, 0.3)
+      img
+        width: 100%
+  .alert
+    position: fixed
+    top: 0
+    width: 100%
+    z-index: 4
+  .alert + #navbar .navbar-fixed-top.navbar-transparent
+    top: 35px !important

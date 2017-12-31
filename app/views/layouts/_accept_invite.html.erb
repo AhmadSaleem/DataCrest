@@ -1,0 +1,56 @@
+
+<div class="full-page login-page" data-color="blue">
+  <!--   you can change the color of the filter page using: data-color="blue | azure | green | orange | red | purple" -->
+  <div class="content" style="padding-top: 115px;">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-8 col-sm-6 col-md-offset-2 col-sm-offset-3">
+          <%= form_for resource, as: resource_name, url: invitation_path(resource_name), html: { method: :put } do |f| %>
+            <%= devise_error_messages! %>
+            <%= f.hidden_field :invitation_token %>
+            <div class="card">
+              <div class="header" style="padding-bottom: 5px;">
+                <h3 class="title">Claim your Account</h3>
+              </div>
+              <div class="content">
+                <ul class="list-unstyled">
+                  <li><strong>Name: </strong><%= resource.full_name %></li>
+                  <li><strong>Email: </strong><%= resource.email %></li>
+                  <li><strong>Invited By: </strong><%= resource.invited_by.full_name %></li>
+                  <li><strong>Role: </strong><%= resource.model_name %></li>
+                  <% if resource.is_a?(Agent) %>
+                    <li><strong>Agent Code: </strong><%= resource.agent_code %></li>
+                    <% if resource.company_owner? %>
+                      <li><strong>Agency Code: </strong><%= resource.owned_agency.agency_code %></li>
+                    <% end %>
+                  <% end %>
+                </ul>
+                <%= hidden_field_tag :application_id, params[:application] %>
+
+                <% if f.object.class.require_password_on_accepting %>
+                  <div class="form-group">
+                    <%= f.label :password, class: "control-label" %>
+                    <%= f.password_field :password, class: "form-control" %>
+                  </div>
+
+                  <div class="form-group">
+                    <%= f.label :password_confirmation, class: "control-label" %>
+                    <%= f.password_field :password_confirmation, class: "form-control" %>
+                  </div>
+                <% end %>
+                <%= render 'agents/invitations/agency_fields', f: f if resource.is_a?(Agent) && resource.company_owner? %>
+                <div class="row">
+                  <div class="col-md-12">
+                    <%= f.submit "Create Account", class: "btn btn-success btn-fill" %>
+                  </div>
+                </div>
+              </div>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <%= render 'layouts/devise_footer' %>
+</div>

@@ -1,0 +1,85 @@
+<%= form_for @client, url: dashboard_client_invitations_path do |f| %>
+  <div class="row">
+    <div class="col-md-12">
+      <div class="card">
+        <div class="header">
+          <h2 class="title">Invite Client</h2>
+        </div>
+
+        <div class="content">
+          <div class="row">
+            <div class="form-group col-md-5">
+              <%= radio_button(:new, :client, :yes, { required: true, checked: true, class: 'invite-rb' }) %>
+              <%= label_tag :new_client_yes, 'New Client' %>
+              <%= radio_button(:new, :client, :no, { required: true, class: 'invite-rb' }) %>
+              <%= label_tag :new_client_no, 'Existing Client' %>
+            </div>
+          </div>
+
+          <div class="row show" id="new-client-fields">
+            <div class="col-md-3">
+              <div class="form-group">
+                <%= f.label :first_name, class: "control-label" %>
+                <br />
+                <%= f.text_field :first_name, class: "form-control", required: true %>
+              </div>
+            </div>
+
+            <div class="col-md-3">
+              <div class="form-group">
+                <%= f.label :last_name, class: "control-label" %>
+                <br />
+                <%= f.text_field :last_name, class: "form-control", required: true %>
+              </div>
+            </div>
+
+            <div class="col-md-5">
+              <div class="form-group">
+                <%= f.label :email, class: "control-label" %>
+                <br />
+                <%= f.email_field :email, class: "form-control", required: true %>
+              </div>
+            </div>
+          </div>
+
+          <div class="row hidden" id="existing-client-fields">
+            <div class="form-group col-md-5">
+              <% if @clients.present? %>
+                <%= label_tag :client %>
+                <%= select_tag "clients", options_from_collection_for_select(@clients, "id", "full_name"), include_blank: true, class: "form-control chosen-select" %>
+              <% else %>
+                <p>You have no clients yet.</p>
+              <% end %>
+            </div>
+          </div>
+
+          <hr/>
+          <h2 class="title">Select Applications</h2>
+          <br/>
+
+          <div class="row">
+            <div class="col-md-12">
+              <% @templates.each do |template| %>
+                <div class="form-group">
+                  <%= check_box_tag "template_ids[]", template.id %>
+                  <%= label_tag template.title %>
+                </div>
+              <% end %>
+            </div>
+          </div>
+          <hr/>
+
+          <div class="row">
+            <div class="col-md-3">
+              <%= f.submit "Send Invite", class: "btn btn-success" %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+<% end %>
+
+<% content_for :js_init do %>
+  Clients.client_fields_init();
+<% end %>

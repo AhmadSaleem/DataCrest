@@ -1,11 +1,11 @@
-<h3> Hi, <%= @salesperson.email %></h3>
+<p> Hi,</p>
 <br/>
 <p><%= @salesperson.invited_by.full_name %> invited you to join comapny
   <strong><%= @salesperson.invited_by.wholesaler_title %>.</strong> on DataCrest
   you can accept it through link below.
 </p>
 
-<p><%= link_to "Accept Invite", accept_salesperson_invitation_url(invitation_token: @token ) %></p>
+<p><%= link_to "Accept Invite", accept_salesperson_invitation_url(invitation_token: @token ), class: "btn" %></p>
 <br/>
 <p>
   If you don't want to accept the invitation, please ignore this email.<br/>

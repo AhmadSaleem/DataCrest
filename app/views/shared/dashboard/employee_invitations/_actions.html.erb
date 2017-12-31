@@ -1,0 +1,32 @@
+<div class="dropdown">
+  <%= link_to "", class: "btn btn-default btn-fill dropdown-toggle", data: { toggle: "dropdown" },  aria: { haspopup: "false", expanded: "false" } do %>
+    Actions <span class="caret"></span>
+  <% end %>
+  <ul class="dropdown-menu">
+    <% if current_salesperson %>
+      <% if current_salesperson.company_owner? %>
+        <li>
+          <%= link_to "Remove", "", class: "remove-employee", data: { id: person.id } %>
+          <%= link_to "", dashboard_salespeople_invitation_path(person), method: :delete , id: "person-#{person.id}", class: "hidden" %>
+        </li>
+      <% end %>
+      <% if person.status != "Accepted" %>
+        <li><%= link_to "Resend Invitaion", resend_invitation_dashboard_salespeople_invitation_path(person) %></li>
+      <% end %>
+    <% else %>
+      <% if current_agent.company_owner? %>
+        <li>
+          <%= link_to "Remove", "", class: "remove-employee", data: { id: person.id } %>
+          <%= link_to "", dashboard_agency_agent_invitation_path(person), method: :delete , id: "person-#{person.id}", class: "hidden" %>
+        </li>
+      <% end %>
+      <% if person.status != "Accepted" %>
+        <li><%= link_to "Resend Invitaion", resend_invitation_dashboard_agency_agent_invitation_path(person) %></li>
+      <% end %>
+    <% end %>
+  </ul>
+</div>
+
+<% content_for :js_init do %>
+  SweetAlert.init();
+<% end %>

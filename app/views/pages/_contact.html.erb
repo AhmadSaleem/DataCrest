@@ -1,0 +1,47 @@
+<div class="row">
+  <%= form_tag "" do %>
+    <div class="col-md-6 col-sm-offset-1">
+      <h2>Contact us</h2>
+      <div class="row">
+        <div class="col-md-5">
+          <%= text_field_tag :first_name, nil, class: "form-control", required: true, placeholder: "First Name" %>
+        </div>
+        <div class="col-md-5">
+          <%= text_field_tag :last_name, nil, class: "form-control", required: true, placeholder: "Last Name" %>
+        </div>
+      </div>
+      <br/>
+
+      <div class="row">
+        <div class="col-md-10">
+          <%= email_field_tag :email, nil, class: "form-control", required: true, placeholder: "Email" %>
+        </div>
+      </div>
+      <br/>
+
+      <div class="row mb-5">
+        <div class="col-md-2">
+          <%= submit_tag "Submit", class: "btn btn-default btn-fill" %>
+        </div>
+
+        <div class="col-md-6", id="signup-checkbox">
+          <%= check_box_tag "Signup", "", true %> Signup for Our Quarterly Newsletter
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-4" id="social-link-div">
+      <%= link_to "https://www.instagram.com/", target: :_blank do %>
+        <%= image_tag "instagram.png", size: "40x40", class: "social-link-buttons" %>
+      <% end %>
+
+      <%= link_to "https://www.twitter.com/", target: :_blank do %>
+        <%= image_tag "twitter.png", size: "40x40", class: "social-link-buttons" %>
+      <% end %>
+
+      <%= link_to "https://www.facebook.com/", target: :_blank do %>
+        <%= image_tag "facebook.png", size: "40x40", class: "social-link-buttons" %>
+      <% end %>
+    </div>
+  <% end %>
+</div>

@@ -1,0 +1,15 @@
+<%= content_for :hero do %>
+  <div class="blurred-container" style="margin-bottom: 50px;">
+    <div class="img-src" style="background-image: url('<%= image_path 'hero_1.jpg' %>')"></div>
+  </div>
+<% end  %>
+
+<div class="row">
+  <div class="col-md-10 col-md-offset-1">
+    <%= render 'dashboard/insurance_applications/global_insurance_applications_table' %>
+  </div>
+</div>
+
+<%= content_for :js_init do %>
+  Pages.init();
+<% end %>

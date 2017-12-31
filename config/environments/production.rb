@@ -33,7 +33,9 @@ Rails.application.configure do
   # `config.assets.precompile` and `config.assets.version` have moved to config/initializers/assets.rb
 
   # Enable serving of images, stylesheets, and JavaScripts from an asset server.
-  # config.action_controller.asset_host = 'http://assets.example.com'
+
+  config.action_mailer.asset_host = ENV['DEFAULT_URL']
+  # config.action_controller.asset_host = 'https://datacrest-staging.herokuapp.com/'
 
   # Specifies the header that your server uses for sending files.
   # config.action_dispatch.x_sendfile_header = 'X-Sendfile' # for Apache
@@ -86,6 +88,24 @@ Rails.application.configure do
     config.logger    = ActiveSupport::TaggedLogging.new(logger)
   end
 
+  config.action_mailer.default_url_options = { host: "datacrest-staging.herokuapp.com" }
+
+  ActionMailer::Base.smtp_settings = {
+    user_name: ENV['SENDGRID_USERNAME'],
+    password: ENV['SENDGRID_PASSWORD'],
+    domain: ENV['SENDGRID_DOMAIN'],
+    address: 'smtp.sendgrid.net',
+    port: 587,
+    authentication: :plain,
+    enable_starttls_auto: true
+  }
+
+  Rails.application.config.middleware.use ExceptionNotification::Rack,
+    email: {
+      email_prefix: "[EXCEPTION]",
+      sender_address: %{"notifier" <notifier@mydatacrest.com>},
+      exception_recipients: %w{ahmad@amblersaleem.com colin@amblersaleem.com}
+  }
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
 end

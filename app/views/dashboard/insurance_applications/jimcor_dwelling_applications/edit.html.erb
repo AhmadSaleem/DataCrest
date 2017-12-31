@@ -1,0 +1,7 @@
+<%= render "shared/errors", resource: @jimcor_dwelling_application %>
+
+<%= form_for @jimcor_dwelling_application, url: dashboard_insurance_applications_jimcor_dwelling_application_path do |f| %>
+  <%= render 'form', f: f %>
+<% end %>
+
+<%= render 'authenticate_client' %>
