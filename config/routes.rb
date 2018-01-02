@@ -9,7 +9,6 @@ Rails.application.routes.draw do
   devise_for :salespeople, controllers: { registrations: "salespeople/registrations",
                                           invitations: "salespeople/invitations" }
   get "dashboard", to: "dashboard#index"
-  get 'dashboard/wholesaler_settings', to: 'dashboard/companies#wholesaler_settings'
 
   namespace :dashboard do
     resources :salespeople_invitations, only: [:index, :create, :destroy] do
@@ -25,7 +24,13 @@ Rails.application.routes.draw do
     resources :client_invitations, only: [:new, :create]
 
     resources :agent_wholesaler_applications, only: [:index, :destroy], path: 'my-agents' do
-      get 'agent_templates', on: :member
+      get "templates", on: :collection
+      member do
+        get 'agent_templates'
+        get "assign_application"
+      end
+
+
     end
 
     resources :insurance_applications, except: [:new], path: 'applications' do
@@ -43,6 +48,8 @@ Rails.application.routes.draw do
       resources :agent_invitations, only: [:index, :create, :destroy] do
         get 'resend_invitation', on: :member
       end
+
+      resources :clients, only: [:index]
     end
   end
 

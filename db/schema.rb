@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171114010220) do
+ActiveRecord::Schema.define(version: 20171121055258) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -21,7 +21,7 @@ ActiveRecord::Schema.define(version: 20171114010220) do
     t.string "website"
     t.string "address_1"
     t.string "city"
-    t.integer "zip_code"
+    t.string "zip_code"
     t.string "state"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -137,7 +137,7 @@ ActiveRecord::Schema.define(version: 20171114010220) do
     t.string "applicant_address"
     t.string "applicant_phone_no"
     t.string "applicant_previous_carrier"
-    t.integer "policy_number"
+    t.string "policy_number"
     t.string "policy_period"
     t.float "peril_deductible"
     t.float "wind_hail_deductible"
@@ -224,27 +224,16 @@ ActiveRecord::Schema.define(version: 20171114010220) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "percentage_of_completion", default: 0
-    t.integer "mortgage_loan_number"
+    t.string "mortgage_loan_number"
     t.string "mortgage_address"
     t.string "mortgage_name"
     t.boolean "mortgage_lending_organization", default: false
-    t.integer "mortgage_2_loan_number"
+    t.string "mortgage_2_loan_number"
     t.string "mortgage_2_address"
     t.string "mortgage_2_name"
     t.boolean "mortgage_2_lending_organization", default: false
     t.index ["agent_id"], name: "index_jimcor_dwelling_applications_on_agent_id"
     t.index ["client_id"], name: "index_jimcor_dwelling_applications_on_client_id"
-  end
-
-  create_table "jimcor_dwelling_mortgagees", force: :cascade do |t|
-    t.bigint "jimcor_dwelling_application_id"
-    t.integer "loan_number"
-    t.string "name"
-    t.string "address"
-    t.boolean "lending_organization", default: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["jimcor_dwelling_application_id"], name: "jimcor_dwelling_application_id"
   end
 
   create_table "salespeople", force: :cascade do |t|

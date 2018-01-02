@@ -41,7 +41,7 @@ class SendAgentInvite
     end
 
     def existing_agent_emails
-      AgentMailer.existing_agent_invite(invitee.id, invitee.raw_invitation_token).deliver_later
+      AgentMailer.existing_agent_invite(invitee.id).deliver_later
       CompanyOwnerMailer.agent_invite_sent(invitee).deliver_later
     end
 

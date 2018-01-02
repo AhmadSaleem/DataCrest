@@ -1,6 +1,9 @@
 class Agents::SessionsController < Devise::SessionsController
+  before_action :set_application_path, only: [:create]
+
   def create
     email = params[:agent][:email]
+
     user = Salesperson.find_by(email: email) || Agent.find_by(email: email) || Client.find_by(email: email)
     if user && user.valid_password?(params[:agent][:password])
       sign_in(user.class.name.downcase, user)

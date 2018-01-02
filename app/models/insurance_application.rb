@@ -2,7 +2,8 @@ class InsuranceApplication < ApplicationRecord
   belongs_to :template
   belongs_to :client_application, polymorphic: true
 
-  delegate :client_full_name, :agent, :agent_full_name, to: :client_application, allow_nil: true
+  delegate :client_full_name, :agent, :agent_full_name, :client_email, to: :client_application, allow_nil: true
+  delegate :wholesaler_title, to: :template
 
   enum status: {
     incomplete:   0,

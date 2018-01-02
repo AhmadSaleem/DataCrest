@@ -12,6 +12,22 @@ class Dashboard::AgentWholesalerApplicationsController < DashboardController
     @agent_templates = @agent.templates
   end
 
+  def templates
+    @agent = Agent.find_by(id: params[:agent_id])
+    if @agent.present?
+      @templates = current_salesperson.wholesaler_templates
+    else
+      redirect_to templates_dashboard_agent_wholesaler_applications_path, alert: "Agent not found"
+    end
+  end
+
+  def assign_application
+    @agent = Agent.find_by(id: params[:agent_id])
+    @agent.agency_applications.find_or_create_by(template_id: params[:id], agency: @agent.agency)
+    AgentMailer.existing_agent_invite(@agent.id).deliver_later
+    redirect_to templates_dashboard_agent_wholesaler_applications_path(agent_id: @agent.id), notice: "Successfully assigned."
+  end
+
   def destroy
     template = AgencyApplication.find_by(template_id: params[:id], agent_id: params[:agent_id] )
     if template.destroy

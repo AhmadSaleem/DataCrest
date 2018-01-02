@@ -1,0 +1,10 @@
+<p> Dear <%= @application.client_full_name %>,</p>
+<p>The status of your application for application has changed to "<%= @application.status %>".</p>
+<p>Click this link to continue the process.</p>
+<p>
+  <%= link_to "Continue", edit_dashboard_insurance_applications_jimcor_dwelling_application_url(@application.client_application_id),
+    class: "btn" %>
+</p>
+<p>
+  Thank you for your business.<br> Your <%= @application.wholesaler_title %> team
+<p>

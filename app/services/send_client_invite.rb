@@ -43,7 +43,7 @@ class SendClientInvite
     end
 
     def existing_client_emails
-      AgentMailer.existing_client_invite(invitee.id, invitee.raw_invitation_token).deliver_later
+      AgentMailer.existing_client_invite(invitee.id, invitee.raw_invitation_token, assigned_application).deliver_later
       AgentMailer.client_invite_sent(invitee.id).deliver_later
     end
 

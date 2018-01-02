@@ -5,7 +5,7 @@ class JimcorDwellingApplication < ApplicationRecord
   belongs_to :agent, optional: true
 
   delegate :full_name, to: :agent, allow_nil: true, prefix: true
-  delegate :full_name, to: :client, prefix: true
+  delegate :full_name, :email, to: :client, prefix: true
 
   after_update :calculate_completion_percentage
 
