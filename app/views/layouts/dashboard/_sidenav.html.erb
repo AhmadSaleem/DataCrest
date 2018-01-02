@@ -44,6 +44,20 @@
       <%= render "layouts/dashboard/sidenav/salesperson" if salesperson_signed_in? %>
       <%= render "layouts/dashboard/sidenav/agent" if agent_signed_in? %>
       <%= render "layouts/dashboard/sidenav/client" if client_signed_in? %>
+
+      <li class="<%= active_class(root_path) %>">
+        <%= link_to root_path do %>
+          <i class="pe-7s-headphones"></i>
+          <p>Contact Support</p>
+        <% end %>
+      </li>
+
+      <li class="<%= active_class(root_path) %>">
+        <%= link_to root_path do %>
+          <i class="pe-7s-help1"></i>
+          <p>FAQs</p>
+        <% end %>
+      </li>
     </ul>
   </div>
 </div>

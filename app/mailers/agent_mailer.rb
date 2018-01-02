@@ -5,7 +5,8 @@ class AgentMailer < ApplicationMailer
     mail(to: @agent.email, subject: "You've Been Invited to join DataCrest!")
   end
 
-  def existing_agent_invite(agent_id)
+  def existing_agent_invite(agent_id, token)
+    @wholesaler = AgentWholesaler.last.wholesaler
     @agent = Agent.find(agent_id)
     mail(to: @agent.email, subject: "You've Been Invited to join DataCrest!")
   end

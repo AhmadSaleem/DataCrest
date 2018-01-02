@@ -400,21 +400,21 @@ demo = {
 
 	initVectorMap: function(){
          var mapData = {
-                "AU": 760,
-                "BR": 550,
-                "CA": 120,
-                "DE": 1300,
-                "FR": 540,
-                "GB": 690,
-                "GE": 200,
-                "IN": 200,
-                "RO": 600,
-                "RU": 300,
-                "US": 2920,
+                "US-VA": 760,
+                "US-PA": 550,
+                "US-NH": 120,
+                "US-NY": 1300,
+                "US-NC": 540,
+                "US-DC": 690,
+                "US-DE": 200,
+                "US-IL": 200,
+                "US-MD": 600,
+                "US-SC": 300,
+                "US-RI": 2920,
             };
 
             $('#worldMap').vectorMap({
-                map: 'world_mill_en',
+                map: 'us_aea',
                 backgroundColor: "transparent",
                 zoomOnScroll: false,
                 regionStyle: {

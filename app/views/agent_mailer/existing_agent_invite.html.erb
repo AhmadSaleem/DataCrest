@@ -1,6 +1,12 @@
-<p> Hi,</p>
-<br/>
-<p><%= @agent.invited_by_full_name %> assigned you new applications.
-  Login to your account to view applications.
-</p>
+<p> Hi <%= @agent.first_name %>,</p>
+<p><%= @wholesaler.title %> been provided you access to the following applications: </p>
+<ul>
+  <li>Human Services</li>
+  <li>Cyber Security</li>
+  <li>Environmental</li>
+</ul>
+<p>You now have the ability to access these applications and solicit them to prospective clients.  Please click the following link to access your dashboard.</p>
 <p><%= link_to "Login", agent_session_url(accept_invite: true), class: "btn" %></p>
+
+<p>Thank you,</p>
+<p>DataCrest</p>

@@ -4,7 +4,7 @@ class Dashboard::AgentWholesalerApplicationsController < DashboardController
 
   def index
     @title = 'Agents'
-    @agent_wholesalers = current_salesperson.accepted_wholesaler_agents.page(params[:page])
+    @agent_wholesalers = current_salesperson.wholesaler_agents.page(params[:page])
   end
 
   def agent_templates

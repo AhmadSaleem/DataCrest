@@ -1,7 +1,338 @@
-<%= render "shared/errors", resource: @jimcor_dwelling_application %>
+<% if !current_user || salesperson_signed_in? || agent_signed_in? %>
+  <div id="alert-modal" class="modal fade">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+          <h4 class="modal-title">Sign-in Required(Clients Only)</h4>
+        </div>
 
-<%= form_for @jimcor_dwelling_application, url: @form_submit_path  do |f| %>
-  <%= render 'form', f: f %>
+        <div class="modal-body">
+          <%= radio_button(:new, "", :new_account, { required: true, class: 'modal-login-rb' }) %>
+          <%= label_tag :new_account, 'New Account' %>
+          <%= radio_button(:new, "", :existing_account, { required: true, checked: true, class: 'modal-login-rb' }) %>
+          <%= label_tag :existing_account, 'Existing Account' %>
+
+          <p>You must be signed-in as a Client in order to submit an application entry</p>
+          <div class="sign-in-body">
+            <%= render 'clients/sessions/login_fields' %>
+          </div>
+
+          <!-- Signup fields -->
+          <div class="sign-up-body hidden">
+            <%= render "clients/registrations/signup_fields" %>
+          </div>
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
 <% end %>
 
-<%= render 'authenticate_client' %>
+<% content_for :js_init do %>
+  <% if !current_user || salesperson_signed_in? || agent_signed_in? %>
+    InsuranceApplications.disable_all_fields();
+    InsuranceApplications.launch_modal();
+    InsuranceApplications.toggle_modal_fields();
+  <% end %>
+<% end %>
+
+<% if params[:proceed_to_app] %>
+
+  <%= render "shared/errors", resource: @jimcor_dwelling_application %>
+
+  <%= form_for @jimcor_dwelling_application, url: @form_submit_path  do |f| %>
+    <%= render 'form', f: f %>
+  <% end %>
+<% else %>
+
+<%= render "shared/errors", resource: @jimcor_dwelling_application %>
+
+<div class="row">
+  <div class="col-md-12">
+    <div class="card card-wizard" id="wizardCard">
+      <form id="wizardForm" method="" action="">
+        <div class="header text-center">
+          <h3 class="title"><%= @title %> Discovery</h3>
+          <p class="category">Answer these questions to get a customized application form</p>
+        </div>
+
+        <div class="content">
+          <ul class="nav">
+            <li><a href="#tab1" data-toggle="tab">Discovery</a></li>
+            <li><a href="#tab2" data-toggle="tab">Confirm</a></li>
+          </ul>
+
+          <div class="tab-content">
+            <div class="tab-pane" id="tab1">
+              <h5 class="text-center">Please tell us more about yourself.</h5>
+              <div class="row">
+                <div class="col-md-10 col-md-offset-1">
+                  <div class="form-group">
+                    <label class="control-label">Do you own or lease any vehicles?</label><br>
+                    <input type="radio" required="true" name="vehicles" value="yes"> Yes<br>
+                    <input type="radio" required="true" name="vehicles" value="no"> No<br>
+                  </div>
+                  <div class="form-group">
+                    <label class="control-label">Do you have any Adoption / Foster Care services?</label><br>
+                    <input type="radio" required="true" name="adoption" value="yes"> Yes<br>
+                    <input type="radio" required="true" name="adoption" value="no"> No<br>
+                  </div>
+
+                  <div class="form-group">
+                    <label class="control-label">Do you operate any Food Bank or Food Preparation Facilities?</label><br>
+                    <input type="radio" required="true" name="food_bank" value="yes"> Yes<br>
+                    <input type="radio" required="true" name="food_bank" value="no"> No<br>
+                  </div>
+
+                  <div class="form-group">
+                    <label class="control-label">Do you operate a Sheltered Workshop?</label><br>
+                    <input type="radio" required="true" name="sheltered_workshop" value="yes"> Yes<br>
+                    <input type="radio" required="true" name="sheltered_workshop" value="no"> No<br>
+                  </div>
+
+                  <div class="form-group">
+                    <label class="control-label">Do you operate any Residential Facilities?</label><br>
+                    <input type="radio" required="true" name="residential_facilities" value="yes"> Yes<br>
+                    <input type="radio" required="true" name="residential_facilities" value="no"> No<br>
+                  </div>
+
+                  <div class="form-group">
+                    <label class="control-label">Do you operate any Clinics / Medical Facilities?</label><br>
+                    <input type="radio" required="true" name="clinical_facilities" value="yes"> Yes<br>
+                    <input type="radio" required="true" name="clinical_facilities" value="no"> No<br>
+                  </div>
+
+                  <div class="form-group">
+                    <label class="control-label">Do you operate any In-Home Support Services, Substance Abuse, Outpatient Facilities?</label><br>
+                    <input type="radio" required="true" name="fundraisers" value="yes"> Yes<br>
+                    <input type="radio" required="true" name="fundraisers" value="no"> No<br>
+                  </div>
+
+                  <div class="form-group">
+                    <label class="control-label">Do you own or occupy a building in one or more of these states:  AR, CT, DC, DE, GA, IL, IN, KY, ME, MD, MA, MI, MO, NY, NJ, NC, OH, PA, RI, SC, TN, TX, VT, VA, WV, WI?</label><br>
+                    <input type="radio" required="true" name="building_occupied" value="yes"> Yes<br>
+                    <input type="radio" required="true" name="building_occupied" value="no"> No<br>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="tab-pane" id="tab2">
+              <p>
+                Do you own or lease any vehicles?
+                <strong id="vehicles"></strong>
+              </p>
+
+              <p>
+                Do you have any Adoption / Foster Care services?
+                <strong id="adoption"></strong>
+              </p>
+
+              <p>
+                Do you operate any Food Bank or Food Preparation Facilities?
+                <strong id="food_bank"></strong>
+              </p>
+
+              <p>
+                Do you operate a Sheltered Workshop?
+                <strong id="sheltered_workshop"></strong>
+              </p>
+
+              <p>
+                Do you operate any Residential Facilities?
+                <strong id="residential_facilities"></strong>
+              </p>
+
+              <p>
+                Do you operate any Clinics / Medical Facilities?
+                <strong id="clinical_facilities"></strong>
+              </p>
+
+              <p>
+                Do you operate any In-Home Support Services, Substance Abuse, Outpatient Facilities?
+                <strong id="fundraisers"></strong>
+              </p>
+
+              <p>
+                Do you own or occupy a building in one or more of these states:  AR, CT, DC, DE, GA, IL, IN, KY, ME, MD, MA, MI, MO, NY, NJ, NC, OH, PA, RI, SC, TN, TX, VT, VA, WV, WI?
+                <strong id="building_occupied"></strong>
+              </p>
+
+              <h2 class="text-center text-space" id="steps-saved"><br><small> Click on "<b>Proceed</b>" to proceed to the application</small></h2>
+            </div>
+
+            <div class="footer">
+              <button type="button" class="btn btn-default btn-fill btn-wd btn-previous pull-left">Back</button>
+
+              <button type="button" class="btn btn-info btn-fill btn-wd btn-next pull-right">Next</button>
+
+              <button type="button" class="btn btn-info btn-fill btn-wd btn-finish pull-right" onclick="onFinishWizard()">Proceed</button>
+
+              <div class="clearfix"></div>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+  <script type="text/javascript">
+    $().ready(function(){
+        // Wizard Initialization
+        $('.card-wizard').bootstrapWizard({
+            'tabClass': 'nav nav-pills',
+            'nextSelector': '.btn-next',
+            'previousSelector': '.btn-previous',
+
+            onNext: function(tab, navigation, index) {
+              var $valid = $('.card-wizard form').valid();
+              if(!$valid) {
+                $validator.focusInvalid();
+                return false;
+              }
+              else {
+                $('#vehicles').html($('[name=vehicles]:checked').val());
+                $('#adoption').html($('[name=adoption]:checked').val());
+                $('#food_bank').html($('[name=food_bank]:checked').val());
+                $('#sheltered_workshop').html($('[name=sheltered_workshop]:checked').val());
+                $('#residential_facilities').html($('[name=residential_facilities]:checked').val());
+                $('#clinical_facilities').html($('[name=clinical_facilities]:checked').val());
+                $('#fundraisers').html($('[name=fundraisers]:checked').val());
+                $('#building_occupied').html($('[name=building_occupied]:checked').val());
+
+                count = 0
+                $('input[type=radio]:checked').map(function(){
+                  if($(this).val() == 'no')
+                     count++;
+                })
+                if (count > 0)
+                  $('#steps-saved').prepend('You saved ' + count + ' step(s)!')
+              }
+            },
+
+            onInit : function(tab, navigation, index) {
+                //check number of tabs and fill the entire row
+                var $total = navigation.find('li').length;
+                var $wizard = navigation.closest('.card-wizard');
+
+
+
+                refreshAnimation($wizard, index);
+
+                $('.moving-tab').css('transition','transform 0s');
+           },
+
+            onTabClick : function(tab, navigation, index) {
+                var $valid = $('.card-wizard form').valid();
+
+                if(!$valid){
+                    return false;
+                } else{
+                    return true;
+                }
+            },
+
+            onTabShow: function(tab, navigation, index) {
+                var $total = navigation.find('li').length;
+                var $current = index+1;
+
+                var $wizard = navigation.closest('.card-wizard');
+
+                // If it's the last tab then hide the last button and show the finish instead
+                if($current >= $total) {
+                    $($wizard).find('.btn-next').hide();
+                    $($wizard).find('.btn-finish').show();
+                } else {
+                    $($wizard).find('.btn-next').show();
+                    $($wizard).find('.btn-finish').hide();
+                }
+
+                var checkbox = $('.footer-checkbox');
+
+                if( !index == 0 ){
+                    $(checkbox).css({
+                        'opacity':'0',
+                        'visibility':'hidden',
+                        'position':'absolute'
+                    });
+                } else {
+                    $(checkbox).css({
+                        'opacity':'1',
+                        'visibility':'visible'
+                    });
+                }
+
+                refreshAnimation($wizard, index);
+            }
+        });
+
+        $(window).resize(function() {
+            $('.card-wizard').each(function() {
+                $wizard = $(this);
+
+                index = $wizard.bootstrapWizard('currentIndex');
+                refreshAnimation($wizard, index);
+
+                $('.moving-tab').css({
+                    'transition': 'transform 0s'
+                });
+            });
+        });
+
+        function refreshAnimation($wizard, index) {
+            $total = $wizard.find('.nav li').length;
+            $li_width = 100/$total;
+
+            total_steps = $wizard.find('.nav li').length;
+            move_distance = $wizard.width() / total_steps;
+            index_temp = index;
+            vertical_level = 0;
+
+            mobile_device = $(document).width() < 600 && $total > 3;
+
+            if(mobile_device){
+                move_distance = $wizard.width() / 2;
+                index_temp = index % 2;
+                $li_width = 50;
+            }
+
+            $wizard.find('.nav li').css('width',$li_width + '%');
+
+            step_width = move_distance;
+            move_distance = move_distance * index_temp;
+
+            $current = index + 1;
+
+            if($current == 1 || (mobile_device == true && (index % 2 == 0) )){
+                move_distance -= 8;
+            } else if($current == total_steps || (mobile_device == true && (index % 2 == 1))){
+                move_distance += 8;
+            }
+
+            if(mobile_device){
+                vertical_level = parseInt(index / 2);
+                vertical_level = vertical_level * 38;
+            }
+
+            $wizard.find('.moving-tab').css('width', step_width);
+            $('.moving-tab').css({
+                'transform':'translate3d(' + move_distance + 'px, ' + vertical_level +  'px, 0)',
+                'transition': 'all 0.5s cubic-bezier(0.29, 1.42, 0.79, 1)'
+
+            });
+        }
+
+      });
+
+      function onFinishWizard() {
+        //here you can do something, sent the form to server via ajax and show a success message with swal
+        window.location = window.location.href + '&proceed_to_app=true'
+      }
+  </script>
+
+<% end %>
