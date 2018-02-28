@@ -30,6 +30,7 @@ class Dashboard::InsuranceApplicationsController < DashboardController
   end
 
   def global
+    @title = 'Start New Application'
     @templates = Template.all
   end
 

@@ -7,9 +7,9 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 
 wholesaler_owner = Salesperson.new(
-     first_name: 'Jim',
-     last_name: 'McGuire',
-     email: 'jim-mcguire@phly.com',
+     first_name: 'John',
+     last_name: 'Smith',
+     email: 'jsmith@abcwholesaler.com',
      password: 'password',
      password_confirmation: 'password',
      profile_picture: open(Rails.root.to_s + '/db/users/jim-mcguire.jpg'),
@@ -17,13 +17,13 @@ wholesaler_owner = Salesperson.new(
 wholesaler_owner.save(validate: false)
 
 wholesaler = Wholesaler.new(
-    title: 'PHLY Insurance Companies',
-    address_1: '231 St Asaphs Rd',
+    title: 'ABC Carrier, Inc.',
+    address_1: '123 Main Street',
     address_2: '',
-    city: 'Bala Cynwyd',
+    city: 'Philadelphia',
     state: 'PA',
     zip_code: '19004',
-    website: 'www.phlyinsurance.com',
+    website: 'www.abcwholesaler.com',
     owner_id: wholesaler_owner.id,
     logo: open(Rails.root.to_s + '/app/assets/images/site-logo.jpg'),
 )
@@ -42,9 +42,9 @@ Salesperson.create([
                  profile_picture: open(Rails.root.to_s + '/db/users/colin.jpg'),
                 },
 
-                {first_name: 'Jack',
-                 last_name: 'McGuire',
-                 email: 'jack-mcguire@phly.com',
+                {first_name: 'Jim',
+                 last_name: 'Johnson',
+                 email: 'jimjohnson@abcwholesaler.com',
                  password: 'password',
                  password_confirmation: 'password',
                  profile_picture: open(Rails.root.to_s + '/db/users/jack-mcguire.jpg'),
@@ -52,8 +52,8 @@ Salesperson.create([
                 },
 
                 {first_name: 'Rob',
-                 last_name: 'Watts',
-                 email: 'rob-watts@phly.com',
+                 last_name: 'Frank',
+                 email: 'robfrank@abcwholesaler.com',
                  password: 'password',
                  password_confirmation: 'password',
                  profile_picture: open(Rails.root.to_s + '/db/users/rob-watts.jpg'),
@@ -115,7 +115,7 @@ AgentWholesaler.create!(agent_id: agency_owner.id, wholesaler_id: wholesaler.id,
 client = Client.new(
     first_name: 'Colin',
     last_name: 'Ambler',
-    email: 'colinambler@me.com',
+    email: 'colinambler@gmail.com',
     password: 'password',
     password_confirmation: 'password',
     profile_picture: open(Rails.root.to_s + '/db/users/colin.jpg'),
