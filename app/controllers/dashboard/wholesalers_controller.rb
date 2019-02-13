@@ -22,7 +22,7 @@ class Dashboard::WholesalersController < DashboardController
     end
 
     def wholesaler_params
-      params.require(:wholesaler).permit(:title, :logo, :website, :address_1, :address_2, :state, :city, :zip_code)
+      params.require(:wholesaler).permit(:title, :logo, :website, :address_1, :address_2, :state, :city, :zip_code, :logo_cache)
     end
 
     def set_wholesaler

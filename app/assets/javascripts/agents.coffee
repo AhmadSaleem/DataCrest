@@ -25,6 +25,12 @@
             processResults: (data) ->
               { results: data.results }
 
+          templateResult: formatSelection
+
+  formatSelection = (agent) ->
+    $state = $("<span><img src=#{agent.pic} class='img-rounded select2-img'/></span><span>#{agent.text}</span>")
+    return $state
+
   Agents.applications = ->
     $('.include-app').change ->
       if @checked

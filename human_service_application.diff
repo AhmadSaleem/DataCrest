@@ -1,0 +1,2756 @@
+diff --git a/app/controllers/dashboard/insurance_applications/human_service_applications_controller.rb b/app/controllers/dashboard/insurance_applications/human_service_applications_controller.rb
+new file mode 100644
+index 0000000..ddd75d2
+--- /dev/null
++++ b/app/controllers/dashboard/insurance_applications/human_service_applications_controller.rb
+@@ -0,0 +1,38 @@
++class Dashboard::InsuranceApplications::HumanServiceApplicationsController < DashboardController
++  before_action :authenticate_client!, except: [:new]
++  before_action :set_human_service_application, only: [:edit, :update, :show]
++
++  def new
++    @title = "New Human Service - Basic Application"
++    @human_service_application = HumanApplicationService.create_application(params[:id], current_client)
++    if @human_service_application.new_record?
++      @form_submit_path = dashboard_insurance_applications_human_service_applications_path
++    else
++      @form_submit_path = dashboard_insurance_applications_human_service_application_path(@human_service_application)
++    end
++  end
++
++  def edit
++  end
++
++  def show
++  end
++
++  def update
++    if @human_service_application.update(human_service_params)
++      redirect_to dashboard_insurance_applications_path, notice: "Application was updated successfully."
++    else
++      render :edit
++    end
++  end
++
++  private
++
++    def set_human_service_application
++      @human_service_application = HumanServiceApplication.find(params[:id])
++    end
++
++    def human_service_params
++      params.require(:human_service_application).permit(ApplicationAttributes.human_service)
++    end
++end
+diff --git a/app/models/human_service_application.rb b/app/models/human_service_application.rb
+index 3046077..1cba38f 100644
+--- a/app/models/human_service_application.rb
++++ b/app/models/human_service_application.rb
+@@ -2,9 +2,21 @@ class HumanServiceApplication < ApplicationRecord
+   has_many :planned_events
+   has_many :applicant_employees
+ 
++  has_one :insurance_application, as: :client_application
++
+   belongs_to :client
+   belongs_to :agent, optional: true
+ 
++  delegate :full_name, to: :agent, allow_nil: true, prefix: true
++  delegate :full_name, to: :client, prefix: true
++
++  after_update :calculate_completion_percentage
++
++  APPLICATION_TITLE = "Human Service Application"
++
++  accepts_nested_attributes_for :applicant_employees, reject_if: :all_blank, allow_destroy: true
++  accepts_nested_attributes_for :planned_events,      reject_if: :all_blank, allow_destroy: true
++
+   enum fire_sprinkler:              { yes: 1, no: 2, not_available: 3}, _prefix: :true
+   enum sprinkler_temperature:       { yes: 1, no: 2, not_available: 3}, _prefix: :minimum_temperature
+   enum valves_exercised_annualy:    { yes: 1, no: 2, not_available: 3}, _prefix: :valves_exercised
+@@ -16,4 +28,23 @@ class HumanServiceApplication < ApplicationRecord
+   enum formal_process:              { yes: 1, no: 2, not_available: 3}, _prefix: :shutoff_process
+   enum water_lines_temperature:     { yes: 1, no: 2, not_available: 3}, _prefix: :water_lines_fix_tem
+   enum malpractice_insurance:       { yes: 1, no: 2, not_available: 3}, _prefix: :physicians_insurance
++
++  def status
++    percentage_of_completion == 100 ? 'complete' : "#{percentage_of_completion}% complete"
++  end
++
++  def complete?
++    percentage_of_completion == 100
++  end
++
++  def application_title
++    APPLICATION_TITLE
++  end
++
++  private
++
++    def calculate_completion_percentage
++      completion_percentage = (self.attributes.select{|k, v| v.present?}.size / self.attributes.size.to_f) * 100
++      self.update_column(:percentage_of_completion, completion_percentage.to_i)
++    end
+ end
+diff --git a/app/models/insurance_application.rb b/app/models/insurance_application.rb
+index 42d5b03..a929623 100644
+--- a/app/models/insurance_application.rb
++++ b/app/models/insurance_application.rb
+@@ -3,6 +3,7 @@ class InsuranceApplication < ApplicationRecord
+   belongs_to :client_application, polymorphic: true
+ 
+   delegate :client_full_name, :agent, to: :client_application, allow_nil: true
++  delegate :class_name, :title, to: :template, prefix: true
+ 
+   enum status: {
+     incomplete:   0,
+diff --git a/app/services/application_attributes.rb b/app/services/application_attributes.rb
+index f1e1ca5..c720eda 100644
+--- a/app/services/application_attributes.rb
++++ b/app/services/application_attributes.rb
+@@ -27,4 +27,42 @@ class ApplicationAttributes
+       :mortgage_lending_organization, :mortgage_2_loan_number, :mortgage_2_address,
+       :mortgage_2_lending_organization ]
+   end
++
++  def self.human_service
++    [ :applicant_name, :mailing_address, :city, :zip_code, :state, :full_time_staff, :part_time_staff, :sic_number,
++      :fein_number, :website, :non_profit, :for_profit, :annual_revenue, :operational_years, :current_management_years,
++      :risk_management_contact, :phone_number, :email, :fire_alrams, :alarm_locations, :smoke_detectors, :smoke_detector_locations,
++      :hard_wired_smoke_detectors, :battery_operated_smoke_detectors, :detector_locations, :emergency_lighting, :lighting_locations,
++      :sprinklers, :sprinkler_locations, :exterior_evacuation_routes, :evacuation_route_locations, :central_meeting_point,
++      :meeting_point_locations, :exit_signs, :exit_sign_locations, :fire_drills, :two_exit_doors, :exit_door_locations, :panic_exit_doors,
++      :panic_exit_door_locations, :smoking_permitted, :smoking_locations, :percentage_of_employee, :percentage_of_volunteer,
++      :vehicle_use, :require_employees_and_volunteers, :required_limits, :use_mvr, :how_often_use_mvr, :driver_safety_program, :transport_clients,
++      :new_employee_training, :transport_governmental_or_public_clients, :explain_transportation, :transport_fee, :utilize_gps_fleets,
++      :plug_in_gps_telematics, :hard_wired_gps_telematics, :mobile_phone_gps_telematics, :other_gps_telematics, :telematic_device,
++      :fleet_telematics_percentage, :operation_narrative, :annual_budget, :annual_payroll, :clients_per_year, :no_clients,
++      :number_of_students, :no_students, :no_of_beds, :sheltered_workshops, :shelter_location_no, :workshop_function, :janitorial_services,
++      :landscaping_services, :other_mobile_work, :janitorial_payroll, :landscaping_payroll, :other_payroll, :worker_compensation,
++      :day_care_programe, :location_number, :no_of_children_supervised, :children_to_staff_ratio, :age_range, :foster_care, :foster_care_explanation,
++      :total_operation_percentage, :leased_locations, :leased_location_number, :square_feet, :own_swimming_pool, :building_or_location,
++      :diving_board, :spa_safety_act, :time_table_or_action_plan, :lead_paint, :abatement_plan, :sexual_offenders_therapy, :sexual_predators_therapy,
++      :professional_liability_coverage, :occurrence, :claims_made, :professional_liability_limits, :professional_carrier, :effective_date,
++      :full_time_employees, :part_time_employees, :volunteers, :malpractice_insurance, :company, :liability_limits, :accredited, :accrediting_organization,
++      :date_of_accreditation, :term_of_accreditation, :dentist, :nurse_practitioner, :optometrist, :physicians, :psychiatrist,
++      :other_contracted_services, :other_services_details, :written_agreements, :abuse_or_molestation, :abuse_occurrence, :claims_made_abuse,
++      :liability_limits_for_abuse, :abuse_carrier, :abuse_effective_date, :convicted_of_crime, :crisis_plan, :written_complaint_procedure,
++      :explain_complaint_procedure, :written_supervision_plan, :written_hiring_procedure, :volunteers_work_with_clients,
++      :formal_training, :formal_training_occurrence, :client_staff_relation, :closed_door_meeting, :patient_welfare, :sexual_abuse_incident,
++      :case_settled, :case_trialled, :amount_paid, :employee_criminal_background, :volunteer_criminal_background, :policy_effective_date,
++      :line_of_business, :written_notice, :notice_explanation, :claim_coverages, :claim_coverage_explanation, :fire_sprinkler,
++      :sprinkled_percentage, :wet_pipe_sprinkler, :dry_pipe_sprinkler, :both_types, :sprinkler_temperature, :sprinkler_freeze_prevention,
++      :freeze_winterization_review, :ul_monitoring_company, :water_valves_accessible, :valves_exercised_annualy, :staff_qualified,
++      :automatic_shutoff, :formal_process, :water_lines_temperature, :water_lines_freeze_prevention, :general_comments, :operation_nature,
++      :collect_pii, :collect_ssn, :collect_phi, :collect_credit_card_info, :applicant_alleged, :lawsuit_faced, :subject_of_investigation,
++      :applicant_circumstance, applicant_employees_attributes: [:id, :profession, :employee_type, :others_description, :count],
++      planned_events_attributes: [:id, :event_type, :event_date, :operation_hours, :anticipated_revenue, :location, :no_of_participants,
++                                 :no_of_staff_members, :obtained_certificates, :drinking_control_explanation, :alcohol_provider_explanation,
++                                 :bartenders_explanation, :sport_activities, :spectator_injury, :signed_waiver, :personal_health_proof,
++                                  :bartender_tips]
++    ]
++  end
+ end
+diff --git a/app/services/human_application_service.rb b/app/services/human_application_service.rb
+new file mode 100644
+index 0000000..028ba16
+--- /dev/null
++++ b/app/services/human_application_service.rb
+@@ -0,0 +1,20 @@
++class HumanApplicationService
++  def self.create_application(template_id, current_client)
++    template = Template.find_by(id: template_id)
++    if current_client && template.present?
++      human_service_application = current_client.human_service_applications.first_or_create
++      template.insurance_applications.find_or_create_by(client_application: human_service_application)
++    else
++      human_service_application = HumanServiceApplication.new
++    end
++
++    (28 - human_service_application.applicant_employees.count).times do
++      human_service_application.applicant_employees.build
++    end
++    (10 - human_service_application.planned_events.count).times do
++      human_service_application.planned_events.build
++    end
++
++    return human_service_application
++  end
++end
+diff --git a/app/views/dashboard/insurance_applications/human_service_applications/_applicant_employee_fields.html.erb b/app/views/dashboard/insurance_applications/human_service_applications/_applicant_employee_fields.html.erb
+new file mode 100644
+index 0000000..598f316
+--- /dev/null
++++ b/app/views/dashboard/insurance_applications/human_service_applications/_applicant_employee_fields.html.erb
+@@ -0,0 +1,29 @@
++<div class="nested-fields">
++  <div class="col-md-3">
++    <div class="form-group">
++      <%= f.label "Profession" %><br/>
++      <%= f.select :profession, ApplicantEmployee.professions.keys, {}, class: "form-control" %>
++    </div>
++  </div>
++
++  <div class="col-md-3">
++    <div class="form-group">
++      <%= f.label "Type" %><br/>
++      <%= f.select :employee_type, ApplicantEmployee.employee_types.keys, {}, class: "form-control" %>
++    </div>
++  </div>
++
++  <div class="col-md-3">
++    <div class="form-group">
++      <%= f.label "Other" %><br/>
++      <%= f.text_field :others_description, class: "form-control", placeholder: "Describe If other proffession", id: "description-textbox" %>
++    </div>
++  </div>
++
++  <div class="col-md-3">
++    <div class="form-group">
++      <%= f.label "Count" %><br/>
++      <%= f.text_field :count, class: "form-control" %>
++    </div>
++  </div>
++</div>
+diff --git a/app/views/dashboard/insurance_applications/human_service_applications/_form.html.erb b/app/views/dashboard/insurance_applications/human_service_applications/_form.html.erb
+new file mode 100644
+index 0000000..067a503
+--- /dev/null
++++ b/app/views/dashboard/insurance_applications/human_service_applications/_form.html.erb
+@@ -0,0 +1,33 @@
++<div class="row">
++  <div class="col-md-10">
++    <%= render 'form_fields', f: f %>
++  </div>
++  <div class="col-md-2">
++    <div class="card" id="insurance-application-sidebar">
++      <div class="header">
++        <%= f.submit "Save", class: "btn btn-success btn-fill btn-block", style: 'margin-bottom: 10px;' %>
++      </div>
++      <div class="content content-full-width">
++        <ul class="nav nav-pills nav-stacked">
++          <li><a href="#applicant" class="list-group-item">Applicant</a></li>
++          <li><a href="#life-safety" class="list-group-item">Life Safety</a></li>
++          <li><a href="#automobile" class="list-group-item">Automobile</a></li>
++          <li><a href="#general-liability" class="list-group-item">General Liability</a></li>
++          <li><a href="#professional-liability" class="list-group-item">Professional Liability</a></li>
++          <li><a href="#independent-contractors" class="list-group-item">Independent Contractors</a></li>
++          <li><a href="#abuse-molestation" class="list-group-item">Abusere & Molestation</a></li>
++          <li><a href="#claims-made" class="list-group-item">Claims Made</a></li>
++          <li><a href="#planned-events" class="list-group-item">Planned Events</a></li>
++          <li><a href="#winter-weather" class="list-group-item">Winter Weather</a></li>
++          <li><a href="#fraud-statement" class="list-group-item">Fraud Statement</a></li>
++          <li><a href="#cyber-security" class="list-group-item">Cyber Security</a></li>
++        </ul>
++      </div>
++    </div>
++  </div>
++</div>
++
++<% content_for :js_init do %>
++  InsuranceApplications.chosen_select_init();
++  InsuranceApplications.init_sidebar_scroll();
++<% end %>
+diff --git a/app/views/dashboard/insurance_applications/human_service_applications/_form_fields.html.erb b/app/views/dashboard/insurance_applications/human_service_applications/_form_fields.html.erb
+new file mode 100644
+index 0000000..eeca962
+--- /dev/null
++++ b/app/views/dashboard/insurance_applications/human_service_applications/_form_fields.html.erb
+@@ -0,0 +1,2243 @@
++<div class="row">
++  <div class="col-md-12">
++
++    <div class="card" id="applicant">
++      <div class="header">
++        <h3 class="title">Applicant</h3>
++      </div>
++
++      <div class="content p-2">
++        <div class="row">
++          <div class="col-md-10">
++            <div class="form-group">
++              <%= f.label :applicant_name, class: "control-label" %><br>
++              <%= f.text_field :applicant_name, class: "form-control" %>
++            </div>
++          </div>
++        </div>
++
++        <div class="row">
++          <div class="col-md-4">
++            <div class="form-group">
++              <%= f.label :mailing_address, class: "control-label" %><br>
++              <%= f.text_field :mailing_address, class: "form-control" %>
++            </div>
++          </div>
++
++          <div class="col-md-4">
++            <div class="form-group">
++              <%= f.label :city, class: "control-label" %><br>
++              <%= f.text_field :city, class: "form-control" %>
++            </div>
++          </div>
++
++          <div class="col-md-2">
++            <div class="form-group">
++              <%= f.label :state, class: "control-label" %><br>
++              <%= f.select :state , us_states, { include_blank: true }, { class: "form-control chosen-select" } %>
++            </div>
++          </div>
++
++          <div class="col-md-2">
++            <div class="form-group">
++              <%= f.label :zip_code, class: "control-label" %><br>
++              <%= f.number_field :zip_code, min: 0, class: "form-control" %>
++            </div>
++          </div>
++        </div>
++
++        <div class="row">
++          <div class="col-md-7">
++            <p>Total Staff(including all office, janitorial, maintenance staff, etc): </p>
++          </div>
++
++          <div class="col-md-2">
++            <div class="form-group">
++              <%= f.label "Full Time:", class: "control-label" %><br>
++              <%= f.number_field :full_time_staff, class: "form-control" %>
++            </div>
++          </div>
++
++          <div class="col-md-2">
++            <div class="form-group">
++              <%= f.label "Part Time:", class: "control-label" %><br>
++              <%= f.number_field :part_time_staff, class: "form-control" %>
++            </div>
++          </div>
++        </div>
++
++        <div class="row">
++          <div class="col-md-4">
++            <div class="form-group">
++              <%= f.label "SIC#:", class: "control-label" %><br>
++              <%= f.number_field :sic_number, class: "form-control" %>
++            </div>
++          </div>
++
++          <div class="col-md-4">
++            <div class="form-group">
++              <%= f.label "FEIN#:", class: "control-label" %><br>
++              <%= f.number_field :fein_number, class: "form-control" %>
++            </div>
++          </div>
++
++          <div class="col-md-4">
++            <div class="form-group">
++              <%= f.label :website, class: "control-label" %><br>
++              <%= f.text_field :website, class: "form-control" %>
++            </div>
++          </div>
++        </div>
++
++        <div class="row">
++          <div class="col-md-8">
++            <div class="row">
++              <div class="col-md-6">
++                <div class="form-group">
++                  <%= f.check_box :non_profit%>
++                  <%= f.label :non_profit, class: "control-label" %>
++                </div>
++              </div>
++
++              <div class="col-md-6">
++                <div class="form-group">
++                  <%= f.check_box :for_profit %>
++                  <%= f.label :for_profit, class: "control-label" %><br>
++                </div>
++              </div>
++            </div>
++          </div>
++
++          <div class="col-md-4">
++            <div class="form-group">
++              <%= f.label :annual_revenue, class: "control-label" %><br>
++              <%= f.text_field :annual_revenue, class: "form-control" %>
++            </div>
++          </div>
++        </div>
++
++        <div class="row">
++          <div class="col-md-4">
++            <p>Number of years this facility has been:</p>
++          </div>
++
++          <div class="col-md-4">
++            <div class="form-group">
++              <%= f.label :operational_years, class: "control-label" %><br>
++              <%= f.number_field :operational_years, class: "form-control" %>
++            </div>
++          </div>
++
++          <div class="col-md-4">
++            <div class="form-group">
++              <%= f.label :current_management_years, class: "control-label" %><br>
++              <%= f.number_field :current_management_years, class: "form-control" %>
++            </div>
++          </div>
++        </div>
++
++        <div class="row">
++          <div class="col-md-4">
++            <div class="form-group">
++              <%= f.label :risk_management_contact, class: "control-label" %><br>
++              <%= f.text_field :risk_management_contact, class: "form-control" %>
++            </div>
++          </div>
++
++          <div class="col-md-4">
++            <div class="form-group">
++              <%= f.label :phone_number, class: "control-label" %><br>
++              <%= f.text_field :phone_number, class: "form-control" %>
++            </div>
++          </div>
++
++          <div class="col-md-4">
++            <div class="form-group">
++              <%= f.label :email, class: "control-label" %><br>
++              <%= f.email_field :email, class: "form-control" %>
++            </div>
++          </div>
++        </div>
++      </div>
++    </div>
++
++    <div class="card" id="life-safety">
++      <div class="header">
++        <h3 class="title">SECTION I – LIFE SAFETY</h3>
++      </div>
++
++      <div class="content p-2">
++        <div class="row">
++          <div class="col-md-12">
++            <p>
++              Do all of the Applicant’s facilities (buildings) have the following Life Safety Features?<br>
++              If no, please indicate which location numbers.
++            </p>
++          </div>
++        </div>
++        <div class="row">
++          <div class="col-md-12 text-right">
++            <p>Location Number(s):</p>
++          </div>
++        </div>
++
++        <ol>
++          <div class="row">
++            <div class="col-md-6">
++              <li><%= f.label "Fire Alarms?", class: "control-label" %><br></li>
++            </div>
++
++            <div class="col-md-2">
++              <div class="form-group">
++                <%= f.radio_button :fire_alrams, :true %>
++                <%= label_tag :fire_alarms_yes, "Yes" %>
++                <%= f.radio_button :fire_alrams, :false %>
++                <%= label_tag :fire_alarms_no, "No" %>
++              </div>
++            </div>
++
++            <div class="col-md-4">
++              <%= f.text_field :alarm_locations, class: "form-control" %>
++            </div>
++          </div>
++
++          <div class="row">
++            <div class="col-md-6">
++              <li><%= f.label "Smoke Detectors?", class: "control-label" %></li>
++            </div>
++
++            <div class="col-md-2">
++              <div class="form-group">
++                <%= f.radio_button :smoke_detectors, :true %>
++                <%= label_tag :smoke_detectors_yes, "Yes" %>
++                <%= f.radio_button :smoke_detectors, :false %>
++                <%= label_tag :smoke_detectors_no, "No" %>
++              </div>
++            </div>
++
++            <div class="col-md-4">
++              <%= f.text_field :smoke_detector_locations, class: "form-control" %>
++            </div>
++          </div>
++
++          <div class="row">
++            <div class="col-md-2 form-group">
++              <%= f.label "Hard Wired?", class: "control-label" %><br>
++            </div>
++
++            <div class="col-md-2">
++              <div class="form-group">
++                <%= f.radio_button :hard_wired_smoke_detectors, :true %>
++                <%= label_tag :hard_wired_smoke_detectors_yes, "Yes" %>
++                <%= f.radio_button :hard_wired_smoke_detectors, :false %>
++                <%= label_tag :hard_wired_smoke_detectors_no, "No" %>
++              </div>
++            </div>
++
++            <div class="col-md-2 form-group">
++              <%= f.label "Battery Operated??", class: "control-label" %><br>
++            </div>
++
++            <div class="col-md-2">
++              <div class="form-group">
++                <%= f.radio_button :battery_operated_smoke_detectors, :true %>
++                <%= label_tag :battery_operated_smoke_detectors_yes, "Yes" %>
++                <%= f.radio_button :battery_operated_smoke_detectors, :false %>
++                <%= label_tag :battery_operated_smoke_detectors_no, "No" %>
++              </div>
++            </div>
++
++            <div class="col-md-4">
++              <%= f.text_field :detector_locations, class: "form-control" %>
++            </div>
++          </div>
++
++          <div class="row">
++            <div class="col-md-6">
++              <li><%= f.label "Emergency Lighting?", class: "control-label" %></li>
++            </div>
++
++            <div class="col-md-2">
++              <div class="form-group">
++                <%= f.radio_button :emergency_lighting, :true %>
++                <%= label_tag :emergency_lighting_yes, "Yes" %>
++                <%= f.radio_button :emergency_lighting, :false %>
++                <%= label_tag :emergency_lighting_no, "No" %>
++              </div>
++            </div>
++
++            <div class="col-md-4">
++              <%= f.text_field :lighting_locations, class: "form-control" %>
++            </div>
++          </div>
++
++          <div class="row">
++            <div class="col-md-6">
++              <li><%= f.label "Sprinklers?", class: "control-label" %></li>
++            </div>
++
++            <div class="col-md-2">
++              <div class="form-group">
++                <%= f.radio_button :sprinklers, :true %>
++                <%= label_tag :sprinklers_yes, "Yes" %>
++                <%= f.radio_button :sprinklers, :false %>
++                <%= label_tag :sprinklers_no, "No" %>
++              </div>
++            </div>
++
++            <div class="col-md-4">
++              <%= f.text_field :sprinkler_locations, class: "form-control" %>
++            </div>
++          </div>
++
++          <div class="row">
++            <div class="col-md-6">
++              <li><%= f.label life_safety[:exterior_evacuation_routes], class: "control-label" %></li>
++            </div>
++
++            <div class="col-md-2">
++              <div class="form-group">
++                <%= f.radio_button :exterior_evacuation_routes, :true %>
++                <%= label_tag :exterior_evacuation_routes_yes, "Yes" %>
++                <%= f.radio_button :exterior_evacuation_routes, :false %>
++                <%= label_tag :exterior_evacuation_routes_no, "No" %>
++              </div>
++            </div>
++
++            <div class="col-md-4">
++              <%= f.text_field :evacuation_route_locations, class: "form-control" %>
++            </div>
++          </div>
++
++          <div class="row">
++            <div class="col-md-6">
++              <li><%= f.label life_safety[:central_meeting_point], class: "control-label" %></li>
++            </div>
++
++            <div class="col-md-2">
++              <div class="form-group">
++                <%= f.radio_button :central_meeting_point, :true %>
++                <%= label_tag :central_meeting_point_yes, "Yes" %>
++                <%= f.radio_button :central_meeting_point, :false %>
++                <%= label_tag :central_meeting_point_no, "No" %>
++              </div>
++            </div>
++
++            <div class="col-md-4">
++              <%= f.text_field :meeting_point_locations, class: "form-control" %>
++            </div>
++          </div>
++
++          <div class="row">
++            <div class="col-md-6">
++              <li><%= f.label life_safety[:exit_signs], class: "control-label" %></li>
++            </div>
++
++            <div class="col-md-2">
++              <div class="form-group">
++                <%= f.radio_button :exit_signs, :true %>
++                <%= label_tag :exit_signs_yes, "Yes" %>
++                <%= f.radio_button :exit_signs, :false %>
++                <%= label_tag :exit_signs_no, "No" %>
++              </div>
++            </div>
++
++            <div class="col-md-4">
++              <%= f.text_field :exit_sign_locations, class: "form-control" %>
++            </div>
++          </div>
++
++          <div class="row">
++            <div class="col-md-4">
++              <li><%= f.label life_safety[:fire_drills], class: "control-label" %></li>
++            </div>
++
++            <div class="col-md-4">
++              <%= f.text_field :fire_drills, class: "form-control" %>
++            </div>
++          </div>
++
++          <div class="row">
++            <div class="col-md-6">
++              <li><%= f.label life_safety[:two_exit_doors], class: "control-label" %></li>
++            </div>
++
++            <div class="col-md-2">
++              <div class="form-group">
++                <%= f.radio_button :two_exit_doors, :true %>
++                <%= label_tag :two_exit_doors_yes, "Yes" %>
++                <%= f.radio_button :two_exit_doors, :false %>
++                <%= label_tag :two_exit_doors_no, "No" %>
++              </div>
++            </div>
++
++            <div class="col-md-4">
++              <%= f.text_field :exit_door_locations, class: "form-control" %>
++            </div>
++          </div>
++
++          <div class="row">
++            <div class="col-md-6">
++              <li><%= f.label life_safety[:panic_exit_doors], class: "control-label" %></li>
++            </div>
++
++            <div class="col-md-2">
++              <div class="form-group">
++                <%= f.radio_button :panic_exit_doors, :true %>
++                <%= label_tag :panic_exit_doors_yes, "Yes" %>
++                <%= f.radio_button :panic_exit_doors, :false %>
++                <%= label_tag :panic_exit_doors_no, "No" %>
++              </div>
++            </div>
++
++            <div class="col-md-4">
++              <%= f.text_field :panic_exit_door_locations, class: "form-control" %>
++            </div>
++          </div>
++
++          <div class="row">
++            <div class="col-md-6">
++              <li><%= f.label life_safety[:smoking_permitted], class: "control-label" %></li>
++            </div>
++
++            <div class="col-md-2">
++              <div class="form-group">
++                <%= f.radio_button :smoking_permitted, :true %>
++                <%= label_tag :smoking_permitted_yes, "Yes" %>
++                <%= f.radio_button :smoking_permitted, :false %>
++                <%= label_tag :smoking_permitted_no, "No" %>
++              </div>
++            </div>
++
++            <div class="col-md-4">
++              <%= f.text_field :smoking_locations, class: "form-control" %>
++            </div>
++          </div>
++        </ol>
++
++      </div>
++    </div>
++
++    <div class="card" id="automobile">
++      <div class="header">
++        <h3 class="title">SECTION II - AUTOMOBILE</h3>
++      </div>
++
++      <div class="content p-2">
++        <ol>
++          <div class="row">
++            <div class="col-md-12">
++              <li><%= f.label automobile[:vehicle_use] %></li>
++            </div>
++          </div>
++
++          <div class="row">
++            <div class="col-md-6">
++              <div class="form-group">
++                <%= f.label "Employees Percentage", class: "control-label" %><br>
++                <%= f.number_field :percentage_of_employee, step: :any, class: "form-control" %>
++              </div>
++            </div>
++
++            <div class="col-md-6">
++              <div class="form-group">
++                <%= f.label "Volunteers Percentage", class: "control-label" %><br>
++                <%= f.text_field :percentage_of_volunteer, step: :any, class: "form-control" %>
++              </div>
++            </div>
++
++            <div class="col-md-12">
++              <div class="form-group">
++                <%= f.label "Describe use", class: "control-label" %><br>
++                <%= f.text_field :vehicle_use, class: "form-control" %>
++              </div>
++            </div>
++          </div>
++
++          <div class="row">
++            <div class="col-md-10">
++              <li><%= f.label automobile[:require_employees_and_volunteers], class: "control-label" %></li>
++            </div>
++
++            <div class="col-md-2">
++              <div class="form-group">
++                <%= f.radio_button :require_employees_and_volunteers, :true %>
++                <%= label_tag :require_employees_and_volunteers_yes, "Yes" %>
++                <%= f.radio_button :require_employees_and_volunteers, :false %>
++                <%= label_tag :require_employees_and_volunteers_no, "No" %>
++              </div>
++            </div>
++          </div>
++
++          <div class="row">
++            <div class="col-md-4">
++              <li><%= f.label automobile[:required_limits], class: "control-label" %></li>
++            </div>
++
++            <div class="col-md-8">
++              <div class="form-group">
++                <%= f.text_field :required_limits, class: "form-control" %>
++              </div>
++            </div>
++          </div>
++
++          <div class="row">
++            <div class="col-md-10">
++              <li><%= f.label automobile[:use_mvr], class: "control-label" %></li>
++            </div>
++
++            <div class="col-md-2">
++              <div class="form-group">
++                <%= f.radio_button :use_mvr, :true %>
++                <%= label_tag :use_mvr_yes, "Yes" %>
++                <%= f.radio_button :use_mvr, :false %>
++                <%= label_tag :use_mvr_no, "No" %>
++              </div>
++            </div>
++
++            <div class="col-md-12">
++              <div class="form-group">
++                <%= f.label "if yes, how often?", class: "control-label" %><br>
++                <%= f.text_field :how_often_use_mvr, class: "form-control" %>
++              </div>
++            </div>
++          </div>
++
++          <div class="row">
++            <div class="col-md-10">
++              <li><%= f.label automobile[:driver_safety_program], class: "control-label" %></li>
++            </div>
++
++            <div class="col-md-2">
++              <div class="form-group">
++                <%= f.radio_button :driver_safety_program, :true %>
++                <%= label_tag :driver_safety_program_yes, "Yes" %>
++                <%= f.radio_button :driver_safety_program, :false %>
++                <%= label_tag :driver_safety_program_no, "No" %>
++              </div>
++            </div>
++          </div>
++
++          <div class="row">
++            <div class="col-md-10">
++              <li><%= f.label automobile[:transport_clients], class: "control-label" %></li>
++            </div>
++
++            <div class="col-md-2">
++              <div class="form-group">
++                <%= f.radio_button :transport_clients, :true %>
++                <%= label_tag :transport_clients_yes, "Yes" %>
++                <%= f.radio_button :transport_clients, :false %>
++                <%= label_tag :transport_clients_no, "No" %>
++              </div>
++            </div>
++          </div>
++
++          <div class="row">
++            <div class="col-md-10">
++              <li><%= f.label automobile[:new_employee_training], class: "control-label" %></li>
++            </div>
++
++            <div class="col-md-2">
++              <div class="form-group">
++                <%= f.radio_button :new_employee_training, :true %>
++                <%= label_tag :new_employee_training_yes, "Yes" %>
++                <%= f.radio_button :new_employee_training, :false %>
++                <%= label_tag :new_employee_training_no, "No" %>
++              </div>
++            </div>
++          </div>
++
++          <div class="row">
++            <div class="col-md-10">
++              <li><%= f.label automobile[:transport_governmental_or_public_clients], class: "control-label" %></li>
++            </div>
++
++            <div class="col-md-2">
++              <div class="form-group">
++                <%= f.radio_button :transport_governmental_or_public_clients, :true %>
++                <%= label_tag :transport_governmental_or_public_clients_yes, "Yes" %>
++                <%= f.radio_button :transport_governmental_or_public_clients, :false %>
++                <%= label_tag :transport_governmental_or_public_clients_no, "No" %>
++              </div>
++            </div>
++
++            <div class="col-md-12">
++              <div class="form-group">
++                <%= f.label "If yes, please explain:", class: "control-label" %><br>
++                <%= f.text_field :explain_transportation, class: "form-control" %>
++              </div>
++            </div>
++
++            <div class="col-md-10">
++              <div class="form-group">
++                <%= f.label "If yes, for a fee?", class: "control-label" %><br>
++              </div>
++            </div>
++
++            <div class="col-md-2">
++              <div class="form-group">
++                <%= f.radio_button :transport_fee, :true %>
++                <%= label_tag :transport_fee_yes, "Yes" %>
++                <%= f.radio_button :transport_fee, :false %>
++                <%= label_tag :transport_fee_no, "No" %>
++              </div>
++            </div>
++          </div>
++
++          <div class="row">
++            <div class="col-md-10">
++              <li><%= f.label automobile[:utilize_gps_fleets], class: "control-label" %></li>
++            </div>
++
++            <div class="col-md-2">
++              <div class="form-group">
++                <%= f.radio_button :utilize_gps_fleets, :true %>
++                <%= label_tag :utilize_gps_fleets_yes, "Yes" %>
++                <%= f.radio_button :utilize_gps_fleets, :false %>
++                <%= label_tag :utilize_gps_fleets_no, "No" %>
++              </div>
++            </div>
++
++            <div class="col-md-12">
++              <div class="form-group">
++                <p class="control-label">If yes, please check off the fleet telematics being utilized:<br></p>
++              </div>
++            </div>
++
++            <div class="col-md-2">
++              <div class="form-group">
++                <%= f.check_box :plug_in_gps_telematics %>
++                <%= f.label "Plug in", class: "control-label" %>
++              </div>
++            </div>
++
++            <div class="col-md-2">
++              <div class="form-group">
++                <%= f.check_box :hard_wired_gps_telematics %>
++                <%= f.label "Hard Wired", class: "control-label" %>
++              </div>
++            </div>
++
++            <div class="col-md-3">
++              <div class="form-group">
++                <%= f.check_box :mobile_phone_gps_telematics %>
++                <%= f.label "Mobile Phone", class: "control-label" %>
++              </div>
++            </div>
++
++            <div class="col-md-2">
++              <div class="form-group">
++                <%= f.check_box :other_gps_telematics %>
++                <%= f.label "other", class: "control-label" %>
++              </div>
++            </div>
++
++            <div class="col-md-3">
++              <div class="form-group">
++                <% f.label "other", class: "control-label" %>
++                <%= f.text_field :telematic_device, class: "form-control", placeholder: "Enter other device" %>
++              </div>
++            </div>
++          </div>
++
++          <div class="row">
++            <div class="col-md-8">
++              <li><%= f.label automobile[:fleet_telematics_percentage], class: "control-label" %></li>
++            </div>
++
++            <div class="col-md-4">
++              <div class="form-group">
++                <%= f.number_field :fleet_telematics_percentage, step: :any, class: "form-control" %>
++              </div>
++            </div>
++          </div>
++        </ol>
++      </div>
++    </div>
++
++    <div class="card" id="general-liability">
++      <div class="header">
++        <h3 class="title">SECTION III – GENERAL LIABILITY</h3>
++      </div>
++
++      <div class="content p-2">
++        <ol>
++          <div class="row">
++            <div class="col-md-12">
++              <li><%= f.label general_liability[:operation_narrative], class: "control-label" %></li>
++            </div>
++          </div>
++
++          <div class="row">
++            <div class="col-md-12">
++              <div class="form-group">
++                <%= f.text_field :operation_narrative, class: "form-control" %>
++              </div>
++            </div>
++          </div>
++
++          <div class="row">
++            <div class="col-md-6">
++              <li><%= f.label "Annual Operating Budget: ", class: "control-label" %></li>
++              <div class="form-group">
++                <%= f.number_field :annual_budget, step: :any, class: "form-control" %>
++              </div>
++            </div>
++
++            <div class="col-md-6">
++              <%= f.label :annual_payroll, class: "control-label" %><br>
++              <div class="form-group">
++                <%= f.number_field :annual_payroll, step: :any, class: "form-control" %>
++              </div>
++            </div>
++          </div>
++
++          <div class="row">
++            <div class="col-md-6">
++              <li><%= f.label general_liability[:clients_per_year], class: "control-label" %></li>
++              <div class="form-group">
++                <%= f.number_field :clients_per_year, class: "form-control" %>
++              </div>
++            </div>
++
++            <div class="col-md-6">
++              <div class="form-group">
++                <%= f.check_box :no_clients %>
++                <%= f.label "N/A" %>
++              </div>
++            </div>
++          </div>
++
++          <div class="row">
++            <div class="col-md-6">
++              <li><%= f.label :number_of_students, class: "control-label" %></li>
++              <div class="form-group">
++                <%= f.number_field :number_of_students, class: "form-control" %>
++              </div>
++            </div>
++
++            <div class="col-md-6">
++              <div class="form-group">
++                <%= f.check_box :no_students %>
++                <%= f.label "N/A" %>
++              </div>
++            </div>
++          </div>
++
++          <div class="row">
++            <div class="col-md-8">
++              <li><%= f.label  general_liability[:no_of_beds], class: "control-label" %></li>
++              <div class="form-group">
++                <%= f.number_field :no_of_beds, class: "form-control" %>
++              </div>
++            </div>
++          </div>
++
++
++          <div class="row">
++            <div class="col-md-10">
++              <li><%= f.label general_liability[:sheltered_workshops], class: "control-label" %></li>
++            </div>
++
++            <div class="col-md-2">
++              <div class="form-group">
++                <%= f.radio_button :sheltered_workshops, :true %>
++                <%= label_tag :sheltered_workshops_yes, "Yes" %>
++                <%= f.radio_button :sheltered_workshops, :false %>
++                <%= label_tag :sheltered_workshops_no, "No" %>
++              </div>
++            </div>
++
++            <div class="col-md-4 form-group">
++              <%= f.label general_liability[:shelter_location_no], class: "control-label" %><br>
++            </div>
++
++            <div class="col-md-4">
++              <div class="form-group">
++                <%= f.text_field :shelter_location_no, class: "form-control" %>
++              </div>
++            </div>
++
++            <div class="col-md-10 form-group">
++              <%= f.label general_liability[:workshop_function], class: "control-label" %><br>
++            </div>
++
++            <div class="col-md-12">
++              <div class="form-group">
++                <%= f.text_field :workshop_function, class: "form-control" %>
++              </div>
++            </div>
++          </div>
++
++          <div class="row">
++            <div class="col-md-10">
++              <li><%= f.label general_liability[:janitorial_services], class: "control-label" %></li>
++            </div>
++
++            <div class="col-md-2">
++              <div class="form-group">
++                <%= f.radio_button :janitorial_services, :true %>
++                <%= label_tag :janitorial_services_yes, "Yes" %>
++                <%= f.radio_button :janitorial_services, :false %>
++                <%= label_tag :janitorial_services_no, "No" %>
++              </div>
++            </div>
++
++            <div class="col-md-10 form-group">
++              <%= f.label :landscaping_services, class: "control-label" %>
++            </div>
++
++            <div class="col-md-2">
++              <div class="form-group">
++                <%= f.radio_button :landscaping_services, :true %>
++                <%= label_tag :landscaping_services_yes, "Yes" %>
++                <%= f.radio_button :landscaping_services, :false %>
++                <%= label_tag :landscaping_services_no, "No" %>
++              </div>
++            </div>
++
++            <div class="col-md-2 form-group">
++              <%= f.label "other", class: "control-label" %><br>
++            </div>
++
++            <div class="col-md-10">
++              <div class="form-group">
++                <%= f.text_field :other_mobile_work, class: "form-control" %>
++              </div>
++            </div>
++          </div>
++
++          <div class="row">
++            <div class="col-md-3 form-group">
++              <p class="control-label">If yes, please provide payroll:</p>
++            </div>
++
++            <div class="col-md-3">
++              <div class="form-group">
++                <%= f.label :janitorial_payroll, class: "control-label" %>
++                <%= f.number_field :janitorial_payroll, min: 0, step: :any, class: "form-control" %>
++              </div>
++            </div>
++
++            <div class="col-md-3">
++              <div class="form-group">
++                <%= f.label :landscaping_payroll, class: "control-label" %>
++                <%= f.number_field :landscaping_payroll, min: 0, step: :any, class: "form-control" %>
++              </div>
++            </div>
++
++            <div class="col-md-3">
++              <div class="form-group">
++                <%= f.label :other_payroll, class: "control-label" %>
++                <%= f.number_field :other_payroll, min: 0, step: :any, class: "form-control" %>
++              </div>
++            </div>
++          </div>
++
++          <div class="row">
++            <div class="col-md-10 form-group">
++              <%= f.label general_liability[:worker_compensation], class: "control-label" %><br>
++            </div>
++
++            <div class="col-md-2">
++              <div class="form-group">
++                <%= f.radio_button :worker_compensation, :true %>
++                <%= label_tag :worker_compensation_yes, "Yes" %>
++                <%= f.radio_button :worker_compensation, :false %>
++                <%= label_tag :worker_compensation_no, "No" %>
++              </div>
++            </div>
++          </div>
++
++
++          <div class="row">
++            <div class="col-md-10">
++              <li><%= f.label general_liability[:day_care_programe], class: "control-label" %></li>
++            </div>
++
++            <div class="col-md-2">
++              <div class="form-group">
++                <%= f.radio_button :day_care_programe, :true %>
++                <%= label_tag :day_care_programe_yes, "Yes" %>
++                <%= f.radio_button :day_care_programe, :false %>
++                <%= label_tag :day_care_programe_no, "No" %>
++              </div>
++            </div>
++
++            <div class="col-md-3 form-group">
++              <%= f.label "Indicate Location No: ", class: "control-label" %><br>
++            </div>
++
++            <div class="col-md-9">
++              <div class="form-group">
++                <%= f.text_field :location_number, class: "form-control" %>
++              </div>
++            </div>
++
++            <div class="col-md-4">
++              <div class="form-group">
++                <%= f.label "Maximum childern suprevised", class: "control-label" %>
++                <%= f.number_field :no_of_children_supervised, min: 0, step: :any, class: "form-control" %>
++              </div>
++            </div>
++
++            <div class="col-md-4">
++              <div class="form-group">
++                <%= f.label "Ratio of childern to staff", class: "control-label" %>
++                <%= f.number_field :children_to_staff_ratio, min: 0, step: :any, class: "form-control" %>
++              </div>
++            </div>
++
++            <div class="col-md-4">
++              <div class="form-group">
++                <%= f.label :age_range, class: "control-label" %>
++                <%= f.number_field :age_range, min: 0, step: :any, class: "form-control" %>
++              </div>
++            </div>
++          </div>
++
++          <div class="row">
++            <div class="col-md-10">
++              <li><%= f.label general_liability[:foster_care], class: "control-label" %></li>
++            </div>
++
++            <div class="col-md-2">
++              <div class="form-group">
++                <%= f.radio_button :foster_care, :true %>
++                <%= label_tag :foster_care_yes, "Yes" %>
++                <%= f.radio_button :foster_care, :false %>
++                <%= label_tag :foster_care_no, "No" %>
++              </div>
++            </div>
++
++            <div class="col-md-12">
++              <div class="form-group">
++                <%= f.label general_liability[:foster_care_explanation], class: "control-label" %>
++                <%= f.text_field :foster_care_explanation, class: "form-control" %>
++              </div>
++            </div>
++
++            <div class="col-md-6 form-group">
++              <%= f.label general_liability[:total_operation_percentage], class: "control-label" %>
++            </div>
++
++            <div class="col-md-6">
++              <div class="form-group">
++                <%= f.number_field :total_operation_percentage, min: 0, step: :any, class: "form-control" %>
++              </div>
++            </div>
++          </div>
++
++          <div class="row">
++            <div class="col-md-10">
++              <li><%= f.label general_liability[:leased_locations], class: "control-label" %></li>
++            </div>
++
++            <div class="col-md-2">
++              <div class="form-group">
++                <%= f.radio_button :leased_locations, :true %>
++                <%= label_tag :leased_locations_yes, "Yes" %>
++                <%= f.radio_button :leased_locations, :false %>
++                <%= label_tag :leased_locations_no, "No" %>
++              </div>
++            </div>
++
++            <div class="col-md-3 form-group">
++              <%= f.label "Indicate location number", class: "control-label" %>
++            </div>
++
++            <div class="col-md-3">
++              <div class="form-group">
++                <%= f.text_field :leased_location_number, class: "form-control" %>
++              </div>
++            </div>
++
++            <div class="col-md-3 form-group">
++              <%= f.label :square_feet, class: "control-label" %>
++            </div>
++
++            <div class="col-md-3">
++              <div class="form-group">
++                <%= f.number_field :square_feet, min: 0, step: :any, class: "form-control" %>
++              </div>
++            </div>
++          </div>
++
++
++          <div class="row">
++            <div class="col-md-10">
++              <li><%= f.label general_liability[:own_swimming_pool], class: "control-label" %></li>
++            </div>
++
++            <div class="col-md-2">
++              <div class="form-group">
++                <%= f.radio_button :own_swimming_pool, :true %>
++                <%= label_tag :own_swimming_pool_yes, "Yes" %>
++                <%= f.radio_button :own_swimming_pool, :false %>
++                <%= label_tag :own_swimming_pool_no, "No" %>
++              </div>
++            </div>
++
++            <div class="col-md-5 form-group">
++              <%= f.label general_liability[:building_or_location], class: "control-label" %>
++            </div>
++
++            <div class="col-md-4">
++              <div class="form-group">
++                <%= f.text_field :building_or_location, class: "form-control" %>
++              </div>
++            </div>
++
++            <div class="col-md-10 form-group">
++              <%= f.label "Divingboard/slide", class: "control-label" %><br>
++            </div>
++
++            <div class="col-md-2">
++              <div class="form-group">
++                <%= f.radio_button :diving_board, :true %>
++                <%= label_tag :diving_board_yes, "Yes" %>
++                <%= f.radio_button :diving_board, :false %>
++                <%= label_tag :diving_board_no, "No" %>
++              </div>
++            </div>
++
++            <div class="col-md-10 form-group">
++              <%= f.label general_liability[:spa_safety_act], class: "control-label" %><br>
++            </div>
++
++            <div class="col-md-2">
++              <div class="form-group">
++                <%= f.radio_button :spa_safety_act, :true %>
++                <%= label_tag :spa_safety_act_yes, "Yes" %>
++                <%= f.radio_button :spa_safety_act, :false %>
++                <%= label_tag :spa_safety_act_no, "No" %>
++              </div>
++            </div>
++
++            <div class="col-md-12">
++              <div class="form-group">
++                <%= f.label general_liability[:time_table_or_action_plan], class: "control-label" %>
++                <%= f.text_field :time_table_or_action_plan, class: "form-control" %>
++              </div>
++            </div>
++          </div>
++
++          <div class="row">
++            <div class="col-md-10">
++              <li><%= f.label general_liability[:lead_paint], class: "control-label" %></li>
++            </div>
++
++            <div class="col-md-2">
++              <div class="form-group">
++                <%= f.radio_button :lead_paint, :true %>
++                <%= label_tag :lead_paint_yes, "Yes" %>
++                <%= f.radio_button :lead_paint, :false %>
++                <%= label_tag :lead_paint_no, "No" %>
++              </div>
++            </div>
++
++            <div class="col-md-12">
++              <div class="form-group">
++                <%= f.label general_liability[:abatement_plan], class: "control-label" %>
++                <%= f.text_field :abatement_plan, class: "form-control" %>
++              </div>
++            </div>
++          </div>
++
++          <div class="row">
++            <div class="col-md-12">
++              <li><%= f.label general_liability[:target_classes], class: "control-label" %></li>
++            </div>
++
++            <div class="col-md-4 form-group">
++              <%= f.label "Sexual Offenders?", class: "control-label" %><br>
++            </div>
++
++            <div class="col-md-2">
++              <div class="form-group">
++                <%= f.radio_button :sexual_offenders_therapy, :true %>
++                <%= label_tag :sexual_offenders_therapy_yes, "Yes" %>
++                <%= f.radio_button :sexual_offenders_therapy, :false %>
++                <%= label_tag :sexual_offenders_therapy_no, "No" %>
++              </div>
++            </div>
++
++            <div class="col-md-4 form-group">
++              <%= f.label "Sexual Offenders?", class: "control-label" %><br>
++            </div>
++
++            <div class="col-md-2">
++              <div class="form-group">
++                <%= f.radio_button :sexual_predators_therapy, :true %>
++                <%= label_tag :sexual_predators_therapy_yes, "Yes" %>
++                <%= f.radio_button :sexual_predators_therapy, :false %>
++                <%= label_tag :sexual_predators_therapy_no, "No" %>
++              </div>
++            </div>
++          </div>
++        </ol>
++      </div>
++    </div>
++
++    <div class="card" id="professional-liability">
++      <div class="header">
++        <h3 class="title">SECTION IV – PROFESSIONAL LIABILITY</h3>
++      </div>
++
++      <div class="content p-2">
++        <ol>
++          <div class="row">
++            <div class="col-md-10">
++              <li>
++                <%= f.label professional_liability_coverage[:professional_liability_coverage], class: "control-label" %>
++              </li>
++            </div>
++
++            <div class="col-md-2">
++              <div class="form-group">
++                <%= f.radio_button :professional_liability_coverage, :true %>
++                <%= label_tag :professional_liability_coverage_yes, "Yes" %>
++                <%= f.radio_button :professional_liability_coverage, :false %>
++                <%= label_tag :professional_liability_coverage_no, "No" %>
++              </div>
++            </div>
++          </div>
++
++          <div class="row">
++            <div class="col-md-2 form-group">
++              <%= f.label "if yes", class: "control-label" %><br>
++            </div>
++
++            <div class="col-md-3">
++              <div class="form-group">
++                <%= f.check_box :occurrence %>
++                <%= f.label :occurrence, class: "control-label" %>
++              </div>
++            </div>
++
++            <div class="col-md-5">
++              <div class="form-group">
++                <%= f.check_box :claims_made %>
++                <%= f.label "Claims Made – Retroactive date:", class: "control-label" %>
++              </div>
++            </div>
++
++            <div class="col-md-3">
++              <div class="form-group">
++                <%= f.label "Limits of liability", class: "control-label" %><br>
++                <%= f.number_field :professional_liability_limits, step: :any, class: "form-control" %>
++              </div>
++            </div>
++          </div>
++
++          <div class="row">
++            <div class="col-md-2 form-group">
++              <%= f.label "Carrier", class: "control-label" %><br>
++            </div>
++
++            <div class="col-md-5">
++              <div class="form-group">
++                <%= f.text_field :professional_carrier, class: "form-control" %>
++              </div>
++            </div>
++
++            <div class="col-md-2 form-group">
++              <%= f.label :effective_date, class: "control-label" %><br>
++            </div>
++
++            <div class="col-md-3">
++              <div class="form-group">
++                <%= f.date_field :effective_date, class: "form-control" %>
++              </div>
++            </div>
++          </div>
++
++
++          <div class="row">
++            <div class="col-md-12">
++              <li><%= f.label "Total number of:", class: "control-label" %></li>
++            </div>
++          </div>
++
++          <div class="row">
++            <div class="col-md-2 form-group">
++              <%= f.label :full_time_employees, class: "control-label" %><br>
++            </div>
++
++            <div class="col-md-2">
++              <div class="form-group">
++                <%= f.number_field :full_time_employees, step: :any, class: "form-control" %>
++              </div>
++            </div>
++
++            <div class="col-md-2 form-group">
++              <%= f.label :part_time_employees, class: "control-label" %><br>
++            </div>
++
++            <div class="col-md-2">
++              <div class="form-group">
++                <%= f.number_field :part_time_employees, step: :any, class: "form-control" %>
++              </div>
++            </div>
++
++            <div class="col-md-2 form-group">
++              <%= f.label :volunteers, class: "control-label" %><br>
++            </div>
++
++            <div class="col-md-2">
++              <div class="form-group">
++                <%= f.number_field :volunteers, step: :any, class: "form-control" %>
++              </div>
++            </div>
++          </div>
++
++          <div class="row">
++            <p><b>Employees</b></p>
++            <hr>
++            <%= f.fields_for :applicant_employees do |applicant_employee_form| %>
++              <div class="col-md-12">
++                <%= render 'applicant_employee_fields', f: applicant_employee_form %>
++              </div>
++            <% end %>
++          </div>
++
++          <div class="row">
++            <div class="col-md-12">
++              <li>
++                <p>
++                  <b>
++                    If the Applicant is requesting primary medical professional coverage for any of above noted Physicians, Psychiatrists, Dentists or Opticians, the Applicant must submit a completed and signed Medical
++                    Professional application. Coverage for such professional is subject to Underwriting review and approval.
++                  </b>
++                </p>
++              </li>
++            </div>
++          </div>
++
++          <div class="row">
++            <div class="col-md-12">
++              <li>
++                <p class="text-justify">
++                  <b>If the above noted employed or volunteer Physicians, Psychiatrists, Dentists or Opticians carry their own medical malpractice insurance, we may provide vicarious medical professional coverage for the entity as respects to the professional services rendered on the insured’s behalf. Coverage for the entity will require the following: The Professional’s name, medical license number, medical specialty and proof that the professional carries adequate limits of insurance (at least $1million limit of liability). Proof of insurance may be satisfied by submitting a copy of the professional’s declaration page and/or certificate of insurance.</b>
++                </p>
++              </li>
++            </div>
++          </div>
++
++          <div class="row">
++            <div class="col-md-8">
++              <li><%= f.label professional_liability_coverage[:malpractice_insurance], class: "control-label" %></li>
++            </div>
++
++            <div class="col-md-4 form-group">
++              <%= f.collection_radio_buttons(:malpractice_insurance, HumanServiceApplication.malpractice_insurances , :last, :first) do |b| %>
++                <%= b.label { b.radio_button + " "+ b.text } %>
++              <% end %>
++            </div>
++
++            <div class="col-md-2 form-group">
++              <%= f.label "Indicate Comapnay", class: "control-label" %><br>
++            </div>
++
++            <div class="col-md-4">
++              <div class="form-group">
++                <%= f.text_field :company, class: "form-control" %>
++              </div>
++            </div>
++
++            <div class="col-md-2 form-group">
++              <%= f.label "Liability limits", class: "control-label" %><br>
++            </div>
++
++            <div class="col-md-4">
++              <div class="form-group">
++                <%= f.text_field :liability_limits, class: "form-control" %>
++              </div>
++            </div>
++          </div>
++
++          <div class="row">
++            <div class="col-md-10">
++              <li><%= f.label professional_liability_coverage[:accredited], class: "control-label" %></li>
++            </div>
++
++            <div class="col-md-2">
++              <div class="form-group">
++                <%= f.radio_button :accredited, :true %>
++                <%= label_tag :accredited_yes, "Yes" %>
++                <%= f.radio_button :accredited, :false %>
++                <%= label_tag :accredited_no, "No" %>
++              </div>
++            </div>
++
++            <div class="col-md-12 form-group">
++              <p class="control-label">If yes</p>
++            </div>
++
++            <div class="col-md-5 form-group">
++              <%= f.label "Name of Accrediting Organization", class: "control-label"%><br>
++            </div>
++
++            <div class="col-md-7">
++              <div class="form-group">
++                <%= f.text_field :accrediting_organization, class: "form-control" %>
++              </div>
++            </div>
++
++            <div class="col-md-5 form-group">
++              <%= f.label "Date of Accreditation/Certification:", class: "control-label"%><br>
++            </div>
++
++            <div class="col-md-7">
++              <div class="form-group">
++                <%= f.date_field :date_of_accreditation, class: "form-control" %>
++              </div>
++            </div>
++
++            <div class="col-md-5 form-group">
++              <%= f.label "Term of Accreditation/Certification:", class: "control-label"%><br>
++            </div>
++
++            <div class="col-md-7">
++              <div class="form-group">
++                <%= f.text_field :term_of_accreditation, class: "form-control" %>
++              </div>
++            </div>
++          </div>
++        </ol>
++      </div>
++    </div>
++
++    <div class="card" id="independent-contractors">
++      <div class="header">
++        <h3 class="title">SECTION V – CONSULTANTS / INDEPENDENT CONTRACTORS</h3>
++      </div>
++
++      <div class="content p-2">
++        <ol>
++          <div class="row">
++            <div class="col-md-12">
++              <li><%= f.label independent_contractors[:contracted_service], class: "control-label" %></li>
++            </div>
++          </div>
++
++          <div class="row">
++            <div class="col-md-2">
++              <div class="form-group">
++                <%= f.check_box :dentist %>
++                <%= f.label :dentist, class: "control-label" %>
++              </div>
++            </div>
++
++            <div class="col-md-3">
++              <div class="form-group">
++                <%= f.check_box :nurse_practitioner %>
++                <%= f.label :nurse_practitioner, class: "control-label" %>
++              </div>
++            </div>
++
++            <div class="col-md-2">
++              <div class="form-group">
++                <%= f.check_box :optometrist %>
++                <%= f.label :optometrist, class: "control-label" %>
++              </div>
++            </div>
++
++            <div class="col-md-2">
++              <div class="form-group">
++                <%= f.check_box :physicians %>
++                <%= f.label :physicians, class: "control-label" %>
++              </div>
++            </div>
++
++            <div class="col-md-2">
++              <div class="form-group">
++                <%= f.check_box :psychiatrist %>
++                <%= f.label :psychiatrist, class: "control-label" %>
++              </div>
++            </div>
++          </div>
++
++          <div class="row">
++            <div class="col-md-2">
++              <div class="form-group">
++                <%= f.check_box :other_contracted_services %>
++                <%= f.label "Other", class: "control-label" %><br>
++              </div>
++            </div>
++
++            <div class="col-md-9">
++              <%= f.text_field :other_services_details, class: "form-control" %>
++            </div>
++          </div>
++
++          <div class="row">
++            <div class="col-md-10">
++              <li><%= f.label independent_contractors[:written_agreements], class: "control-label" %></li>
++            </div>
++
++            <div class="col-md-2">
++              <div class="form-group">
++                <%= f.radio_button :written_agreements, :true %>
++                <%= label_tag :written_agreements_yes, "Yes" %>
++                <%= f.radio_button :written_agreements, :false %>
++                <%= label_tag :written_agreements_no, "No" %>
++              </div>
++            </div>
++          </div>
++        </ol>
++      </div>
++    </div>
++
++    <div class="card" id="abuse-molestation">
++      <div class="header">
++        <h3 class="title">SECTION VI – ABUSE & MOLESTATION</h3>
++      </div>
++      <div class="content p-2">
++        <ol>
++          <div class="row">
++            <div class="col-md-10">
++              <li><%= f.label abuse_or_molestation[:abuse_or_molestation], class: "control-label" %></li>
++            </div>
++
++            <div class="col-md-2">
++              <div class="form-group">
++                <%= f.radio_button :abuse_or_molestation, :true %>
++                <%= label_tag :abuse_or_molestation_yes, "Yes" %>
++                <%= f.radio_button :abuse_or_molestation, :false %>
++                <%= label_tag :abuse_or_molestation_no, "No" %>
++              </div>
++            </div>
++          </div>
++
++          <div class="row">
++            <div class="col-md-1 form-group">
++              <%= f.label "if yes", class: "control-label" %><br>
++            </div>
++
++            <div class="col-md-2">
++              <div class="form-group">
++                <%= f.check_box :abuse_occurrence %>
++                <%= f.label "occurrence", class: "control-label" %>
++              </div>
++            </div>
++
++            <div class="col-md-4">
++              <div class="form-group">
++                <%= f.check_box :claims_made_abuse %>
++                <%= f.label "Claims Made – Retroactive date:", class: "control-label" %>
++              </div>
++            </div>
++
++            <div class="col-md-2 form-group">
++              <%= f.label "Limits of liability", class: "control-label" %><br>
++            </div>
++
++            <div class="col-md-3">
++              <div class="form-group">
++                <%= f.number_field :liability_limits_for_abuse, step: :any, class: "form-control" %>
++              </div>
++            </div>
++          </div>
++
++          <div class="row">
++            <div class="col-md-2 form-group">
++              <%= f.label "Carrier", class: "control-label" %><br>
++            </div>
++
++            <div class="col-md-5">
++              <div class="form-group">
++                <%= f.text_field :abuse_carrier, class: "form-control" %>
++              </div>
++            </div>
++
++            <div class="col-md-2 form-group">
++              <%= f.label "effective Date: ", class: "control-label" %><br>
++            </div>
++
++            <div class="col-md-3">
++              <div class="form-group">
++                <%= f.date_field :abuse_effective_date, class: "form-control" %>
++              </div>
++            </div>
++          </div>
++
++          <div class="row">
++            <div class="col-md-10">
++              <li><%= f.label abuse_or_molestation[:convicted_of_crime], class: "control-label" %></li>
++            </div>
++
++            <div class="col-md-2">
++              <div class="form-group">
++                <%= f.radio_button :convicted_of_crime, :true %>
++                <%= label_tag :convicted_of_crime_yes, "Yes" %>
++                <%= f.radio_button :convicted_of_crime, :false %>
++                <%= label_tag :convicted_of_crime_no, "No" %>
++              </div>
++            </div>
++          </div>
++
++          <div class="row">
++            <div class="col-md-10">
++              <li><%= f.label abuse_or_molestation[:crisis_plan], class: "control-label" %></li>
++            </div>
++
++            <div class="col-md-2">
++              <div class="form-group">
++                <%= f.radio_button :crisis_plan, :true %>
++                <%= label_tag :crisis_plan_yes, "Yes" %>
++                <%= f.radio_button :crisis_plan, :false %>
++                <%= label_tag :crisis_plan_no, "No" %>
++              </div>
++            </div>
++          </div>
++
++          <div class="row">
++            <div class="col-md-10">
++              <li><%= f.label abuse_or_molestation[:written_complaint_procedure], class: "control-label" %></li>
++            </div>
++
++            <div class="col-md-2">
++              <div class="form-group">
++                <%= f.radio_button :written_complaint_procedure, :true %>
++                <%= label_tag :written_complaint_procedure_yes, "Yes" %>
++                <%= f.radio_button :written_complaint_procedure, :false %>
++                <%= label_tag :written_complaint_procedure_no, "No" %>
++              </div>
++            </div>
++
++            <div class="col-md-12">
++              <div class="form-group">
++                <%= f.label "If Yes,", class: "control-label" %>
++                <%= f.text_field :explain_complaint_procedure, class: "form-control" %>
++              </div>
++            </div>
++          </div>
++
++          <div class="row">
++            <div class="col-md-10">
++              <li><%= f.label abuse_or_molestation[:written_supervision_plan], class: "control-label" %></li>
++            </div>
++
++            <div class="col-md-2">
++              <div class="form-group">
++                <%= f.radio_button :written_supervision_plan, :true %>
++                <%= label_tag :written_supervision_plan_yes, "Yes" %>
++                <%= f.radio_button :written_supervision_plan, :false %>
++                <%= label_tag :written_supervision_plan_no, "No" %>
++              </div>
++            </div>
++          </div>
++
++          <div class="row">
++            <div class="col-md-10">
++              <li><%= f.label abuse_or_molestation[:written_hiring_procedure], class: "control-label" %></li>
++            </div>
++
++            <div class="col-md-2">
++              <div class="form-group">
++                <%= f.radio_button :written_hiring_procedure, :true %>
++                <%= label_tag :written_hiring_procedure_yes, "Yes" %>
++                <%= f.radio_button :written_hiring_procedure, :false %>
++                <%= label_tag :written_hiring_procedure_plan_no, "No" %>
++              </div>
++            </div>
++          </div>
++
++          <div class="row">
++            <div class="col-md-10">
++              <li><%= f.label abuse_or_molestation[:volunteers_work_with_clients], class: "control-label" %></li>
++            </div>
++
++            <div class="col-md-2">
++              <div class="form-group">
++                <%= f.radio_button :volunteers_work_with_clients, :true %>
++                <%= label_tag :volunteers_work_with_clients_yes, "Yes" %>
++                <%= f.radio_button :volunteers_work_with_clients, :false %>
++                <%= label_tag :volunteers_work_with_clients_plan_no, "No" %>
++              </div>
++            </div>
++          </div>
++
++          <div class="row">
++            <div class="col-md-10">
++              <li><%= f.label abuse_or_molestation[:formal_training], class: "control-label" %></li>
++            </div>
++
++            <div class="col-md-2">
++              <div class="form-group">
++                <%= f.radio_button :formal_training, :true %>
++                <%= label_tag :formal_training_yes, "Yes" %>
++                <%= f.radio_button :formal_training, :false %>
++                <%= label_tag :formal_training_no, "No" %>
++              </div>
++            </div>
++          </div>
++
++          <div class="row">
++            <div class="col-md-5 form-group">
++              <%= f.label "If yes, how often is formal training conducted?,", class: "control-label" %>
++            </div>
++
++            <div class="col-md-7">
++              <div class="form-group">
++                <%= f.text_field :formal_training_occurrence, class: "form-control" %>
++              </div>
++            </div>
++          </div>
++
++          <div class="row">
++            <div class="col-md-12">
++              <li><%= f.label abuse_or_molestation[:client_staff_relation], class: "control-label" %></li>
++            </div>
++
++            <div class="col-md-12">
++              <div class="form-group">
++                <%= f.text_field :client_staff_relation, class: "form-control" %>
++              </div>
++            </div>
++          </div>
++
++          <div class="row">
++            <div class="col-md-10">
++              <li><%= f.label abuse_or_molestation[:closed_door_meeting], class: "control-label" %></li>
++            </div>
++
++            <div class="col-md-2">
++              <div class="form-group">
++                <%= f.radio_button :closed_door_meeting, :true %>
++                <%= label_tag :closed_door_meeting_yes, "Yes" %>
++                <%= f.radio_button :closed_door_meeting, :false %>
++                <%= label_tag :closed_door_meeting_no, "No" %>
++              </div>
++            </div>
++          </div>
++
++          <div class="row">
++            <div class="col-md-10">
++              <li><%= f.label abuse_or_molestation[:patient_welfare], class: "control-label" %></li>
++            </div>
++
++            <div class="col-md-2">
++              <div class="form-group">
++                <%= f.radio_button :patient_welfare, :true %>
++                <%= label_tag :patient_welfare_yes, "Yes" %>
++                <%= f.radio_button :patient_welfare, :false %>
++                <%= label_tag :patient_welfare_no, "No" %>
++              </div>
++            </div>
++          </div>
++
++          <div class="row">
++            <div class="col-md-10">
++              <li><%= f.label abuse_or_molestation[:sexual_abuse_incident], class: "control-label" %></li>
++            </div>
++
++            <div class="col-md-2">
++              <div class="form-group">
++                <%= f.radio_button :sexual_abuse_incident, :true %>
++                <%= label_tag :sexual_abuse_incident_yes, "Yes" %>
++                <%= f.radio_button :sexual_abuse_incident, :false %>
++                <%= label_tag :sexual_abuse_incident_no, "No" %>
++              </div>
++            </div>
++          </div>
++
++          <div class="row">
++            <div class="col-md-4 form-group">
++              <li><%= f.label abuse_or_molestation[:case_settled], class: "control-label" %></li>
++            </div>
++
++            <div class="col-md-2">
++              <div class="form-group">
++                <%= f.radio_button :case_settled, :true %>
++                <%= label_tag :case_settled_yes, "Yes" %>
++                <%= f.radio_button :case_settled, :false %>
++                <%= label_tag :case_settled_no, "No" %>
++              </div>
++            </div>
++
++            <div class="col-md-4 form-group">
++              <li><%= f.label abuse_or_molestation[:case_trialled], class: "control-label" %></li>
++            </div>
++
++            <div class="col-md-2">
++              <div class="form-group">
++                <%= f.radio_button :case_trialled, :true %>
++                <%= label_tag :case_trialled_yes, "Yes" %>
++                <%= f.radio_button :case_trialled, :false %>
++                <%= label_tag :case_trialled_no, "No" %>
++              </div>
++            </div>
++          </div>
++
++          <div class="row">
++            <div class="col-md-12">
++              <div class="form-group">
++                <%= f.label abuse_or_molestation[:amount_paid], class: "control-label" %>
++                <%= f.text_field :amount_paid, class: "form-control" %>
++              </div>
++            </div>
++          </div>
++
++          <div class="row">
++            <div class="col-md-10">
++              <li><%= f.label abuse_or_molestation[:employee_criminal_background], class: "control-label" %></li>
++            </div>
++
++            <div class="col-md-2">
++              <div class="form-group">
++                <%= f.radio_button :employee_criminal_background, :true %>
++                <%= label_tag :employee_criminal_background_yes, "Yes" %>
++                <%= f.radio_button :employee_criminal_background, :false %>
++                <%= label_tag :employee_criminal_background_no, "No" %>
++              </div>
++            </div>
++          </div>
++
++          <div class="row">
++            <div class="col-md-10">
++              <li><%= f.label abuse_or_molestation[:volunteer_criminal_background], class: "control-label" %></li>
++            </div>
++
++            <div class="col-md-2">
++              <div class="form-group">
++                <%= f.radio_button :volunteer_criminal_background, :true %>
++                <%= label_tag :volunteer_criminal_background_yes, "Yes" %>
++                <%= f.radio_button :volunteer_criminal_background, :false %>
++                <%= label_tag :volunteer_criminal_background_no, "No" %>
++              </div>
++            </div>
++          </div>
++        </ol>
++      </div>
++    </div>
++
++    <div class="card" id="claims-made">
++      <div class="header">
++        <h3 class="title">SECTION VII – CLAIMS MADE</h3>
++      </div>
++
++      <div class="content p-2">
++        <div class="row">
++          <div class="col-md-12">
++            <p class="alert alert-info">
++              Notice: This section is being completed as an application for a Claims-Made policy. Only claims which are first made against the Applicant and reported to us during the policy period or Extended Reporting Period will be covered, subject to policy provisions. Various provisions in the policy restrict coverage. Read the entire policy carefully to determine the Applicant’s rights, duties and what is and is not covered.
++            </p>
++          </div>
++        </div>
++
++        <div class="row">
++          <div class="col-md-3">
++            <%= f.label :policy_effective_date, class: "control-label"%>
++          </div>
++
++          <div class="col-md-3">
++            <div class="form-group">
++              <%= f.date_field :policy_effective_date, class: "form-control" %>
++            </div>
++          </div>
++
++          <div class="col-md-3">
++            <%= f.label :line_of_business, class: "control-label"%><br>
++          </div>
++
++          <div class="col-md-3">
++            <div class="form-group">
++              <%= f.date_field :line_of_business, class: "form-control" %>
++            </div>
++          </div>
++        </div>
++
++        <ol>
++          <div class="row">
++            <div class="col-md-10">
++              <li><%= f.label claims_made[:written_notice], class: "control-label" %></li>
++            </div>
++
++            <div class="col-md-2">
++              <div class="form-group">
++                <%= f.radio_button :written_notice, :true %>
++                <%= label_tag :written_notice_yes, "Yes" %>
++                <%= f.radio_button :written_notice, :false %>
++                <%= label_tag :written_notice_no, "No" %>
++              </div>
++            </div>
++          </div>
++
++          <div class="row">
++            <div class="col-md-12">
++              <div class="form-group">
++                <%= f.label claims_made[:notice_explanation], class: "control-label" %>
++                <%= f.text_field :notice_explanation, class: "form-control" %>
++              </div>
++            </div>
++          </div>
++
++          <div class="row">
++            <div class="col-md-10">
++              <li><%= f.label claims_made[:claim_coverages], class: "control-label" %></li>
++            </div>
++
++            <div class="col-md-2">
++              <div class="form-group">
++                <%= f.radio_button :claim_coverages, :true %>
++                <%= label_tag :claim_coverages_yes, "Yes" %>
++                <%= f.radio_button :claim_coverages, :false %>
++                <%= label_tag :claim_coverages_no, "No" %>
++              </div>
++            </div>
++          </div>
++
++          <div class="row">
++            <div class="col-md-12">
++              <div class="form-group">
++                <%= f.label claims_made[:claim_coverage_explanation], class: "control-label" %>
++                <%= f.text_field :claim_coverage_explanation, class: "form-control" %>
++              </div>
++            </div>
++          </div>
++        </ol>
++      </div>
++    </div>
++
++    <div class="card" id="planned-events">
++      <div class="header">
++        <h3 class="title">SECTION VIII - PLANNED EVENTS / FUND RAISERS**</h3>
++      </div>
++      <div class="content p-2">
++        <div class="row">
++          <%= f.fields_for :planned_events do |planned_event_form| %>
++            <div class="col-md-12">
++              <hr>
++              <%= render 'planned_event_fields', f: planned_event_form %>
++            </div>
++            <hr>
++          <% end %>
++        </div>
++      </div>
++    </div>
++
++    <div class="card" id="winter-weather">
++      <div class="header">
++        <h3 class="title">SECTION IX - WINTER WEATHER FREEZE-UP PROTECTION</h3>
++      </div>
++
++      <div class="content p-2">
++        <div class="row">
++          <div class="col-md-12">
++            <p class="alert alert-info">
++              This section must be completed by all risks that have a location in one of the following states: AR, CT, DC, DE, GA, IL, IN, KY, ME, MD, MA, MI, MO, NH, NY, NJ, NC, OH, PA, RI, SC, TN, TX, VT, VA, WV, WI
++            </p>
++          </div>
++        </div>
++
++        <div class="row">
++          <div class="col-md-12">
++            <%= f.label "Fire Protection and Testing:", class: "control-label" %><br>
++          </div>
++
++          <div class="col-md-offset-1 col-md-7">
++            <%= f.label weather_protection[:fire_sprinkler], class: "control-label" %><br>
++          </div>
++
++          <div class="col-md-4 form-group">
++            <%= f.collection_radio_buttons(:fire_sprinkler, HumanServiceApplication.fire_sprinklers , :last, :first) do |b| %>
++              <%= b.label { b.radio_button + " "+ b.text } %>
++            <% end %>
++          </div>
++
++          <div class="col-md-offset-1 col-md-7 form-group">
++            <%= f.label weather_protection[:sprinkled_percentage], class: "control-label" %>
++          </div>
++
++          <div class="col-md-3 form-group">
++            <%= f.number_field :sprinkled_percentage, min: 0, step: :any, class: "form-control" %>
++          </div>
++
++          <div class="col-md-offset-1 col-md-5 form-group">
++            <%= f.label weather_protection[:wet_pipe_sprinkler], class: "control-label" %>
++          </div>
++
++          <div class="col-md-2 form-group">
++            <%= f.check_box :wet_pipe_sprinkler %>
++            <%= f.label "Wet-pipe", class: "control-label" %>
++          </div>
++
++          <div class="col-md-2 form-group">
++            <%= f.check_box :dry_pipe_sprinkler %>
++            <%= f.label "Dry-pipe", class: "control-label" %>
++          </div>
++
++          <div class="col-md-2 form-group">
++            <%= f.check_box :both_types %>
++            <%= f.label "Both", class: "control-label" %>
++          </div>
++
++          <div class="col-md-offset-1 col-md-7">
++            <%= f.label weather_protection[:sprinkler_temperature], class: "control-label" %><br>
++          </div>
++
++          <div class="col-md-4 form-group">
++            <%= f.collection_radio_buttons(:sprinkler_temperature, HumanServiceApplication.sprinkler_temperatures , :last, :first) do |b| %>
++              <%= b.label { b.radio_button + " "+ b.text } %>
++            <% end %>
++          </div>
++
++          <div class="col-md-offset-1 col-md-7">
++            <div class="form-group">
++              <%= f.label weather_protection[:sprinkler_freeze_prevention] %><br>
++              <%= f.text_field :sprinkler_freeze_prevention, class: "form-control" %>
++            </div>
++          </div>
++
++          <div class="col-md-offset-1 col-md-7">
++            <%= f.label weather_protection[:freeze_winterization_review], class: "control-label" %><br>
++          </div>
++
++          <div class="col-md-4 form-group">
++            <%= f.collection_radio_buttons(:freeze_winterization_review, HumanServiceApplication.freeze_winterization_reviews , :last, :first) do |b| %>
++              <%= b.label { b.radio_button + " "+ b.text } %>
++            <% end %>
++          </div>
++
++          <div class="col-md-offset-1 col-md-7">
++            <%= f.label weather_protection[:ul_monitoring_company], class: "control-label" %><br>
++          </div>
++
++          <div class="col-md-4 form-group">
++            <%= f.collection_radio_buttons(:ul_monitoring_company, HumanServiceApplication.ul_monitoring_companies , :last, :first) do |b| %>
++              <%= b.label { b.radio_button + " "+ b.text } %>
++            <% end %>
++          </div>
++        </div>
++
++        <div class="row">
++          <div class="col-md-12">
++            <%= f.label weather_protection[:emergency_water], class: "control-label" %><br>
++          </div>
++
++          <div class="col-md-offset-1 col-md-7">
++            <%= f.label weather_protection[:water_valves_accessible], class: "control-label" %><br>
++          </div>
++
++          <div class="col-md-4 form-group">
++            <%= f.collection_radio_buttons(:water_valves_accessible, HumanServiceApplication.water_valves_accessibles , :last, :first) do |b| %>
++              <%= b.label { b.radio_button + " "+ b.text } %>
++            <% end %>
++          </div>
++
++          <div class="col-md-offset-1 col-md-7">
++            <%= f.label weather_protection[:valves_exercised_annualy], class: "control-label" %><br>
++          </div>
++
++          <div class="col-md-4 form-group">
++            <%= f.collection_radio_buttons(:valves_exercised_annualy, HumanServiceApplication.valves_exercised_annualies , :last, :first) do |b| %>
++              <%= b.label { b.radio_button + " "+ b.text } %>
++            <% end %>
++          </div>
++
++          <div class="col-md-offset-1 col-md-7">
++            <%= f.label weather_protection[:staff_qualified], class: "control-label" %><br>
++          </div>
++
++          <div class="col-md-4 form-group">
++            <%= f.collection_radio_buttons(:staff_qualified, HumanServiceApplication.staff_qualifieds , :last, :first) do |b| %>
++              <%= b.label { b.radio_button + " "+ b.text } %>
++            <% end %>
++          </div>
++        </div>
++
++        <div class="row">
++          <div class="col-md-12">
++            <%= f.label weather_protection[:automatic_water], class: "control-label" %><br>
++          </div>
++
++          <div class="col-md-offset-1 col-md-7">
++            <%= f.label weather_protection[:automatic_shutoff], class: "control-label" %><br>
++          </div>
++
++          <div class="col-md-4 form-group">
++            <%= f.collection_radio_buttons(:automatic_shutoff, HumanServiceApplication.automatic_shutoffs , :last, :first) do |b| %>
++              <%= b.label { b.radio_button + " "+ b.text } %>
++            <% end %>
++          </div>
++        </div>
++
++        <div class="row">
++          <div class="col-md-12">
++            <%= f.label weather_protection[:unsued], class: "control-label" %><br>
++          </div>
++
++          <div class="col-md-offset-1 col-md-7">
++            <%= f.label weather_protection[:formal_process], class: "control-label" %><br>
++          </div>
++
++          <div class="col-md-4 form-group">
++            <%= f.collection_radio_buttons(:formal_process, HumanServiceApplication.formal_processes , :last, :first) do |b| %>
++              <%= b.label { b.radio_button + " "+ b.text } %>
++            <% end %>
++          </div>
++        </div>
++
++        <div class="row">
++          <div class="col-md-12">
++            <%= f.label weather_protection[:unheated_areas], class: "control-label" %><br>
++          </div>
++
++          <div class="col-md-offset-1 col-md-7">
++            <%= f.label weather_protection[:water_lines_temperature], class: "control-label" %><br>
++          </div>
++
++          <div class="col-md-4 form-group">
++            <%= f.collection_radio_buttons(:water_lines_temperature, HumanServiceApplication.water_lines_temperatures , :last, :first) do |b| %>
++              <%= b.label { b.radio_button + " "+ b.text } %>
++            <% end %>
++          </div>
++
++          <div class="col-md-offset-1 col-md-12">
++            <%= f.label weather_protection[:water_lines_freeze_prevention] %><br>
++          </div>
++
++          <div class="col-md-offset-1 col-md-11">
++            <div class="form-group">
++              <%= f.text_field :water_lines_freeze_prevention, class: "form-control" %>
++            </div>
++          </div>
++
++          <div class="col-md-12">
++            <%= f.label weather_protection[:water_lines_freeze_prevention] %><br>
++          </div>
++
++          <div class="col-md-12">
++            <div class="form-group">
++              <%= f.text_field :water_lines_freeze_prevention, class: "form-control" %>
++            </div>
++          </div>
++        </div>
++      </div>
++    </div>
++
++    <div class="card" id="fraud-statement">
++      <div class="header text-center">
++        <h3 class="title">FRAUD STATEMENT AND SIGNATURE SECTIONS</h3>
++      </div>
++
++      <div class="content p-2">
++        <div class="row">
++          <div class="col-md-12">
++            <p>
++              <b>The Undersigned states that he/she is an authorized representative of the Applicant and declares to the best of his/her knowledge and belief and after reasonable inquiry, that the statements set forth in this Application (and any attachments submitted with this Application) are true and complete and may be relied upon by Company * in quoting and issuing the policy. If any of the information in this Application changes prior to the effective date of the policy, the Applicant will notify the Company of such changes and the Company may modify or withdraw the quote or binder.</b>
++            </p>
++            <p>
++              <b>
++              The signing of this Application does not bind the Company to offer, or the Applicant to purchase the policy. *Company refers collectively to Philadelphia Indemnity Insurance Company and Tokio Marine Specialty Insurance Company </b>
++            </p>
++          </div>
++        </div>
++        <br>
++
++        <div class="row">
++          <div class="col-md-12 text-center">
++            <p><b>FRAUD NOTICE STATEMENTS</b></p>
++          </div>
++          <br>
++          <div class="col-md-12 text-justify">
++            <p>
++              ANY PERSON WHO KNOWINGLY AND WITH INTENT TO DEFRAUD ANY INSURANCE COMPANY OR OTHER PERSON FILES AN 
++              APPLICATION FOR INSURANCE CONTAINING ANY MATERIALLY FALSE INFORMATION OR CONCEALS, FOR THE PURPOSE OF MISLEADING, INFORMATION CONCERNING ANY FACT MATERIAL THERETO COMMITS A FRAUDULENT INSURANCE ACT, WHICH IS A CRIME AND SUBJECTS THAT PERSON TO CRIMINAL AND CIVIL PENALTIES (IN OREGON, THE AFOREMENTIONED ACTIONS MAY CONSTITUTE A FRAUDULENT INSURANCE ACT WHICH MAY BE A CRIME AND MAY SUBJECT THE PERSON TO PENALTIES). (IN NEW YORK, THE CIVIL PENALTY IS NOT TO EXCEED FIVE THOUSAND DOLLARS ($5,000) AND THE STATED VALUE OF THE CLAIM FOR EACH SUCH VIOLATION).<b>(NOT APPLICABLE IN AL, AR, AZ, CO, DC, FL, KS, LA, ME, MD, MN, NM, OK, RI, TN, VA, VT, WA AND WV).</b>
++            </p>
++          </div>
++
++          <br>
++          <div class="col-md-12 text-justify">
++            <p>
++              <b>APPLICABLE IN AL, AR, AZ, DC, LA, MD, NM, RI AND WV:</b> ANY PERSON WHO KNOWINGLY (OR WILLFULLY IN MD) PRESENTS A FALSE OR FRAUDULENT CLAIM FOR PAYMENT OF A LOSS OR BENEFIT OR WHO KNOWINGLY (OR WILLFULLY IN MD) PRESENTS FALSE INFORMATION IN AN APPLICATION FOR INSURANCE IS GUILTY OF A CRIME AND MAY BE SUBJECT TO FINES OR CONFINEMENT IN PRISON.
++            </p>
++          </div>
++
++          <br>
++          <div class="col-md-12 text-justify">
++            <p>
++              <b>APPLICABLE IN COLORADO:</b> IT IS UNLAWFUL TO KNOWINGLY PROVIDE FALSE, INCOMPLETE, OR MISLEADING FACTS OR INFORMATION TO AN INSURANCE COMPANY FOR THE PURPOSE OF DEFRAUDING OR ATTEMPTING TO DEFRAUD THE COMPANY. PENALTIES MAY INCLUDE IMPRISONMENT, FINES, DENIAL OF INSURANCE AND CIVIL DAMAGES. ANY INSURANCE COMPANY OR AGENT OF AN INSURANCE COMPANY WHOKNOWINGLY PROVIDES FALSE, INCOMPLETE, OR MISLEADING FACTS OR INFORMATION TO A POLICYHOLDER OR CLAIMANT FOR THE PURPOSEOF DEFRAUDING OR ATTEMPTING TO DEFRAUD THE POLICYHOLDER OR CLAIMANT WITH REGARD TO A SETTLEMENT OR AWARD PAYABLE FROMINSURANCE PROCEEDS SHALL BE REPORTED TO THE COLORADO DIVISION OF INSURANCE WITHIN THE DEPARTMENT OF REGULATORYAGENCIES.
++            </p>
++          </div>
++
++          <br>
++          <div class="col-md-12 text-justify">
++            <p>
++              <b>APPLICABLE IN FLORIDA AND OKLAHOMA:</b> ANY PERSON WHO KNOWINGLY AND WITH INTENT TO INJURE, DEFRAUD, OR DECEIVE ANY INSURER FILES A STATEMENT OF CLAIM OR AN APPLICATION CONTAINING ANY FALSE, INCOMPLETE, OR MISLEADING INFORMATION IS GUILTY OF A FELONY (IN FL, A PERSON IS GUILTY OF A FELONY OF THE THIRD DEGREE).
++            </p>
++          </div>
++
++          <br>
++          <div class="col-md-12 text-justify">
++            <p>
++              <b>APPLICABLE IN KANSAS:</b> AN ACT COMMITTED BY ANY PERSON WHO, KNOWINGLY AND WITH INTENT TO DEFRAUD, PRESENTS, CAUSES TO BE PRESENTED OR PREPARES WITH KNOWLEDGE OR BELIEF THAT IT WILL BE PRESENTED TO OR BY AN INSURER, PURPORTED INSURER, BROKER OR ANY AGENT THEREOF, ANY WRITTEN, ELECTRONIC, ELECTRONIC IMPULSE, FACSIMILE, MAGNETIC, ORAL, OR TELEPHONIC COMMUNICATION OR STATEMENT AS PART OF, OR IN SUPPORT OF, AN APPLICATION FOR THE ISSUANCE OF, OR THE RATING OF AN INSURANCE POLICY FOR PERSONAL OR COMMERCIAL INSURANCE, OR A CLAIM FOR PAYMENT OR OTHER BENEFIT PURSUANT TO AN INSURANCE POLICY FOR COMMERCIAL OR PERSONAL INSURANCE WHICH SUCH PERSON KNOWS TO CONTAIN MATERIALLY FALSE INFORMATION CONCERNING ANY FACT MATERIAL THERETO; OR CONCEALS, FOR THE PURPOSE OF MISLEADING, INFORMATION CONCERNING ANY FACT MATERIAL THERETO.
++            </p>
++          </div>
++
++          <br>
++          <div class="col-md-12 text-justify">
++            <p>
++              <b>APPLICABLE IN KENTUCKY:</b> ANY PERSON WHO KNOWINGLY AND WITH INTENT TO DEFRAUD ANY INSURANCE COMPANY OR OTHER PERSONS FILES AN APPLICATION FOR INSURANCE CONTAINING ANY MATERIALLY FALSE INFORMATION OR CONCEALS, FOR THE PURPOSE OF MISLEADING, INFORMATION CONCERNING ANY MATERIAL THERETO COMMITS A FRAUDLENT INSURANCE ACT, WHICH IS A CRIME.
++            </p>
++          </div>
++
++          <br>
++          <div class="col-md-12 text-justify">
++            <p>
++              <b>APPLICABLE IN MAINE, TENNESSEE, VIRGINIA AND WASHINGTON:</b> IT IS A CRIME TO KNOWINGLY PROVIDE FALSE, INCOMPLETE OR MISLEADING INFORMATION TO AN INSURANCE COMPANY FOR THE PURPOSE OF DEFRAUDING THE COMPANY. PENALTIES MAY INCLUDE IMPRISONMENT, FINES OR A DENIAL OF INSURANCE BENEFITS.
++            </p>
++          </div>
++
++          <br>
++          <div class="col-md-12 text-justify">
++            <p>
++              <b>APPLICABLE IN NEW YORK:</b> ANY PERSON WHO KNOWINGLY AND WITH INTENT TO DEFRAUD ANY INSURANCE COMPANY OR OTHER PERSON FILES AN APPLICATION FOR INSURANCE OR STATEMENT OF CLAIM CONTAINING ANY MATERIALLY FALSE INFORMATION, OR CONCEALS FOR THE PURPOSE OF MISLEADING, INFORMATION CONCERNING ANY FACT MATERIAL THERETO, COMMITS A FRAUDULENT INSURANCE ACT, WHICH IS A CRIME AND SHALL BE SUBJECT TO A CIVIL PENALTY NOT TO EXCEED FIVE THOUSAND DOLLARS AND THE STATE VALUE OF THE CLAIM FOR EACH SUCH VIOLATION.
++            </p>
++          </div>
++        </div>
++      </div>
++    </div>
++
++    <div class="card" id="cyber-security">
++      <div class="header">
++        <h3 class="title"><%= title[:cyber_security] %></h3>
++      </div>
++
++      <div class="content p-2">
++        <ol>
++          <div class="row">
++            <div class="col-md-12">
++              <li><%= f.label "Nature of Operation", class: "control-label" %></li>
++            </div>
++
++            <div class="col-md-12">
++              <div class="form-group">
++                <%= f.text_field :operation_nature, class: "form-control" %>
++              </div>
++            </div>
++          </div>
++
++          <div class="row">
++            <div class="col-md-4">
++              <li><%= f.label "Annaul sales or revenue $: ", class: "control-label" %></li>
++            </div>
++
++            <div class="col-md-3">
++              <div class="form-group">
++                <%= f.number_field :annual_revenue, min: 0, step: :any, class: "form-control" %>
++              </div>
++            </div>
++          </div>
++
++          <div class="row">
++            <div class="col-md-10">
++              <li><%= f.label cyber_security[:collect_pii], class: "control-label" %></li>
++            </div>
++
++            <div class="col-md-2">
++              <div class="form-group">
++                <%= f.radio_button :collect_pii, :true %>
++                <%= label_tag :collect_pii_yes, "Yes" %>
++                <%= f.radio_button :collect_pii, :false %>
++                <%= label_tag :collect_pii_no, "No" %>
++              </div>
++            </div>
++
++            <div class="col-md-12">
++              <%= f.label cyber_security[:applicable], class: "control-label" %><br>
++            </div>
++
++            <div class="col-md-12">
++              <div class="form-group">
++                <%= f.check_box :collect_ssn %>
++                <%= f.label cyber_security[:collect_ssn], class: "control-label" %>
++              </div>
++            </div>
++
++            <div class="col-md-12">
++              <div class="form-group">
++                <%= f.check_box :collect_phi %>
++                <%= f.label cyber_security[:collect_phi], class: "control-label" %>
++              </div>
++            </div>
++
++            <div class="col-md-12">
++              <div class="form-group">
++                <%= f.check_box :collect_credit_card_info %>
++                <%= f.label cyber_security[:collect_credit_card_info], class: "control-label" %>
++              </div>
++            </div>
++          </div>
++          <li>
++            <ol>
++              <div class="row">
++                <div class="col-md-10">
++                  <li><%= f.label cyber_security[:applicant_alleged], class: "control-label" %></li>
++                </div>
++
++                <div class="col-md-2">
++                  <div class="form-group">
++                    <%= f.radio_button :applicant_alleged, :true %>
++                    <%= label_tag :applicant_alleged_yes, "Yes" %>
++                    <%= f.radio_button :applicant_alleged, :false %>
++                    <%= label_tag :fapplicant_alleged_no, "No" %>
++                  </div>
++                </div>
++              </div>
++
++              <div class="row">
++                <div class="col-md-10">
++                  <li><%= f.label cyber_security[:lawsuit_faced], class: "control-label" %></li>
++                </div>
++
++                <div class="col-md-2">
++                  <div class="form-group">
++                    <%= f.radio_button :lawsuit_faced, :true %>
++                    <%= label_tag :lawsuit_faced_yes, "Yes" %>
++                    <%= f.radio_button :lawsuit_faced, :false %>
++                    <%= label_tag :lawsuit_faced_no, "No" %>
++                  </div>
++                </div>
++              </div>
++
++              <div class="row">
++                <div class="col-md-10">
++                  <li><%= f.label cyber_security[:subject_of_investigation], class: "control-label" %></li>
++                </div>
++
++                <div class="col-md-2">
++                  <div class="form-group">
++                    <%= f.radio_button :subject_of_investigation, :true %>
++                    <%= label_tag :subject_of_investigation_yes, "Yes" %>
++                    <%= f.radio_button :subject_of_investigation, :false %>
++                    <%= label_tag :subject_of_investigation_no, "No" %>
++                  </div>
++                </div>
++              </div>
++
++              <div class="row">
++                <div class="col-md-10">
++                  <li><%= f.label cyber_security[:applicant_circumstance], class: "control-label" %></li>
++                </div>
++
++                <div class="col-md-2">
++                  <div class="form-group">
++                    <%= f.radio_button :applicant_circumstance, :true %>
++                    <%= label_tag :applicant_circumstance_yes, "Yes" %>
++                    <%= f.radio_button :applicant_circumstance, :false %>
++                    <%= label_tag :applicant_circumstance_no, "No" %>
++                  </div>
++                </div>
++              </div>
++            </ol>
++          </li>
++        </ol>
++      </div>
++    </div>
++
++  </div>
++</div>
+diff --git a/app/views/dashboard/insurance_applications/human_service_applications/_planned_event_fields.html.erb b/app/views/dashboard/insurance_applications/human_service_applications/_planned_event_fields.html.erb
+new file mode 100644
+index 0000000..2bdbcfc
+--- /dev/null
++++ b/app/views/dashboard/insurance_applications/human_service_applications/_planned_event_fields.html.erb
+@@ -0,0 +1,172 @@
++<div class="col-md-12">
++  <p>Questions</p>
++</div>
++
++<div class="col-md-6">
++  <%= f.label planned_events[:event_type], class: "control-label" %><br>
++</div>
++
++<div class="col-md-5">
++  <div class="form-group">
++    <%= f.select :event_type, PlannedEvent.event_types.keys, {}, class: "form-control" %>
++  </div>
++</div>
++
++<div class="col-md-6">
++  <%= f.label planned_events[:event_date], class: "control-label" %><br>
++</div>
++
++<div class="col-md-5">
++  <div class="form-group">
++    <%= f.date_field :event_date, class: "form-control" %>
++  </div>
++</div>
++
++<div class="col-md-6">
++  <%= f.label planned_events[:operation_hours], class: "control-label" %><br>
++</div>
++
++<div class="col-md-5">
++  <div class="form-group">
++    <%= f.number_field :operation_hours, min: 0, step: :any, class: "form-control" %>
++  </div>
++</div>
++
++<div class="col-md-6">
++  <%= f.label planned_events[:anticipated_revenue], class: "control-label" %><br>
++</div>
++
++<div class="col-md-5">
++  <div class="form-group">
++    <%= f.number_field :anticipated_revenue, min: 0, step: :any, class: "form-control" %>
++  </div>
++</div>
++
++<div class="col-md-6">
++  <%= f.label planned_events[:location], class: "control-label" %><br>
++</div>
++
++<div class="col-md-5">
++  <div class="form-group">
++    <%= f.number_field :location, min: 0, step: :any, class: "form-control" %>
++  </div>
++</div>
++
++<div class="col-md-6">
++  <%= f.label :no_of_participants, class: "control-label" %><br>
++</div>
++
++<div class="col-md-5">
++  <div class="form-group">
++    <%= f.number_field :no_of_participants, min: 0, class: "form-control" %>
++  </div>
++</div>
++
++<div class="col-md-6">
++  <%= f.label :no_of_staff_members, class: "control-label" %><br>
++</div>
++
++<div class="col-md-5">
++  <div class="form-group">
++    <%= f.number_field :no_of_staff_members, min: 0, class: "form-control" %>
++  </div>
++</div>
++
++<div class="col-md-6">
++  <%= f.label planned_events[:drinking_control_explanation], class: "control-label" %><br>
++</div>
++
++<div class="col-md-5">
++  <div class="form-group">
++    <%= f.text_field :drinking_control_explanation, class: "form-control" %>  
++  </div>
++</div>
++
++<div class="col-md-6">
++  <%= f.label planned_events[:alcohol_provider_explanation], class: "control-label" %><br>
++</div>
++
++<div class="col-md-5">
++  <div class="form-group">
++    <%= f.text_field :alcohol_provider_explanation, class: "form-control" %>
++  </div>
++</div>
++
++<div class="col-md-6">
++  <%= f.label planned_events[:bartenders_explanation], class: "control-label" %><br>
++</div>
++
++<div class="col-md-5">
++  <div class="form-group">
++    <%= f.text_field :bartenders_explanation, class: "form-control" %>
++  </div>
++</div>
++
++<div class="col-md-6">
++  <%= f.label planned_events[:sport_activities], class: "control-label" %><br>
++</div>
++
++<div class="col-md-5">
++  <div class="form-group">
++    <%= f.text_field :sport_activities, class: "form-control" %>
++  </div>
++</div>
++
++<div class="col-md-6">
++  <%= f.label planned_events[:spectator_injury], class: "control-label" %><br>
++</div>
++
++<div class="col-md-5">
++  <div class="form-group">
++    <%= f.text_field :spectator_injury, class: "form-control" %>
++  </div>
++</div>
++
++<div class="col-md-6">
++  <%= f.label planned_events[:signed_waiver], class: "control-label" %><br>
++</div>
++
++<div class="col-md-5">
++  <div class="form-group">
++    <%= f.radio_button :signed_waiver, :true %>
++    <%= label_tag :signed_waiver_yes, "Yes" %>
++    <%= f.radio_button :signed_waiver, :false %>
++    <%= label_tag :signed_waiver_no, "No" %>
++  </div>
++</div>
++
++<div class="col-md-6">
++  <%= f.label planned_events[:personal_health_proof], class: "control-label" %><br>
++</div>
++
++<div class="col-md-5">
++  <div class="form-group">
++    <%= f.text_field :personal_health_proof, class: "form-control" %>
++  </div>
++</div>
++
++<div class="col-md-6">
++  <%= f.label planned_events[:bartender_tips], class: "control-label" %><br>
++</div>
++
++<div class="col-md-5">
++  <div class="form-group">
++    <%= f.radio_button :bartender_tips, :true %>
++    <%= label_tag :bartender_tips_yes, "Yes" %>
++    <%= f.radio_button :bartender_tips, :false %>
++    <%= label_tag :bartender_tips_no, "No" %>
++  </div>
++</div>
++
++<div class="col-md-6">
++  <%= f.label planned_events[:obtained_certificates], class: "control-label" %><br>
++</div>
++
++<div class="col-md-5">
++  <div class="form-group">
++    <%= f.radio_button :obtained_certificates, :true %>
++    <%= label_tag :obtained_certificates_yes, "Yes" %>
++    <%= f.radio_button :obtained_certificates, :false %>
++    <%= label_tag :obtained_certificates_no, "No" %>
++  </div>
++</div>
+diff --git a/app/views/dashboard/insurance_applications/human_service_applications/edit.html.erb b/app/views/dashboard/insurance_applications/human_service_applications/edit.html.erb
+new file mode 100644
+index 0000000..5e21201
+--- /dev/null
++++ b/app/views/dashboard/insurance_applications/human_service_applications/edit.html.erb
+@@ -0,0 +1,5 @@
++<%= render "shared/errors", resource: @human_service_application %>
++
++<%= form_for @human_service_application, url: dashboard_insurance_applications_human_service_application_path do |f| %>
++  <%= render 'form', f: f %>
++<% end %>
+diff --git a/app/views/dashboard/insurance_applications/human_service_applications/new.html.erb b/app/views/dashboard/insurance_applications/human_service_applications/new.html.erb
+new file mode 100644
+index 0000000..7d3bfb6
+--- /dev/null
++++ b/app/views/dashboard/insurance_applications/human_service_applications/new.html.erb
+@@ -0,0 +1,47 @@
++<%= render "shared/errors", resource: @human_service_application %>
++
++<%= form_for @human_service_application, url: @form_submit_path  do |f| %>
++  <%= render 'form', f: f %>
++<% end %>
++
++<% if !current_user || salesperson_signed_in? || agent_signed_in? %>
++  <div id="alert-modal" class="modal fade">
++    <div class="modal-dialog">
++      <div class="modal-content">
++        <div class="modal-header">
++          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
++          <h4 class="modal-title">Sign-in Required(Clients Only)</h4>
++        </div>
++
++        <div class="modal-body">
++          <%= radio_button(:new, "", :new_account, { required: true, class: 'modal-login-rb' }) %>
++          <%= label_tag :new_account, 'New Account' %>
++          <%= radio_button(:new, "", :existing_account, { required: true, checked: true, class: 'modal-login-rb' }) %>
++          <%= label_tag :existing_account, 'Existing Account' %>
++
++          <p>You must be signed-in as a Client in order to submit an application entry</p>
++          <div class="sign-in-body">
++            <%= render 'clients/sessions/login_fields' %>
++          </div>
++
++          <!-- Signup fields -->
++          <div class="sign-up-body hidden">
++            <%= render "clients/registrations/signup_fields" %>
++          </div>
++        </div>
++
++        <div class="modal-footer">
++          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
++        </div>
++      </div>
++    </div>
++  </div>
++<% end %>
++
++<% content_for :js_init do %>
++  <% if !current_user || salesperson_signed_in? || agent_signed_in? %>
++    InsuranceApplications.disable_all_fields();
++    InsuranceApplications.launch_modal();
++    InsuranceApplications.toggle_modal_fields();
++  <% end %>
++<% end %>
+diff --git a/config/routes.rb b/config/routes.rb
+index 95c4a1b..ec2dd1b 100644
+--- a/config/routes.rb
++++ b/config/routes.rb
+@@ -34,6 +34,7 @@ Rails.application.routes.draw do
+ 
+     namespace :insurance_applications, path: 'applications' do
+       resources :jimcor_dwelling_applications
++      resources :human_service_applications
+     end
+ 
+     resources :agents, only: [:index, :show]
